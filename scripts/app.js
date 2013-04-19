@@ -1,5 +1,11 @@
 'use strict';
 
+var Settings = {
+
+  host: 'http://freesab.local:3000/api/'
+
+}
+
 angular.module('app.services', []);
 
 angular.module('app', ['app.services', 'LocalStorageModule'])

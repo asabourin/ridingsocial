@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app')
-  .controller('MainCtrl', function(facebook, geolocation, $scope, $rootScope, $http, $location) {
+  .controller('MainCtrl', function(facebook, geolocation, localStorageService, rider, $scope, $rootScope, $http, $location) {
     
     var intervalGeo = setInterval(function () {
         geolocation.getCurrentPosition(function (position) {
@@ -13,14 +13,13 @@ angular.module('app')
         clearInterval(intervalGeo);
     });
 
+   $scope.rider_id = localStorageService.get('rider_id');
+
    facebook.init()
 
-
-    $scope.response = "unknown";
-
     $rootScope.$on("fb_statusChange", function (event, args) {
-        $rootScope.fb_status = args.status;
-        $rootScope.$apply();
+        $scope.fb_status = args.status;
+        $scope.$apply();
     });
     $rootScope.$on("fb_get_login_status", function () {
         facebook.getLoginStatus();
@@ -32,9 +31,20 @@ angular.module('app')
 
     $rootScope.$on("fb_connected", function (event, args) {
         
-        $scope.response = args.response;
-        $scope.$apply();
+        $scope.fb_response = args.response;
+
+        rider.login(args.response.authResponse.accessToken)
+
+     
     });
+
+    $rootScope.$on("rs_connected", function (event, args) {
+        
+        $scope.rs_response = args.response;
+
+    });
+
+
 
 
     $scope.login = function () {
