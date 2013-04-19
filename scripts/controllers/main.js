@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('App')
-  .controller('MainController', function(Geolocation, CordovaReady, localStorageService, Riders, Spots, $scope, $rootScope, $timeout) {
+  .controller('MainController', function(Geolocation, CordovaReady, localStorageService, Riders, Spots, $scope, $rootScope, $timeout, $location) {
 
     var watchPosition = $timeout(function() {
         Geolocation.getCurrentPosition(function (position) {
@@ -22,7 +22,18 @@ angular.module('App')
 
     Riders.me(rider.token, function(response) {
         $scope.rider = response
+    },
+    function(response) {
+        alert(response.error)
+        localStorageService.remove('rider')
+        $location.path('/');
     })
+
+     // Button functions
+    $scope.logout = function () {
+        localStorageService.remove('rider')
+        $location.path('/');
+    };
 
 
 })
