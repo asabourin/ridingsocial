@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('App')
-  .controller('StartController', function(localStorageService, Facebook, Rider, $scope, $rootScope) {
-    
 
-   $scope.rider_id = localStorageService.get('rider_id');
+  .controller('StartController', function(localStorageService, Facebook, Rider, $scope, $rootScope, $location) {
+    
+   var rider = JSON.parse(localStorageService.get('rider'));
 
    Facebook.init()
 
@@ -32,11 +32,12 @@ angular.module('App')
     $rootScope.$on("rs_connected", function (event, args) {
         
         $scope.rs_response = args.response;
-
+        localStorageService.add('rider', JSON.stringify(args.response));
+        $location.path('/main');
     });
 
 
-
+    // Button functions
 
     $scope.login = function () {
         Facebook.login();

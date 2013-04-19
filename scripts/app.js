@@ -15,6 +15,10 @@ angular.module('App', ['Services', 'LocalStorageModule'])
         templateUrl: 'views/start.html',
         controller: 'StartController'
       })
+      .when('/main', {
+        templateUrl: 'views/main.html',
+        controller: 'MainController'
+      })
       .otherwise({
         redirectTo: '/'
       });
