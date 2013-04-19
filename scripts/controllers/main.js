@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('App')
-  .controller('MainController', function(Geolocation, CordovaReady, localStorageService, Rider, $scope, $rootScope, $timeout) {
+  .controller('MainController', function(Geolocation, CordovaReady, localStorageService, Riders, $scope, $rootScope, $timeout) {
     
   
     $scope.$on('$destroy', function () {
@@ -17,7 +17,7 @@ angular.module('App')
     var rider = JSON.parse(localStorageService.get('rider'));
 
 
-    Rider.me(rider.token, function(response) {
+    Riders.me(rider.token, function(response) {
         $scope.response = response
     })
 

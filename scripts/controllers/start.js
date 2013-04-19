@@ -2,7 +2,7 @@
 
 angular.module('App')
 
-  .controller('StartController', function(localStorageService, Facebook, Rider, $scope, $rootScope, $location) {
+  .controller('StartController', function(localStorageService, Facebook, Riders, $scope, $rootScope, $location) {
     
    var rider = JSON.parse(localStorageService.get('rider'));
 
@@ -24,7 +24,7 @@ angular.module('App')
         
         $scope.fb_response = args.response;
 
-        Rider.login(args.response.authResponse.accessToken)
+        Riders.login(args.response.authResponse.accessToken)
 
      
     });
