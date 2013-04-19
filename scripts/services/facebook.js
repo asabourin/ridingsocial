@@ -1,7 +1,7 @@
-angular.module('app.services').factory('facebook', function ($rootScope, cordovaReady) {
+angular.module('Services').factory('Facebook', function ($rootScope, CordovaReady) {
     return {
 
-        init: cordovaReady(function (onSuccess, onError, options) {
+        init: CordovaReady(function (onSuccess, onError, options) {
             FB.init({ appId: "290983157607960", nativeInterface: CDV.FB, useCachedDialogs: false });
         }),
 

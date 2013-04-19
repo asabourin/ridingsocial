@@ -6,14 +6,14 @@ var Settings = {
 
 }
 
-angular.module('app.services', []);
+angular.module('Services', []);
 
-angular.module('app', ['app.services', 'LocalStorageModule'])
+angular.module('App', ['Services', 'LocalStorageModule'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
+        templateUrl: 'views/start.html',
+        controller: 'StartController'
       })
       .otherwise({
         redirectTo: '/'

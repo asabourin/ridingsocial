@@ -1,4 +1,4 @@
-angular.module('app.services').factory('cordovaReady', function() {
+angular.module('Services').factory('CordovaReady', function() {
   return function (fn) {
   
     var queue = [];

@@ -1,4 +1,4 @@
-angular.module('app.services').factory('geolocation', function ($rootScope, cordovaReady) {
+angular.module('Services').factory('Geolocation', function ($rootScope, CordovaReady) {
   return {
     getCurrentPosition: cordovaReady(function (onSuccess, onError, options) {
       navigator.geolocation.getCurrentPosition(function () {

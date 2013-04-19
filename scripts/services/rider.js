@@ -1,4 +1,4 @@
-angular.module('app.services').factory('rider', function ($rootScope, $http) {
+angular.module('Services').factory('Rider', function ($rootScope, $http) {
     return {
 
         login:function (accessToken) {
