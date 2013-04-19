@@ -2,8 +2,11 @@
 
 angular.module('App')
 
-.controller('StartController', function(localStorageService, Facebook, Riders, $scope, $rootScope, $location) {
+.controller('StartController', function(Geolocation, localStorageService, Facebook, Riders, $scope, $rootScope, $location) {
     
+    // Warming up the GPS as early as possible
+    Geolocation.getCurrentPosition(function (position) {}, function(error) {}, {timeout: 5000})
+
     var rider = JSON.parse(localStorageService.get('rider'));
 
     if(rider == undefined) {
