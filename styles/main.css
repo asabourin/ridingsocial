@@ -1,1 +1,147 @@
 /* Will be compiled down to a single stylesheet with your sass files */
+
+/* Common */
+
+
+@font-face {
+  font-family: 'Handel';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Handel Gothic BT'), url(handel.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Droid Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('DroidSans'), url(DroidSans.ttf) format('truetype');
+}
+
+
+html, body {
+    font-family: 'Droid Sans', sans-serif;
+    height:100%;
+   
+}
+
+.hidden {
+    display: none;
+}
+
+.pull-left {
+    float: left;
+    margin: 3px
+}
+
+.pull-right {
+    float: right;
+    margin: 3px
+}
+
+h1 {
+  font-family: 'Handel', sans-serif;
+  color: white;
+  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
+  font-size: 16px !important;
+  
+}
+
+.loading {
+    position:absolute; 
+    top:0; 
+    bottom:0; 
+    left:0; 
+    right:0;
+    margin: auto; 
+    height: 50px; 
+    width:100%;
+    text-align: center;
+
+}
+
+/* Start */
+
+body {
+  height: 100%;
+  width: 100%;
+  background: #e3bd90 url("../images/background.jpg") top center no-repeat fixed !important;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+
+#logo {
+    position:absolute; 
+    top:0; 
+    bottom:0; 
+    left:0; 
+    right:0;
+    margin: auto; 
+    height: 200px; 
+    width:100%;
+}
+
+
+#logo h1 {
+    color: rgba(255,255,255,0.9);
+    font-weight: bold;
+    text-align: center;
+    font-size: 3em !important;
+    margin: 0;  
+    
+           
+}
+
+#start .login {
+    position: absolute;
+    width: 100%;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    text-align: center;
+}
+
+#start .fb-connect {
+  background:url(../images/facebook_connect_sprite.png) no-repeat scroll left -60px #29447e;
+  position: relative; 
+  display:inline-block;
+  line-height:31px;
+  outline:medium none;
+  padding:0 0 0 1px
+}
+
+#start .fb-connect span {
+  background-color: #5f78ab;
+  border-bottom:1px solid #1a356e;
+  border-top:1px solid #879ac0;
+  color:#fff;
+  cursor:pointer;
+  display:block;
+  font-size:16px;
+  font-weight:bold;
+  margin:1px 1px 0 38px;
+  padding:2px 6px 3px;
+  font-family: 'Lucida Grande', Verdana, Arial, sans-serif;
+  text-shadow: none;
+ 
+}
+
+span.loader
+{   
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border: 4px solid #fff;
+    border-right-color: transparent;
+    border-radius: 50%;
+    box-shadow: 0 0 25px 2px #eee;
+    -webkit-animation: spin 1s linear infinite;
+
+}
+
+@-webkit-keyframes spin
+{
+    from { -webkit-transform: rotate(0deg); opacity: 0.4; }
+    50%  { -webkit-transform: rotate(180deg); opacity: 1; }
+    to   { -webkit-transform: rotate(360deg); opacity: 0.4; }
+}

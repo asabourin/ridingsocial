@@ -38,7 +38,7 @@ angular.module('App')
 
      // Button functions
     $scope.logout = function () {
-        localStorageService.remove('rider')
+        localStorageService.clearAll()
         $location.path('/');
     };
 

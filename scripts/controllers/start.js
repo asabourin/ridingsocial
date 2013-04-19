@@ -23,11 +23,14 @@ angular.module('App')
 
     $rootScope.$on("rs_connected", function (event, args) {
         localStorageService.add('rider', JSON.stringify(args.response));
+        $scope.loading = false
         $location.path('/main');
     });
 
     // Button functions
     $scope.login = function () {
+        $scope.showFacebook = false
+        $scope.loading = true
         Facebook.login();
     };
 
