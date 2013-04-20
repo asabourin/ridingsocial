@@ -6,6 +6,7 @@ angular.module('Services').factory('Riders', function ($rootScope, $http) {
                 $rootScope.$broadcast('rs_connected', {response:response});
             })
             .error(function(response) {
+                $rootScope.$broadcast('rs_login_failed', {response:response});
                 alert(response.error)
             });
         },

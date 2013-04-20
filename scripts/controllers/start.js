@@ -21,10 +21,20 @@ angular.module('App')
         Riders.login(args.response.authResponse.accessToken)
     });
 
+    $rootScope.$on("fb_login_failed", function (event, args) {
+        $scope.loading = false
+        $scope.showFacebook = true
+    });
+
     $rootScope.$on("rs_connected", function (event, args) {
         localStorageService.add('rider', JSON.stringify(args.response));
         $scope.loading = false
         $location.path('/main');
+    });
+
+    $rootScope.$on("rs_login_failed", function (event, args) {
+        $scope.loading = false
+        $scope.showFacebook = true
     });
 
     // Button functions

@@ -2,7 +2,7 @@
 
 var Settings = {
 
-  host: 'http://localhost:3000/api/',
+  host: 'http://ridingsocial.net/api/',
   coeff: 0.01,
   radius: 15
 
@@ -24,4 +24,12 @@ angular.module('App', ['Services', 'LocalStorageModule'])
       .otherwise({
         redirectTo: '/'
       });
-  });
+  })
+  .directive('ngTouch', function () {
+
+        return function ($scope, $element, $attrs) {
+            $element.bind('click', function () {
+                $scope.$apply($attrs['ngTouch']);
+            });
+        };
+    })

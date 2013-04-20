@@ -1,11 +1,11 @@
-<p>Rider: {{rider}}</p>
-
- <ul>
-        <li>Latitude: {{position.latitude}}</li>
-        <li>Longitude: {{position.longitude}}</li>
+<ul>
+  <li class="spot" ng-repeat="spot in spots" >
+    <img src="images/flags/{{spot.color}}_80.png" width="40" />
+    <span class="name">{{spot.name}}</span>
+    <span>{{spot.checkins}} checkins</span>
+    <span class="distance">{{spot.distance}}km</span>
+  </li>
 </ul>
-
-<p>Spots: {{spots}}</p>
 
 
 
