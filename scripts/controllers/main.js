@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('App')
-  .controller('MainController', function(Geolocation, CordovaReady, localStorageService, Riders, Spots, $scope, $rootScope, $timeout, $location) {
+  .controller('MainController', function(Geolocation, CordovaReady, localStorageService, Riders, Spots, Checkins, $scope, $rootScope, $timeout, $location) {
 
     //
 
@@ -29,6 +29,7 @@ angular.module('App')
 
     Riders.me(rider.token, function(response) {
         $scope.rider = response
+        getFollowedCheckins(rider)
     },
     function(response) {
         alert(response.error)
@@ -62,8 +63,17 @@ angular.module('App')
                 }
 
             })
-
     }
 
+
+    function getFollowedCheckins(rider) {
+
+        Checkins.followed(rider.token, function(response) {
+
+                $scope.checkins = response
+
+            })
+
+    }
 
 })

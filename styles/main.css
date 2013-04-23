@@ -153,7 +153,6 @@ span.loader
 li.spot {
   display: block;
   clear: both;
-  background: rgba(0,0,0,0.5);
   height: 64px;
   padding: 15px;
 }
