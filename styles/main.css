@@ -175,7 +175,7 @@ img.me {
     right: 0;
   }
 
-#content {
+.container {
   margin-top: 40px;
   background-color: white;
 }

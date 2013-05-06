@@ -10,6 +10,8 @@
   </head>
   <body ng-app="App">
 
+    <div ng-include="'/views/shared/header.html'" ng-controller="MainController" ng-show="logged"></div>
+
     <!-- Add your site or application content here -->
     <div class="container" ng-view></div>
 
@@ -28,6 +30,8 @@
 
     <script src="scripts/controllers/start.js"></script>
     <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/spots.js"></script>
+    <script src="scripts/controllers/riders.js"></script>
 
     <script src="scripts/services/localstorage.js"></script>
     <script src="scripts/services/cordova.js"></script>

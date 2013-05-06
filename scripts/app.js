@@ -17,12 +17,12 @@ angular.module('App', ['Services', 'LocalStorageModule'])
         templateUrl: 'views/start.html',
         controller: 'StartController'
       })
-      .when('/main', {
-        templateUrl: 'views/main.html',
-        controller: 'MainController'
+      .when('/spots', {
+        templateUrl: 'views/spots.html',
+        controller: 'SpotsController'
       })
       .when('/riders/:id', {
-        templateUrl: 'views/rider.html',
+        templateUrl: 'views/riders/show.html',
         controller: 'RidersController'
       })
       .when('/spots/:id', {
@@ -45,3 +45,5 @@ angular.module('App', ['Services', 'LocalStorageModule'])
             });
         };
     })
+
+

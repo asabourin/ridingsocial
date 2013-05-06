@@ -7,14 +7,15 @@ angular.module('App')
     // Warming up the GPS as early as possible
     Geolocation.getCurrentPosition(function (position) {}, function(error) {}, {timeout: 5000})
 
-    var rider = JSON.parse(localStorageService.get('rider'));
+    //Check if user data already in localStorage
 
-    if(rider == undefined) {
+    var user = JSON.parse(localStorageService.get('user'));
+
+    if(user == undefined) {
+
         Facebook.init()
         $scope.showFacebook = true
-    } 
-    else {
-        $location.path('/main');
+
     }
 
     $rootScope.$on("fb_connected", function (event, args) {
@@ -27,9 +28,10 @@ angular.module('App')
     });
 
     $rootScope.$on("rs_connected", function (event, args) {
-        localStorageService.add('rider', JSON.stringify(args.response));
+        localStorageService.add('user', JSON.stringify(args.response));
+        $location.path('/spots');
+        $rootScope.logged = true
         $scope.loading = false
-        $location.path('/main');
     });
 
     $rootScope.$on("rs_login_failed", function (event, args) {

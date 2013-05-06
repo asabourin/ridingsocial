@@ -14,7 +14,7 @@ angular.module('Services').factory('Riders', function ($rootScope, $http) {
             $http.get(Settings.host+'me?token='+token).success(successCallback).error(errorCallback);
         },
         show: function(id, successCallback, errorCallback) {
-            $http.get(Settings.host+'/riders/'+id).success(successCallback).error(errorCallback);
+            $http.get(Settings.host+'riders/'+id).success(successCallback).error(errorCallback);
         }
     };
 
