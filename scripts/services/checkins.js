@@ -7,6 +7,9 @@ angular.module('Services').factory('Checkins', function ($rootScope, $http) {
 
         create:function(spot, action, rating, howisit, riders, token, successCallback) {
           $http.post(Settings.host+'checkins/create', {}).success(successCallback)
+        },
+        show: function(id, successCallback, errorCallback) {
+            $http.get(Settings.host+'/checkins/'+id).success(successCallback).error(errorCallback);
         }
     };
 

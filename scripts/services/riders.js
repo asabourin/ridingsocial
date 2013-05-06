@@ -12,6 +12,9 @@ angular.module('Services').factory('Riders', function ($rootScope, $http) {
         },
         me:function (token, successCallback, errorCallback) {
             $http.get(Settings.host+'me?token='+token).success(successCallback).error(errorCallback);
+        },
+        show: function(id, successCallback, errorCallback) {
+            $http.get(Settings.host+'/riders/'+id).success(successCallback).error(errorCallback);
         }
     };
 

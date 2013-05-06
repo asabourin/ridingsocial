@@ -11,7 +11,7 @@ var Settings = {
 angular.module('Services', []);
 
 angular.module('App', ['Services', 'LocalStorageModule'])
-  .config(function ($routeProvider) {
+  .config(function ($routeProvider, $locationProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/start.html',
@@ -20,6 +20,18 @@ angular.module('App', ['Services', 'LocalStorageModule'])
       .when('/main', {
         templateUrl: 'views/main.html',
         controller: 'MainController'
+      })
+      .when('/riders/:id', {
+        templateUrl: 'views/rider.html',
+        controller: 'RidersController'
+      })
+      .when('/spots/:id', {
+        templateUrl: 'views/spot.html',
+        controller: 'SpotsController'
+      })
+      .when('/checkins/:id', {
+        templateUrl: 'views/checkin.html',
+        controller: 'CheckinsController'
       })
       .otherwise({
         redirectTo: '/'
