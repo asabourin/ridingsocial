@@ -29,8 +29,8 @@ angular.module('App')
     //
 
     function wannaCheckin(index) {
-        if(index == 0) {
-            $location('/checkin')
+        if(index == 1) {
+            $location.path('/checkin')
         }
     }
 
