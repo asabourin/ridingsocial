@@ -5,7 +5,7 @@ var Settings = {
   host: 'http://www.ridingsocial.net/api/',
   coeff: 0.01,
   radius: 15,
-  checkin_distance: 1
+  checkin_distance: 12
 
 }
 

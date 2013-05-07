@@ -99,5 +99,7 @@
      <gap:plugin name="FacebookConnect">
        <param name="APP_ID" value="290983157607960" />
      </gap:plugin>
+     
+     <plugin name="Notification" value="org.apache.cordova.Notification"/>
 
 </widget>
