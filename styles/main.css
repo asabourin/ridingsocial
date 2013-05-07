@@ -21,6 +21,10 @@ html {
   height: 100%;
 }
 
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -30,6 +34,9 @@ body {
     background: #e3bd90 url("../images/background.jpg") top center no-repeat fixed !important;
     -webkit-background-size: cover;
     background-size: cover;
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;    
 }
 
 .container {
