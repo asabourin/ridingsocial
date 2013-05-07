@@ -15,7 +15,7 @@ angular.module('App', ['Services', 'LocalStorageModule'])
     $routeProvider
       .when('/', {
         templateUrl: 'views/start.html',
-        controller: 'StartController'
+        controller: 'MainController'
       })
       .when('/spots', {
         templateUrl: 'views/spots.html',
