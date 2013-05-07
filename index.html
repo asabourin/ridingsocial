@@ -10,12 +10,16 @@
   </head>
   <body ng-app="App">
 
-    <div ng-include="'/views/shared/header.html'" ng-controller="MainController" ng-show="logged"></div>
+    <header ng-controller="MainController" ng-show="logged">
+        <div ng-include="'views/shared/header.html'"></div>
+    </header>
 
     <!-- Add your site or application content here -->
     <div class="container" ng-view></div>
 
-    <div ng-include="'/views/shared/nav.html'" ng-controller="NavController" ng-show="logged"></div>
+    <footer ng-controller="NavController" ng-show="logged">
+        <div ng-include="'views/shared/nav.html'"></div>
+    </footer>
 
     <script src="phonegap.js"></script>
 

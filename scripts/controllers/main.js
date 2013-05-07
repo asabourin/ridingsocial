@@ -13,11 +13,11 @@ angular.module('App')
       logout()
   }
   else {
-    User.me(token, 
+    User.me(user.token, 
       // Success
       function(response) {
         $rootScope.logged = true;
-        $rootScope.me = response;
+        $rootScope.user = response;
         $location.path('/spots');
       },
       // Failure
@@ -49,7 +49,7 @@ angular.module('App')
       localStorageService.add('user', JSON.stringify(args.response));
 
       User.me(args.response.token, function(response) {
-        $rootScope.me = response;
+        $rootScope.user = response;
       })
 
       $location.path('/spots');
