@@ -8,8 +8,8 @@ angular.module('App')
 
     Riders.me(user.token, function(response) {
         $rootScope.logged = true;
-        $rootScope.user = response
-        $rootScope.user.token = user.token
+        $rootScope.me = response
+        $rootScope.user = user
         $location.path('/spots');
       },
       function(response) {
@@ -20,7 +20,7 @@ angular.module('App')
 
        // Button functions
       $scope.logout = function () {
-            $rootScope.logged = false;
+          $rootScope.logged = false;
           localStorageService.clearAll()
           $location.path('/');
       };

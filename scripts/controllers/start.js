@@ -31,6 +31,7 @@ angular.module('App')
         localStorageService.add('user', JSON.stringify(args.response));
         $location.path('/spots');
         $rootScope.logged = true
+        $scope.showFacebook = true
         $scope.loading = false
     });
 
