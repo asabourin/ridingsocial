@@ -40,7 +40,6 @@ angular.module('App')
             $scope.loading = false
             $scope.spots = response
 
-
             var nearest = response[0]
             if(nearest['distance'] <= Settings.checkin_distance) {
 
@@ -49,7 +48,7 @@ angular.module('App')
                 if(previousNearestSpot == undefined || previousNearestSpot.id != nearest['id']) {
                     localStorageService.add('nearestSpot', JSON.stringify(nearest))
 
-                    navigator.notification.confirm("Wanna check-in?", wannaCheckin, "You're at "+nearest.name, "Yeah!,Not now");
+                    navigator.notification.confirm("Wanna check-in?", wannaCheckin, "You're at "+nearest.name+"!", "Yeah!,Not now");
                 }
             }
 
