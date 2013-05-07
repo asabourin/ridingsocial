@@ -1,6 +1,6 @@
 angular.module('App')
 
-.controller('MainController', function(Geolocation, CordovaReady, localStorageService, Riders, Spots, Checkins, $scope, $rootScope, $timeout, $location) {
+.controller('MainController', function(localStorageService, Riders, $scope, $rootScope, $location) {
 
   var user = JSON.parse(localStorageService.get('user'));
 

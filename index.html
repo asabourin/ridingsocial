@@ -15,6 +15,8 @@
     <!-- Add your site or application content here -->
     <div class="container" ng-view></div>
 
+    <div ng-include="'/views/shared/nav.html'" ng-controller="NavController" ng-show="logged"></div>
+
     <script src="phonegap.js"></script>
 
     <script src="components/angular/angular.js"></script>
@@ -30,7 +32,9 @@
 
     <script src="scripts/controllers/start.js"></script>
     <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/nav.js"></script>
     <script src="scripts/controllers/spots.js"></script>
+    <script src="scripts/controllers/sessions.js"></script>
     <script src="scripts/controllers/riders.js"></script>
 
     <script src="scripts/services/localstorage.js"></script>

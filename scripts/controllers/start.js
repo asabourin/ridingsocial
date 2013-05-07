@@ -12,10 +12,8 @@ angular.module('App')
     var user = JSON.parse(localStorageService.get('user'));
 
     if(user == undefined) {
-
-        Facebook.init()
         $scope.showFacebook = true
-
+        Facebook.init()
     }
 
     $rootScope.$on("fb_connected", function (event, args) {

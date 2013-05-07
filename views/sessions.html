@@ -1,0 +1,8 @@
+  <ul>
+    <li class="checkin" ng-repeat="checkin in checkins" >
+      <img src="images/flags/{{checkin.color}}_80.png" width="40" />
+      <span class="name">{{checkin.spot}}</span>
+      <span><a ng-href="#/riders/{{checkin.author.id}}">{{checkin.author.name}}</a></span>
+      <span class="others">{{checkin.others.length}} others</span>
+    </li>
+  </ul>

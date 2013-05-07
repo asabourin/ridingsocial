@@ -23,7 +23,6 @@ angular.module('App')
     $rootScope.$on("positionUpdated", function (event, args) {
         $scope.position = args.position
         getNearbySpots(args.position)
-        getFollowedCheckins($scope.user)
     });
 
     //
@@ -48,15 +47,7 @@ angular.module('App')
         })
     }
 
-    function getFollowedCheckins(user) {
-
-        Checkins.followed(user.token, function(response) {
-
-                $scope.checkins = response
-
-            })
-
-    }
+    
 
 })
 
