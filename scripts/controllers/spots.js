@@ -1,5 +1,9 @@
 angular.module('App')
-  .controller('SpotsController', function(Geolocation, CordovaReady, localStorageService, Riders, Spots, Checkins, $scope, $rootScope, $timeout, $location) {
+  .controller('Spots.nearby', function(Geolocation, CordovaReady, localStorageService, Riders, Spots, Checkins, $scope, $rootScope, $timeout, $location) {
+
+    //
+
+    localStorageService.remove('lastPosition')
 
     //
 
@@ -24,7 +28,6 @@ angular.module('App')
 
     //
 
-
     function getNearbySpots(position) {
 
         Spots.nearby(position.latitude, position.longitude, Settings.coeff, Settings.radius, function(response) {
@@ -45,9 +48,6 @@ angular.module('App')
         })
     }
 
-
-
-
     function getFollowedCheckins(user) {
 
         Checkins.followed(user.token, function(response) {
@@ -57,5 +57,13 @@ angular.module('App')
             })
 
     }
+
+})
+
+.controller('Spots.show', function(Spots, $routeParams, $scope) {
+
+    Spots.show($routeParams.id, function(response) {
+        $scope.spot = response;
+    })
 
 })
