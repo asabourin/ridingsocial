@@ -4,7 +4,8 @@ var Settings = {
 
   host: 'http://freesab.local:3000/api/',
   coeff: 0.01,
-  radius: 15
+  radius: 15,
+  checkin_distance: 12
 
 }
 
@@ -24,6 +25,10 @@ angular.module('App', ['Services', 'LocalStorageModule'])
       .when('/sessions', {
         templateUrl: 'views/sessions.html',
         controller: 'Sessions.followed'
+      })
+      .when('/checkin', {
+        templateUrl: 'views/checkin.html',
+        controller: 'Checkin'
       })
       .when('/riders/:id', {
         templateUrl: 'views/riders/show.html',

@@ -1,9 +1,10 @@
 angular.module('App')
   .controller('Spots.nearby', function(Geolocation, CordovaReady, localStorageService, Riders, Spots, Checkins, $scope, $rootScope, $timeout, $location) {
 
-    //
+    // Init
 
     localStorageService.remove('lastPosition')
+    $scope.loading = true
 
     //
 
@@ -27,27 +28,33 @@ angular.module('App')
 
     //
 
+    function wannaCheckin(index) {
+        if(index == 0) {
+            $location('/checkin')
+        }
+    }
+
     function getNearbySpots(position) {
 
         Spots.nearby(position.latitude, position.longitude, Settings.coeff, Settings.radius, function(response) {
-
+            $scope.loading = false
             $scope.spots = response
 
+
             var nearest = response[0]
-            if(nearest['distance'] <= 1) {
+            if(nearest['distance'] <= Settings.checkin_distance) {
 
                 var previousNearestSpot = JSON.parse(localStorageService.get('nearestSpot'))
 
                 if(previousNearestSpot == undefined || previousNearestSpot.id != nearest['id']) {
                     localStorageService.add('nearestSpot', JSON.stringify(nearest))
-                    alert('You\'re at '+nearest.name )
+
+                    navigator.notification.confirm("Wanna check-in?", wannaCheckin, "You're at "+nearest.name, "Yeah!,Not now");
                 }
             }
 
         })
     }
-
-    
 
 })
 
