@@ -39,12 +39,21 @@ body {
 }
 
 #ng-view {
-  height: 100%;
+  display: block;
+  position:absolute;
+  height:auto;
+  bottom:0;
+  top:0;
+  left:0;
+  right:0;
   width: 100%;
+  padding: 57px 0 45px 0;
 }
 
 .navbar {
   margin-left: 0;
+  margin-right: 0;
+  position: fixed !important;
 }
 
 .hidden {
@@ -118,10 +127,6 @@ span.loader
     from { -webkit-transform: rotate(0deg); opacity: 0.4; }
     50%  { -webkit-transform: rotate(180deg); opacity: 1; }
     to   { -webkit-transform: rotate(360deg); opacity: 0.4; }
-}
-
-button {
-  margin: 0;
 }
 
 /* Start */
@@ -220,7 +225,7 @@ span.distance {
 #checkin-form {
   height: 100%;
   padding: 10px 10px;
-  margin: -20px 0 0 0;
+  margin: 0;
 }
 
 #checkin-form input, #checkin-form textarea, #checkin-form .typeahead > li > a{
@@ -234,13 +239,12 @@ span.distance {
 }
 
 #checkin .actions {
-  position: absolute;
+  position: fixed;
   bottom: 0;
-  margin-bottom: 0;
+  margin: 0 ;
   width: 100%;
   padding: 0;
   text-align: center;
-  margin: 0;
 }
 
 #checkin .actions > button {

@@ -1,7 +1,7 @@
 
 
 
-<div id="checkin">
+<div id="checkin" style="background:white url({{picture_src}}) no-repeat center center fixed; background-size: cover;">
 
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
@@ -10,7 +10,7 @@
       </div>
     </div>
 
-          <form name="form" id="checkin-form" style="background:white url({{picture_src}}) no-repeat center center fixed; background-size: cover;">
+          <form name="form" id="checkin-form" >
 
             <input type="text" class="input-block-level" ng-model="selected" typeahead="rider.name for rider in riders | filter:$viewValue" placeholder="Anyone with you?" ng-change="addRider()">
 
@@ -22,9 +22,11 @@
 
             <ul class="selected-riders">
               <li class="rider" ng-repeat="rider in selectedRiders">
-                <button class="btn"><img width="40" height="40" src="{{rider.picture}}" /></button>
+                <button class="btn"><img width="40" height="40" ng-src="{{rider.picture}}" /></button>
               </li>
             </ul>
+
+
             
 
           </form>
@@ -33,5 +35,7 @@
                 <button class="btn btn-large cancel" ng-touch="location.path('/spots')"><i class="icon-chevron-left"></i> Back</button>
                 <button class="btn btn-large btn-success submit" ng-touch="submit()" ng-disabled="!checkin.rating"><i class="icon-ok icon-white"></i> Check-in!</button>
             </div>
+
+           
        
 </div>
