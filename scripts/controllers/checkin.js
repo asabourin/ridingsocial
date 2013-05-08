@@ -2,6 +2,10 @@ angular.module('App')
 
 .controller('Checkin', function($rootScope, $scope, $location, Riders, localStorageService) {
 
+  // Init
+
+  takePicture()
+
   var user = JSON.parse(localStorageService.get('user'));
   $rootScope.showNav = false
   $scope.location = $location
@@ -11,6 +15,8 @@ angular.module('App')
   Riders.followed(user.token, function(response) {
       $scope.riders = response
   })
+
+  //
 
   $scope.selectedRiders = new Array();
 
@@ -23,7 +29,7 @@ angular.module('App')
     }
   }
   
-  $scope.takePicture = function() {
+  function takePicture() {
     navigator.camera.getPicture(
       function(imageURI) {
         $scope.picture_src = imageURI;
@@ -32,7 +38,7 @@ angular.module('App')
       function(message) {
           console.log(message)
       },
-      { quality: 75, allow_edit:true, targetWidth: 1600, destinationType: Camera.DestinationType.FILE_URI });
+      { quality: 50, allow_edit:true, targetWidth: 1600, targetWidth: 1200, destinationType: Camera.DestinationType.FILE_URI });
   }
 
 })
