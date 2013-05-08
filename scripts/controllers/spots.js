@@ -30,7 +30,7 @@ angular.module('App')
 
     function wannaCheckin(index) {
         if(index == 1) {
-            $location.path('/checkin')
+            $rootScope.$emit('showCheckin');
         }
     }
 
@@ -57,7 +57,6 @@ angular.module('App')
 
         })
     }
-
 })
 
 .controller('Spots.show', function(Spots, $routeParams, $scope) {

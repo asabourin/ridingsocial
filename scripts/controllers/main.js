@@ -22,7 +22,7 @@ angular.module('App')
       },
       // Failure
       function(response) {
-          alert(response.error)
+          console.log(response.error)
           logout()
       })
   }
@@ -34,7 +34,7 @@ angular.module('App')
         login(response.token)
       }),
       function(response) {
-        alert(response.error)
+        console.log(response.error)
         logout()
       }
   });

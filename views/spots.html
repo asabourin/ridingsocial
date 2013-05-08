@@ -1,5 +1,25 @@
  <div ng-show="loading" class="centered"><span class="loader"></span></div>
 
+<div ng-controller="CheckinModal">
+  <button class="btn" ng-click="open()">Open me!</button>
+    <div modal="shouldBeOpen" close="close()" options="opts">
+        <div class="modal-header">
+            <h4>Check-in at {{spot.name}}</h4>
+        </div>
+        <div class="modal-body">
+            <form>
+
+              <input type="text" ng-model="selected" typeahead="rider.value for rider in riders | filter:$viewValue">
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn cancel" ng-click="close()">Cancel</button>
+            <button class="btn btn-primary submit" ng-click="submit()">Check-in</button>
+        </div>
+    </div>
+</div>
+
+
  <ul>
     <li class="spot" ng-repeat="spot in spots" >
       <img ng-src="images/flags/{{spot.color}}_80.png" width="40" />
@@ -8,6 +28,7 @@
       <span class="distance">{{spot.distance}}km</span>
     </li>
   </ul>
+
 
 
 

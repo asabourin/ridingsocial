@@ -1,8 +1,31 @@
 angular.module('App')
 
-.controller('Checkin', function(localStorageService, Geolocation, Facebook, User, $scope, $rootScope, $location) {
+.controller('CheckinModal', function($rootScope, $scope, Riders, localStorageService) {
 
     var user = JSON.parse(localStorageService.get('user'));
-    $scope.spot = JSON.parse(localStorageService.get('nearestSpot'));
+
+    Riders.followed(user.token, function(response) {
+        $scope.riders = response
+    })
+    
+    $rootScope.$on('showCheckin', function() {
+        $scope.shouldBeOpen = true;
+        $scope.spot = JSON.parse(localStorageService.get('nearestSpot'));
+    });
+
+    $scope.open = function () {
+    $scope.shouldBeOpen = true;
+  };
+
+  $scope.close = function () {
+    $scope.closeMsg = 'I was closed at: ' + new Date();
+    $scope.shouldBeOpen = false;
+  };
+
+  $scope.opts = {
+    backdropFade: true,
+    dialogFade: false
+  };
+  
 
 })
