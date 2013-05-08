@@ -19,8 +19,8 @@ angular.module('App', ['Services', 'LocalStorageModule', 'ui.bootstrap'])
         templateUrl: 'views/start.html',
         controller: 'MainController'
       })
-      .when('/spots', {
-        templateUrl: 'views/spots.html',
+      .when('/nearby', {
+        templateUrl: 'views/spots/nearby.html',
         controller: 'Spots.nearby'
       })
       .when('/sessions', {

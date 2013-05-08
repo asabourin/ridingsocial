@@ -20,7 +20,7 @@ angular.module('App')
       // Success
       function(response) {
         $rootScope.user = response;
-        $location.path('/spots');
+        $location.path('/nearby');
       },
       // Failure
       function(response) {
@@ -54,7 +54,7 @@ angular.module('App')
         $rootScope.user = response;
       })
 
-      $location.path('/spots');
+      $location.path('/nearby');
       $rootScope.logged = true;
       $scope.loading = false
   });
