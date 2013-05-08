@@ -38,9 +38,15 @@ body {
     -webkit-user-select: none;    
 }
 
-.container {
-  margin: 40px 0;
+#ng-view {
   height: 100%;
+  width: 100%;
+}
+
+.container {
+  padding: 45px 0;
+  height: 100%;
+
 }
 
 .hidden {
@@ -116,6 +122,10 @@ span.loader
     to   { -webkit-transform: rotate(360deg); opacity: 0.4; }
 }
 
+button {
+  margin: 0;
+}
+
 /* Start */
 
 div#logo {
@@ -151,33 +161,31 @@ div#logo h1 {
 /* Main */
 
 header {
-  height:40px;
+  height:44px;
   width: 100%;
-  background-color: white;
   position: fixed;
   display: block;
   top: 0;
   left:0;
-  text-align: center;
-  box-shadow: 0px 0px 10px rgba(0,0,0,.8);
   margin: 0;
   padding: 0;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #e5e5e5;
+  z-index: 1000;
+  box-shadow: 0px 0px 10px rgba(0,0,0,.8);
 }
 
 
 img.logo {
     width: 40px;
     height: 40px;
-    position: absolute;
-    top: 0;
-    left: 0;
+    float: left;
   }
 
 img.me {
     width: 40px;
     height: 40px;
-    position: absolute;
-    right: 0;
+    float: right;
   }
 
 
@@ -188,6 +196,7 @@ footer {
   bottom:0;
   width: 100%;
   height: 40px;
+  margin-top: 40px;
 }
 
 ul#nav {
@@ -231,11 +240,62 @@ span.distance {
 }
 
 /* Checkin */
+#checkin {
+  width: auto;
+  background: white;
+  margin: 0;
+  height: 100%;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
 
-#checkin-modal {
-  background: white url('');
-  -webkit-background-size: cover;
+#checkin .header {
+  padding: 0 5px 5px 5px;
+  margin: 0;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #e5e5e5;
+  z-index: 1000;
+}
+
+#checkin h3 {
+  margin: 0;
+}
+
+#checkin ul.selected-riders {
+  margin: 10px 0;
+}
+
+#checkin li.rider {
+  display: inline;
+}
+
+#checkin-form {
+  padding: 10px 10px;
+  margin: 0;
+  height: 100%;
   background-size: cover;
+}
+
+#checkin-form input, #checkin-form textarea, #checkin-form .typeahead > li > a{
+  font-size: 125%;
+  height: auto;
+  padding: 8px;
+}
+
+#checkin .actions {
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 0;
+  width: 100%;
+  padding: 5px ;
+  text-align: center;
+  background-color: #f5f5f5;
+  border-top: 1px solid #e5e5e5;
+}
+
+#checkin .actions > button {
+  margin-right: 10px;
 }
 
 div.rating-group {
@@ -244,5 +304,6 @@ div.rating-group {
 }
 
 button.rating {
-  width: 33%;
+  width: 33.2%;
+  margin: 0;
 }

@@ -1,44 +1,19 @@
- <div ng-show="loading" class="centered"><span class="loader"></span></div>
+<div class="container">
 
-<div ng-controller="CheckinModal">
-  <button class="btn" ng-click="open()">Open me!</button>
-    <div modal="shouldBeOpen" close="close()" options="opts">
-        <div class="modal-header">
-            <h4>Check-in at {{spot.name}}</h4>
-        </div>
-        <div class="modal-body" id="checkin-modal" style="background:white url({{picture_src}})">
-            <form name="form">
+  <div ng-show="loading" class="centered"><span class="loader"></span></div>
 
-              <input type="text" class="input-block-level" ng-model="selected" typeahead="rider.name for rider in riders | filter:$viewValue" placeholder="Who's with you?">
+    <button class="btn" ng-click="location.path('/checkin')">Open me!</button>
+   <ul>
+      <li class="spot" ng-repeat="spot in spots" >
+        <img ng-src="images/flags/{{spot.color}}_80.png" width="40" />
+        <span class="name">{{spot.name}}</span>
+        <span>{{spot.checkins}} checkins</span>
+        <span class="distance">{{spot.distance}}km</span>
+      </li>
+    </ul>
 
-              <div class="btn-group rating-group">
-                <button type="button" class="btn btn-large rating" ng-model="checkin.rating" btn-radio="'0'"><img src="images/flags/red_80.png" width="40" /></button>
-                <button type="button" class="btn btn-large rating" ng-model="checkin.rating" btn-radio="'50'"><img src="images/flags/yellow_80.png" width="40" /></button>
-                <button type="button" class="btn btn-large rating" ng-model="checkin.rating" btn-radio="'100'"><img src="images/flags/green_80.png" width="40" /></button>
-              </div>
+  </div> 
 
-              <textarea id="checkin-comment" class="input-block-level" ng-model="checkin.comment" placeholder="How is it?"></textarea>
-
-              <button type="button" class="btn btn-large btn-block" ng-click="takePicture()"><i class="icon-camera"></i> Take a picture</button>
-
-            </form>
-        </div>
-        <div class="modal-footer">
-            <button class="btn cancel" ng-touch="close()">Cancel</button>
-            <button class="btn btn-primary submit" ng-touch="submit()" ng-disabled="form.$invalid">Check-in</button>
-        </div>
-    </div>
-</div>
-
-
- <ul>
-    <li class="spot" ng-repeat="spot in spots" >
-      <img ng-src="images/flags/{{spot.color}}_80.png" width="40" />
-      <span class="name">{{spot.name}}</span>
-      <span>{{spot.checkins}} checkins</span>
-      <span class="distance">{{spot.distance}}km</span>
-    </li>
-  </ul>
 
 
 

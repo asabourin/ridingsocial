@@ -12,14 +12,14 @@
   </head>
   <body ng-app="App">
 
-    <header ng-controller="MainController" ng-show="logged">
+    <header ng-controller="MainController" ng-show="showNav">
         <div ng-include="'views/shared/header.html'"></div>
     </header>
 
     <!-- Add your site or application content here -->
-    <div class="container" ng-view></div>
+    <div id="ng-view" ng-view></div>
 
-    <footer ng-controller="NavController" ng-show="logged">
+    <footer ng-controller="NavController" ng-show="showNav">
         <div ng-include="'views/shared/nav.html'"></div>
     </footer>
 
@@ -31,6 +31,7 @@
     <script src="components/angular-sanitize/angular-sanitize.js"></script>
 
     <script src="components/ui-bootstrap-tpls-0.3.0.js"></script>
+    <script src="components/underscore-min.js"></script>
 
     <script src="cdv-plugin-fb-connect.js"></script>
     <script src="facebook-js-sdk.js"></script>

@@ -5,6 +5,8 @@ angular.module('App')
 
     localStorageService.remove('lastPosition')
     $scope.loading = true
+    $rootScope.showNav = true
+    $scope.location = $location
 
     //
 
@@ -30,7 +32,7 @@ angular.module('App')
 
     function wannaCheckin(index) {
         if(index == 1) {
-            $rootScope.$emit('showCheckin');
+            $location.path('/checkin')
         }
     }
 
@@ -39,7 +41,7 @@ angular.module('App')
 
             var previousNearestSpot = JSON.parse(localStorageService.get('nearestSpot'))
 
-            if(previousNearestSpot == undefined || previousNearestSpot.id != spot['id'] && $rootScope.logged) {
+            if((previousNearestSpot == undefined || previousNearestSpot.id != spot['id']) && $rootScope.logged) {
                 localStorageService.add('nearestSpot', JSON.stringify(spot))
                 navigator.notification.vibrate(300);
                 navigator.notification.confirm("Wanna check-in?", wannaCheckin, "You're at "+spot.name+"!", "Yeah!,Not now");

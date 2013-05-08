@@ -1,31 +1,27 @@
 angular.module('App')
 
-.controller('CheckinModal', function($rootScope, $scope, Riders, localStorageService) {
+.controller('Checkin', function($rootScope, $scope, $location, Riders, localStorageService) {
 
   var user = JSON.parse(localStorageService.get('user'));
+  $rootScope.showNav = false
+  $scope.location = $location
+
+  $scope.spot = JSON.parse(localStorageService.get('nearestSpot'));
 
   Riders.followed(user.token, function(response) {
       $scope.riders = response
   })
-  
-  $rootScope.$on('showCheckin', function() {
-      $scope.shouldBeOpen = true;
-      $scope.spot = JSON.parse(localStorageService.get('nearestSpot'));
-  });
 
-  $scope.open = function () {
-    $scope.shouldBeOpen = true;
-  };
+  $scope.selectedRiders = new Array();
 
-  $scope.close = function () {
-    $scope.closeMsg = 'I was closed at: ' + new Date();
-    $scope.shouldBeOpen = false;
-  };
-
-  $scope.opts = {
-    backdropFade: true,
-    dialogFade: false
-  };
+  $scope.addRider = function() {
+    var rider = _.find($scope.riders, function(r){ return r.name == $scope.selected; });
+    if(rider != undefined) {
+      $scope.selectedRiders.push(rider)
+      _.reject($scope.riders, function(r){ return r.id == rider.id; });
+      $scope.selected = ''
+    }
+  }
   
   $scope.takePicture = function() {
     navigator.camera.getPicture(

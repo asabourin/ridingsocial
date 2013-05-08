@@ -28,7 +28,7 @@ angular.module('App', ['Services', 'LocalStorageModule', 'ui.bootstrap'])
         controller: 'Sessions.followed'
       })
       .when('/checkin', {
-        templateUrl: 'views/checkin.html',
+        templateUrl: 'views/checkins/new.html',
         controller: 'Checkin'
       })
       .when('/riders/:id', {

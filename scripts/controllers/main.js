@@ -2,6 +2,9 @@ angular.module('App')
 
 .controller('MainController', function(localStorageService, Geolocation, Facebook, User, $scope, $rootScope, $location) {
 
+  // 
+  $rootScope.showNav = false;
+
   // Warming up the GPS as early as possible
     Geolocation.getCurrentPosition(function (position) {}, function(error) {}, {timeout: 5000})
 
@@ -16,7 +19,6 @@ angular.module('App')
     User.me(user.token, 
       // Success
       function(response) {
-        $rootScope.logged = true;
         $rootScope.user = response;
         $location.path('/spots');
       },
@@ -53,8 +55,7 @@ angular.module('App')
       })
 
       $location.path('/spots');
-      $rootScope.logged = true
-      $scope.showFacebook = true
+      $rootScope.logged = true;
       $scope.loading = false
   });
 
