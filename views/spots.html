@@ -6,8 +6,8 @@
         <div class="modal-header">
             <h4>Check-in at {{spot.name}}</h4>
         </div>
-        <div class="modal-body">
-            <form  name="form">
+        <div class="modal-body" id="checkin-modal" style="background:white url({{picture_src}})">
+            <form name="form">
 
               <input type="text" class="input-block-level" ng-model="selected" typeahead="rider.name for rider in riders | filter:$viewValue" placeholder="Who's with you?">
 
@@ -17,17 +17,15 @@
                 <button type="button" class="btn btn-large rating" ng-model="checkin.rating" btn-radio="'100'"><img src="images/flags/green_80.png" width="40" /></button>
               </div>
 
-              <textarea class="input-block-level" ng-model="checkin.comment" placeholder="How is it?"></textarea>
+              <textarea id="checkin-comment" class="input-block-level" ng-model="checkin.comment" placeholder="How is it?"></textarea>
 
               <button type="button" class="btn btn-large btn-block" ng-click="takePicture()"><i class="icon-camera"></i> Take a picture</button>
-
-              <img ng-src="{{picture_src}}" ng-show="picture_src" class="img-polaroid" />
 
             </form>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-large cancel" ng-touch="close()">Cancel</button>
-            <button class="btn btn-large btn-primary submit" ng-touch="submit()" ng-disabled="form.$invalid">Check-in</button>
+            <button class="btn cancel" ng-touch="close()">Cancel</button>
+            <button class="btn btn-primary submit" ng-touch="submit()" ng-disabled="form.$invalid">Check-in</button>
         </div>
     </div>
 </div>

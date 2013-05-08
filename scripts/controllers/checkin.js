@@ -36,7 +36,7 @@ angular.module('App')
       function(message) {
           console.log(message)
       },
-      { quality: 50, destinationType: Camera.DestinationType.FILE_URI });
+      { quality: 75, allow_edit:true, targetWidth: 1600, destinationType: Camera.DestinationType.FILE_URI });
   }
 
 })
