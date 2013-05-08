@@ -23,6 +23,10 @@ angular.module('App', ['Services', 'LocalStorageModule', 'ui.bootstrap'])
         templateUrl: 'views/spots/nearby.html',
         controller: 'Spots.nearby'
       })
+      .when('/map', {
+        templateUrl: 'views/spots/map.html',
+        controller: 'Spots.map'
+      })
       .when('/sessions', {
         templateUrl: 'views/sessions.html',
         controller: 'Sessions.followed'

@@ -47,13 +47,26 @@ body {
   left:0;
   right:0;
   width: 100%;
-  padding: 57px 0 45px 0;
+  padding: 47px 0 45px 0;
 }
 
 .navbar {
   margin-left: 0;
   margin-right: 0;
   position: fixed !important;
+}
+
+ul.nav {
+  width: 100%;
+}
+
+ul.nav > li {
+  width: 33%;
+  text-align: center
+}
+
+.navbar-fixed-bottom .navbar-inner, .navbar-fixed-top .navbar-inner {
+  padding: 0;
 }
 
 .hidden {
