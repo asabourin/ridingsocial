@@ -101,5 +101,6 @@
      </gap:plugin>
      
      <plugin name="Notification" value="org.apache.cordova.Notification"/>
+     <plugin name="Camera" value="org.apache.cordova.CameraLauncher" />
 
 </widget>

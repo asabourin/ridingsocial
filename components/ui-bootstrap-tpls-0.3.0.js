@@ -341,7 +341,7 @@ angular.module('ui.bootstrap.buttons', [])
 
   .constant('buttonConfig', {
     activeClass:'active',
-    toggleEvent:'click'
+    toggleEvent:'touchstart'
   })
 
   .directive('btnRadio', ['buttonConfig', function (buttonConfig) {

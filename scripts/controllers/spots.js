@@ -39,7 +39,7 @@ angular.module('App')
 
             var previousNearestSpot = JSON.parse(localStorageService.get('nearestSpot'))
 
-            if(previousNearestSpot == undefined || previousNearestSpot.id != spot['id']) {
+            if(previousNearestSpot == undefined || previousNearestSpot.id != spot['id'] && $rootScope.logged) {
                 localStorageService.add('nearestSpot', JSON.stringify(spot))
                 navigator.notification.vibrate(300);
                 navigator.notification.confirm("Wanna check-in?", wannaCheckin, "You're at "+spot.name+"!", "Yeah!,Not now");
