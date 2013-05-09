@@ -1,0 +1,22 @@
+<div ng-show="loading" class="centered"><span class="loader"></span></div>
+
+<button class="btn" ng-click="location.path('/checkin')">Open me!</button>
+ 
+<ul>
+  <li class="spot" ng-repeat="spot in spots" >
+    <img ng-src="images/flags/{{spot.color}}_80.png" width="40" />
+    <span class="name">{{spot.name}}</span>
+    <span>{{spot.checkins}} checkins</span>
+    <span class="distance">{{spot.distance}}km</span>
+  </li>
+</ul>
+
+
+
+
+
+
+
+
+
+ 
