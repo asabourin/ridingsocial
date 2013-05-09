@@ -64,10 +64,9 @@ angular.module('App')
       { quality: 50, allow_edit:true, targetWidth: 1600, targetWidth: 1200, correctOrientation: true, destinationType: Camera.DestinationType.FILE_URI });
   }
 
-  function checkinSuccessful(result) {
+  function checkinSuccessful(response) {
     $rootScope.user.lastCheckinAt = Date.now()
-    message = JSON.parse(result.response).message // Cause server response is stringified inside result
-    navigator.notification.alert(message, goToSpots, Lang.en.checkin_successful)
+    navigator.notification.alert(response.message, goToSpots, Lang.en.checkin_successful)
     
   }
 
