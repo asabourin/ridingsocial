@@ -24,8 +24,17 @@ angular.module('App')
     var rider = _.find($scope.followed, function(r){ return r.name == $scope.selected; });
     if(rider != undefined) {
       $scope.selectedRiders.push(rider)
+      // Removing from list to choose from
+      $scope.followed = _.reject($scope.followed, function(r) {return r.id == rider.id})
       $scope.selected = ''
     }
+  }
+
+  $scope.removeRider = function(id) {
+    var rider = _.find($scope.selectedRiders, function(r){ return r.id == id; });
+    $scope.followed.push(rider) //Putting back rider in list of followed
+    $scope.selectedRiders = _.reject($scope.selectedRiders, function(r) {return r.id == id})
+    console.log($scope.selectedRiders)
   }
 
   $scope.submit = function() {

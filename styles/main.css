@@ -222,6 +222,10 @@ span.distance {
   overflow: hidden;
 }
 
+#checkin .spot-name {
+  text-align: center
+}
+
 #checkin h3 {
   margin: 0;
 }
@@ -237,7 +241,7 @@ span.distance {
 
 #checkin-form {
   height: 100%;
-  padding: 10px 10px;
+  padding: 10px;
   margin: 0;
 }
 
@@ -252,26 +256,30 @@ span.distance {
 }
 
 #checkin .actions {
+  background-color: white;
   position: fixed;
   bottom: 0;
-  margin: 0 ;
+  margin: 0;
+  left: 0;
   width: 100%;
   padding: 0;
   text-align: center;
 }
 
 #checkin .actions > button {
-  width: 50%;
+  width: 100%;
   border-radius: 0;
   margin: 0;
 }
 
 div.rating-group {
   width: 100%;
-  margin: 10px 0;
+  margin: 0 0 10px 0;
+  margin-left: 0 !important;
 }
 
 button.rating, button.activity {
-  width: 33.2%;
+  width: 33.3%;
   margin: 0;
+  float: left;
 }

@@ -1,8 +1,9 @@
 <div id="checkin" style="background:white url({{picture_src}}) no-repeat center center fixed; background-size: cover;">
 
     <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <img src="images/spot.png" width="40px" height="40px" class="pull-left" />
+      <div class="navbar-inner spot-name">
+        <a class="btn pull-left" ng-touch="location.path('/spots')"><i class="icon-chevron-left"></i></a>
+        <img src="images/spot.png" width="40px" height="40px" class="pull-right" />
         <h3> {{spot.name}}</h3>
       </div>
     </div>
@@ -15,24 +16,23 @@
         <button type="button" class="btn btn-large activity" ng-model="activity" btn-radio="'kitesurfing'"><img src="images/activities/kitesurfing.png" height="24" /></button> <button type="button" class="btn btn-large activity" ng-model="activity" btn-radio="'windsurfing'"><img src="images/activities/windsurfing.png" height="24" /></button> <button type="button" class="btn btn-large activity" ng-model="activity" btn-radio="'surfing'"><img src="images/activities/surfing.png" height="24" /></button>
       </div>
 
-      <input id="search-rider-input" type="text" class="input-block-level" ng-model="selected" typeahead="rider.name for rider in followed | filter:$viewValue" placeholder="Anyone with you?" ng-change="addRider()">
+      <input id="search-rider-input" type="text" class="input-block-level" ng-model="selected" typeahead-min-length="2" typeahead="rider.name for rider in followed | filter:$viewValue" placeholder="Anyone with you?" ng-change="addRider()">
 
       <div class="btn-group rating-group">
         <button type="button" class="btn rating" ng-model="rating" btn-radio="'0'"><img src="images/flags/red_80.png" width="40" /></button> <button type="button" class="btn rating" ng-model="rating" btn-radio="'50'"><img src="images/flags/yellow_80.png" width="40" /></button> <button type="button" class="btn rating" ng-model="rating" btn-radio="'100'"><img src="images/flags/green_80.png" width="40" /></button>
       </div>
 
-      <textarea id="checkin-comment" class="input-block-level" ng-model="comment" placeholder="How is it?"></textarea>
+      <textarea id="checkin-comment" class="input-block-level" ng-model="comment" placeholder="How is it?" row="1"></textarea>
 
       <ul class="selected-riders">
         <li class="rider" ng-repeat="rider in selectedRiders">
-          <button class="btn"><img width="40" height="40" ng-src="{{rider.picture}}" /></button>
+          <button class="btn" ng-click="removeRider(rider.id)"><img width="40" height="40" ng-src="{{rider.picture}}" /></button>
         </li>
       </ul>
 
     </form>
 
-   <div class="actions btn-group">
-        <button class="btn btn-large cancel" ng-touch="location.path('/spots')"><i class="icon-chevron-left"></i> Back</button>
+   <div class="actions">
         <button class="btn btn-large btn-success submit" ng-click="submit()" ng-disabled="!rating || !activity || submitDisabled"><i class="icon-ok icon-white"></i> Check-in!</button>
     </div>
        
