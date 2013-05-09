@@ -61,10 +61,8 @@ angular.module('App', ['Services', 'LocalStorageModule', 'ui.bootstrap'])
   .directive('ngTouch', function () {
 
         return function ($scope, $element, $attrs) {
-            $element.bind('touchend', function () {
+            $element.bind('touchstart', function () {
                 $scope.$apply($attrs['ngTouch']);
             });
         };
     })
-
-
