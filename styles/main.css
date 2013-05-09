@@ -240,9 +240,7 @@ span.distance {
 }
 
 #checkin h4 {
-  margin: 0;
   overflow: hidden;
-  height: 40px;
   text-overflow: ellipsis;
 }
 
