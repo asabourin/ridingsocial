@@ -15,7 +15,7 @@ angular.module('Services').factory('Checkins', function ($rootScope, $http) {
             }
             else {
                 // Ugly fix cause angular sends POST data as JSON in the body instead of params payload
-                var payload = "spot_id="+options.params.spot_id+"&rating="+options.params.rating
+                var payload = "spot_id="+options.params.spot_id+"&activity="+options.params.activity+"&rating="+options.params.rating
                 if(options.params.comment != undefined) {payload += "&comment="+options.params.comment}
                 if(options.params.riders_ids != undefined) {
                     payload += "&riders_ids=["+options.params.riders_ids+"]"
