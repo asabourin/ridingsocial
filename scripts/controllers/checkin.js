@@ -3,6 +3,8 @@ angular.module('App')
 .controller('Checkin', function($rootScope, $scope, $location, Riders, Checkins, localStorageService) {
 
   // Init
+  takePicture()
+
   $scope.checkin = new Object();
 
   $rootScope.showNav = false
@@ -13,8 +15,6 @@ angular.module('App')
   Riders.followed($rootScope.user.token, function(response) {
       $scope.followed = response
   })
-
-  takePicture()
 
   //
 

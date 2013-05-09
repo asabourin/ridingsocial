@@ -58,11 +58,14 @@ body {
 
 ul.nav {
   width: 100%;
+  font-size: 120%;
 }
 
 ul.nav > li {
   width: 33%;
-  text-align: center
+  text-align: center;
+  overflow: hidden;
+  height: 40px;
 }
 
 .navbar-fixed-bottom .navbar-inner, .navbar-fixed-top .navbar-inner {
@@ -236,8 +239,11 @@ span.distance {
   text-align: center
 }
 
-#checkin h3 {
+#checkin h4 {
   margin: 0;
+  overflow: hidden;
+  height: 40px;
+  text-overflow: ellipsis;
 }
 
 #checkin ul.selected-riders {
@@ -256,7 +262,7 @@ span.distance {
 }
 
 #checkin-form input, #checkin-form textarea, #checkin-form .typeahead > li > a{
-  font-size: 125%;
+  font-size: 120%;
   height: auto;
   padding: 8px;
 }
