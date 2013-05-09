@@ -271,7 +271,7 @@ div.rating-group {
   margin: 10px 0;
 }
 
-button.rating {
+button.rating, button.activity {
   width: 33.2%;
   margin: 0;
 }

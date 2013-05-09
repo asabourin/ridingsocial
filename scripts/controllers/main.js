@@ -6,17 +6,17 @@ angular.module('App')
   $rootScope.showNav = false;
 
   // Warming up the GPS as early as possible
-    Geolocation.getCurrentPosition(function (position) {}, function(error) {}, {timeout: 5000})
+  Geolocation.getCurrentPosition(function (position) {}, function(error) {}, {timeout: 5000})
 
   //Check if user data already in localStorage
 
-  var user = JSON.parse(localStorageService.get('user'));
+  var localUser = JSON.parse(localStorageService.get('user'));
 
-  if(user == undefined) {
+  if(localUser == undefined) {
       logout()
   }
   else {
-    User.me(user.token, 
+    User.me(localUser.token, 
       // Success
       function(response) {
         $rootScope.user = response;
