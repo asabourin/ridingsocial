@@ -30,7 +30,7 @@ body {
     padding: 0;
     height: 100%;
     width: 100%;
-    background: #e3bd90 url("../images/background.jpg") top center no-repeat fixed !important;
+    background: #e6c195 url("../images/background.jpg") top center no-repeat fixed !important;
     -webkit-background-size: cover;
     background-size: cover;
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
@@ -47,7 +47,7 @@ body {
   left:0;
   right:0;
   width: 100%;
-  padding: 47px 0 45px 0;
+  padding: 0;
 }
 
 .navbar {
@@ -70,20 +70,6 @@ ul.nav > li {
 
 .navbar-fixed-bottom .navbar-inner, .navbar-fixed-top .navbar-inner {
   padding: 0;
-}
-
-.hidden {
-    display: none;
-}
-
-.pull-left {
-    float: left;
-    margin: 3px
-}
-
-.pull-right {
-    float: right;
-    margin: 3px
 }
 
 ul {
@@ -109,7 +95,6 @@ h1 {
     height: 50px; 
     width:100%;
     text-align: center;
-
 }
 
 .centered{
@@ -167,20 +152,6 @@ div#logo h1 {
     margin: 0;          
 }
 
-#start .login {
-    position: absolute;
-    width: 100%;
-    bottom: 20px;
-    left: 0;
-    right: 0;
-    margin: auto;
-    text-align: center;
-}
-
-#start .login button {
-  border-radius: 0;
-}
-
 #start img.f {
   height:25px;
   vertical-align: middle;
@@ -203,32 +174,42 @@ img.me {
   }
 
 
-/* Spots */
+/* Spots n Sessions */
 
-li.spot {
+ul.nearby, ul.sessions {
+  padding: 41px 0;
+}
+
+li.spot, li.session {
   display: block;
-  clear: both;
   height: 64px;
-  padding: 15px;
+  padding: 5px;
+  background: white;
+  margin: 8px;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
 }
 
-li.spot > img {
+h4.name {
+  float: left;
+}
+
+img.flag {
   vertical-align: middle;
+  width: 50px;
+  height: 50px;
+  float: left;
 }
 
-span.name {
-  
-}
-
-span.distance {
-  float: right;
+p.details {
+  clear: both;
 }
 
 /* Checkin */
 #checkin {
   width: auto;
   background: white;
-  margin: 0;
+  margin: 41px 0 0 0;
   height: 100%;
   padding: 0;
   position: relative;
@@ -269,21 +250,16 @@ span.distance {
   width: 100%;
 }
 
-#checkin .actions {
-  background-color: white;
+.action {
+  background-color: transparent;
   position: fixed;
   bottom: 0;
   margin: 0;
   left: 0;
   width: 100%;
-  padding: 0;
+  padding: 10px;
   text-align: center;
-}
-
-#checkin .actions > button {
-  width: 100%;
-  border-radius: 0;
-  margin: 0;
+  box-sizing: border-box;
 }
 
 div.rating-group {
