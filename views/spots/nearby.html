@@ -1,6 +1,7 @@
 <div ng-show="loading" class="centered"><span class="loader"></span></div>
-
+ 
 <ul class="nearby">
+  <button ng-click="location.path('/checkin')">Go</button>
   <li class="spot" ng-repeat="spot in spots" >
     <span class="badge badge-info pull-right">{{spot.distance}}km</span>
     <img ng-src="images/flags/{{spot.color}}_80.png" class="flag" />
