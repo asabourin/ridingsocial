@@ -1,6 +1,6 @@
 angular.module('App')
 
-.controller('Checkin', function($rootScope, $scope, $location, Riders, Checkins, localStorageService) {
+.controller('Checkin', function($rootScope, $scope, $location, Riders, Checkins) {
 
   // Init
   takePicture()
@@ -10,7 +10,7 @@ angular.module('App')
   $rootScope.showNav = false
   $scope.location = $location
 
-  $scope.spot = JSON.parse(localStorageService.get('nearestSpot'));
+  $scope.spot = JSON.parse(localStorage.getItem('nearestSpot'));
 
   Riders.followed($rootScope.user.token, function(response) {
       $scope.followed = response
@@ -34,7 +34,6 @@ angular.module('App')
     var rider = _.find($scope.selectedRiders, function(r){ return r.id == id; });
     $scope.followed.push(rider) //Putting back rider in list of followed
     $scope.selectedRiders = _.reject($scope.selectedRiders, function(r) {return r.id == id})
-    console.log($scope.selectedRiders)
   }
 
   $scope.submit = function() {

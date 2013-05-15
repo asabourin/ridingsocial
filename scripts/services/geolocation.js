@@ -1,4 +1,4 @@
-angular.module('Services').factory('Geolocation', function ($rootScope, CordovaReady, localStorageService) {
+angular.module('Services').factory('Geolocation', function ($rootScope, CordovaReady) {
   
   return {
     
@@ -28,10 +28,10 @@ angular.module('Services').factory('Geolocation', function ($rootScope, CordovaR
     onPosition: function(new_position) {
 
       var position = {latitude:new_position.coords.latitude.toFixed(4), longitude:new_position.coords.longitude.toFixed(4)}
-      var lastPosition = JSON.parse(localStorageService.get('lastPosition'))
+      var lastPosition = JSON.parse(localStorage.getItem('lastPosition'))
 
       if(lastPosition == undefined || Math.abs(lastPosition.latitude - position.latitude) > 0.001 || Math.abs(lastPosition.longitude - position.longitude) > 0.001) {
-          localStorageService.add('lastPosition', JSON.stringify(position))
+          localStorage.setItem('lastPosition', JSON.stringify(position))
           $rootScope.$broadcast('positionUpdated', {position:position});
       } 
 

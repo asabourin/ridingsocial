@@ -1,9 +1,9 @@
 angular.module('App')
-  .controller('Spots.nearby', function(Geolocation, CordovaReady, localStorageService, Riders, Spots, Checkins, $scope, $rootScope, $timeout, $location) {
+  .controller('Spots.nearby', function(Geolocation, CordovaReady, Riders, Spots, Checkins, $scope, $rootScope, $timeout, $location) {
 
     // Init
 
-    localStorageService.remove('lastPosition')
+    localStorage.removeItem('lastPosition')
     $scope.loading = true
     $rootScope.showNav = true
     $scope.location = $location
@@ -41,10 +41,10 @@ angular.module('App')
     function checkNearest(spot) {
         if(spot['distance'] <= Settings.checkin_distance) {
 
-            var previousNearestSpot = JSON.parse(localStorageService.get('nearestSpot'))
+            var previousNearestSpot = JSON.parse(localStorage.getItem('nearestSpot'))
 
             if((previousNearestSpot == undefined || previousNearestSpot.id != spot['id']) && $rootScope.logged) {
-                localStorageService.add('nearestSpot', JSON.stringify(spot))
+                localStorage.setItem('nearestSpot', JSON.stringify(spot))
                 navigator.notification.vibrate(300);
                 navigator.notification.confirm("Wanna check-in?", wannaCheckin, "You're at "+spot.name+"!", ["Yeah!","Not now"]);
             }

@@ -18,7 +18,7 @@ var Lang = {
 
 angular.module('Services', []);
 
-angular.module('App', ['Services', 'LocalStorageModule', 'ui.bootstrap'])
+angular.module('App', ['Services', 'ui.bootstrap'])
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider
       .when('/', {

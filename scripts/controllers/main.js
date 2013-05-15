@@ -1,6 +1,6 @@
 angular.module('App')
 
-.controller('MainController', function(Geolocation, localStorageService, Facebook, User, $scope, $rootScope, $location) {
+.controller('MainController', function(Geolocation, Facebook, User, $scope, $rootScope, $location) {
 
   // 
   $rootScope.showNav = false;
@@ -12,7 +12,7 @@ angular.module('App')
 
   //Check if user data already in localStorage
 
-  var localUser = JSON.parse(localStorageService.get('user'));
+  var localUser = JSON.parse(localStorage.getItem('user'));
 
   if(localUser == undefined) {
       logout()
@@ -50,7 +50,7 @@ angular.module('App')
 
   $rootScope.$on("rs_connected", function (event, args) {
 
-      localStorageService.add('user', JSON.stringify(args.response));
+      localStorage.setItem('user', JSON.stringify(args.response));
 
       User.me(args.response.token, function(response) {
         $rootScope.user = response;
@@ -86,7 +86,7 @@ angular.module('App')
 
   function logout() {
     $rootScope.logged = false;
-    localStorageService.clearAll()
+    localStorage.clear()
     $location.path('/');
     $scope.showFacebook = true
     Facebook.init()

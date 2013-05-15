@@ -1,6 +1,6 @@
 angular.module('App')
 
-.controller('NavController', function(localStorageService, Riders, $scope, $rootScope, $location) {
+.controller('NavController', function($scope, $rootScope, $location) {
 
   $scope.location = $location
   $scope.activeTab = 'nearby';
