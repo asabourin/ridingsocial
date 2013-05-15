@@ -112,7 +112,7 @@ span.loader
     display: inline-block;
     width: 32px;
     height: 32px;
-    border: 4px solid #fff;
+    border: 5px solid #fff;
     border-right-color: transparent;
     border-radius: 50%;
     box-shadow: 0 0 25px 2px #eee;
@@ -148,12 +148,6 @@ div#logo h1 {
     text-align: center;
     font-size: 3em !important;
     margin: 0;          
-}
-
-#start img.f {
-  height:25px;
-  vertical-align: middle;
-  margin-right: 5px;
 }
 
 /* Main */
