@@ -2,21 +2,6 @@
 
 /* Common */
 
-
-@font-face {
-  font-family: 'Handel';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Handel Gothic BT'), url(handel.ttf) format('truetype');
-}
-
-@font-face {
-  font-family: 'Droid Sans';
-  font-style: normal;
-  font-weight: 400;
-  src: local('DroidSans'), url(DroidSans.ttf) format('truetype');
-}
-
 html {
   height: 100%;
 }
@@ -30,12 +15,25 @@ body {
     padding: 0;
     height: 100%;
     width: 100%;
-    background: #e6c195 url("../images/background.jpg") top center no-repeat fixed !important;
-    -webkit-background-size: cover;
-    background-size: cover;
+    background: #e6c195 url("../splash.png");
+    -webkit-background-size: 100%;
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;    
+}
+
+@font-face {
+  font-family: 'Handel';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Handel Gothic BT'), url(handel.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Droid Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('DroidSans'), url(DroidSans.ttf) format('truetype');
 }
 
 #ng-view {
