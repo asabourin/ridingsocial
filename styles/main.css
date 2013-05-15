@@ -15,7 +15,7 @@ body {
     padding: 0;
     height: 100%;
     width: 100%;
-    background: #e6c195 url("../splash.png");
+    background: #e6c195 url("../splash.png") no-repeat;
     -webkit-background-size: 100%;
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
