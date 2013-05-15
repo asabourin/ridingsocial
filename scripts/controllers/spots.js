@@ -8,27 +8,29 @@ angular.module('App')
     $rootScope.showNav = true
     $scope.location = $location
 
-    //
+    // Geolocation
 
-    var watchPosition = setInterval(function () {
+    function getPosition() {
         Geolocation.getCurrentPosition(function (position) {
-          Geolocation.onPosition(position)
+            Geolocation.onPosition(position)
         }, function(error) {
-            alert('Oops, could not get your location. Check you\'ve got GPS enabled and we\'ll try again!')
-        },
-        {timeout: 5000})
-      }, 1000);
+            navigator.notification.alert('Could not get your location. Check you\'ve got GPS enabled and we\'ll try again!', null, 'Oops...')
+        }, {timeout: 10000}
+        )
+    }
       
-      $scope.$on('$destroy', function () {
+    var watchPosition = setInterval(getPosition(), 10000)
+      
+    $scope.$on('$destroy', function () {
         clearInterval(watchPosition);
-      });
+    });
 
     $rootScope.$on("positionUpdated", function (event, args) {
         $scope.position = args.position
         getNearbySpots(args.position)
     });
 
-    //
+    // Functions
 
     function wannaCheckin(index) {
         if(index == 1) {
@@ -44,7 +46,7 @@ angular.module('App')
             if((previousNearestSpot == undefined || previousNearestSpot.id != spot['id']) && $rootScope.logged) {
                 localStorageService.add('nearestSpot', JSON.stringify(spot))
                 navigator.notification.vibrate(300);
-                navigator.notification.confirm("Wanna check-in?", wannaCheckin, "You're at "+spot.name+"!", "Yeah!,Not now");
+                navigator.notification.confirm("Wanna check-in?", wannaCheckin, "You're at "+spot.name+"!", ["Yeah!","Not now"]);
             }
         }
     }

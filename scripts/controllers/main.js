@@ -1,12 +1,14 @@
 angular.module('App')
 
-.controller('MainController', function(localStorageService, Geolocation, Facebook, User, $scope, $rootScope, $location) {
+.controller('MainController', function(Geolocation, localStorageService, Facebook, User, $scope, $rootScope, $location) {
 
   // 
   $rootScope.showNav = false;
 
   // Warming up the GPS as early as possible
-  Geolocation.getCurrentPosition(function (position) {}, function(error) {}, {timeout: 5000})
+  Geolocation.getCurrentPosition(function (position) {
+          Geolocation.onPosition(position)
+        }, function(error) {}, {timeout: 10000})
 
   //Check if user data already in localStorage
 

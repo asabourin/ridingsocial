@@ -67,13 +67,13 @@ angular.module('App', ['Services', 'LocalStorageModule', 'ui.bootstrap'])
     })
 
   // Hide splash screen on CordovaReady event
-    document.addEventListener("deviceready", onDeviceReady, false);
+  document.addEventListener("deviceready", onDeviceReady, false);
 
-    // Cordova is ready
-    //
-    function onDeviceReady() {
-        setTimeout(function() {
-            navigator.splashscreen.hide();
-        }, 600);
+  // Cordova is ready
+  //
+  function onDeviceReady() {
+      setTimeout(function() {
+          navigator.splashscreen.hide();
+      }, 600);
 
-    }
+  }
