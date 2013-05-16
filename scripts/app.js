@@ -57,14 +57,7 @@ angular.module('App', ['Services', 'ui.bootstrap'])
         redirectTo: '/'
       });
   })
-  .directive('ngTouch', function () {
-
-        return function ($scope, $element, $attrs) {
-            $element.bind('touchstart', function () {
-                $scope.$apply($attrs['ngTouch']);
-            });
-        };
-    })
+  
 
   // Hide splash screen on CordovaReady event
   document.addEventListener("deviceready", onDeviceReady, false);

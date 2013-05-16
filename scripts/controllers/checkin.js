@@ -3,22 +3,31 @@ angular.module('App')
 .controller('Checkin', function($rootScope, $scope, $location, Riders, Checkins) {
 
   // Init
-  takePicture()
-
-  $scope.checkin = new Object();
 
   $rootScope.showNav = false
+  $scope.loading = true
+
+  $scope.checkin = new Object();
+  $scope.selectedRiders = new Array();
+
   $scope.location = $location
 
   $scope.spot = JSON.parse(localStorage.getItem('nearestSpot'));
 
   Riders.followed($rootScope.user.token, function(response) {
       $scope.followed = response
+      $scope.loading = false
+      $scope.$broadcast('followedLoaded')
+
   })
 
   //
 
-  $scope.selectedRiders = new Array();
+  $scope.$on('followedLoaded', function() {
+    takePicture()
+  })
+
+  //
 
   $scope.addRider = function() {
     var rider = _.find($scope.followed, function(r){ return r.name == $scope.selected; });

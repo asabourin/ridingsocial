@@ -91,6 +91,7 @@ h1 {
 .centered{
   text-align: center;
   height: 100%;
+  background-color: rgba(0,0,0,0.3);
 }
 
 .centered:before {
@@ -199,6 +200,8 @@ p.details {
   padding: 0;
   position: relative;
   overflow: hidden;
+  background-color: transparent;
+  background-size: cover;
 }
 
 #checkin .spot-name {
