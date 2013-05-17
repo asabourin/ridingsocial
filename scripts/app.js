@@ -5,7 +5,8 @@ var Settings = {
   host: 'http://freesab.local:3000/api/',
   coeff: 0.01,
   radius: 15,
-  checkin_distance: 12
+  checkin_distance: 12,
+  android_gcm_senderID: "535845696743"
 
 }
 
@@ -57,3 +58,9 @@ angular.module('App', ['Services', 'ui.bootstrap'])
         redirectTo: '/'
       });
   })
+
+document.addEventListener('deviceready', function () {
+  setTimeout(function() {
+        navigator.splashscreen.hide();
+    }, 600)
+}, false)

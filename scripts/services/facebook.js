@@ -14,6 +14,7 @@ angular.module('Services').factory('Facebook', function ($rootScope, CordovaRead
             FB.getLoginStatus(function (response) {
                 switch (response.status) {
                     case 'connected':
+                        
                         $rootScope.$broadcast('fb_connected', {response:response});
                         break;
                     case 'not_authorized' || 'unknown':

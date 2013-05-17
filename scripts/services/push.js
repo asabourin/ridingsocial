@@ -1,17 +1,27 @@
-angular.module('Services').factory('Push', function ($rootScope, $http) {
+angular.module('Services').factory('Push', function ($rootScope, User, CordovaReady) {
     return {
+        init: CordovaReady(function () {
+            
+            var pushSettings = JSON.parse(localStorage.getItem('pushSettings'));
+            
+            if(pushSettings == undefined) {
+            var pushNotification = window.plugins.pushNotification;
 
-        successHandler: function(result) {
-            console.log("result "+result)
-        },
-        errorHandler: function (error) {
-            console.log(error)
-        },
-        tokenHandler: function(result) {
-            // Your iOS push server needs to know the token before it can push to this device
-            // here is where you might want to send it the token for later use.
-            console.log(result)
-        },
+                  if (device.platform == 'android' || device.platform == 'Android') {
+                      pushNotification.register(onSuccessAndroid, onError, {"senderID":Settings.android_gcm_senderID,"ecb":"onNotificationGCM"});
+                  } else {
+                      pushNotification.register(onSuccessIOS, onError, {"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});
+                  }
+            }
+            else {
+                console.log("push settings: "+pushSettings)
+                User.registerDevice(pushSettings, function(response){console.log('Device registered on backend')}, function(response) {console.log(response)})
+            }
+            
+
+
+        }),
+
         // iOS
         onNotificationIOS: function(event) {
             if (event.alert) {
@@ -37,7 +47,11 @@ angular.module('Services').factory('Push', function ($rootScope, $http) {
                 {
                     // Your GCM push server needs to know the regID before it can push to this device
                     // here is where you might want to send it the regID for later use.
-                    alert("regID = " + e.regid);
+                    var push = {}
+                    push.platform = 'android'
+                    push.token = e.regid
+                    localStorage.setItem('pushSettings', JSON.stringify(push))
+                    User.registerDevice(push, function(response){console.log('Device registered on backend')}, function(response) {console.log(response)})
                 }
                 break;
 
@@ -69,8 +83,23 @@ angular.module('Services').factory('Push', function ($rootScope, $http) {
                 break;
             }
         }
+    }
 
-    };
+        function onSuccessAndroid(result) {
+            console.log("result "+result)
+        }
+        function onError(error) {
+            console.log(error)
+        }
+        function onSuccessIOS(result) {
+            // Your iOS push server needs to know the token before it can push to this device
+            // here is where you might want to send it the token for later use.
+            var push = {}
+            push.platform = 'ios'
+            push.token = result.token       
+            localStorage.setItem('pushSettings', JSON.stringify(push))
+            User.registerDevice(push, function(response){console.log('Device registered on backend')}, function(response) {alert(response)})
+        }
 
 })
 
@@ -87,6 +116,7 @@ function onNotificationAPN(event) {
         Push.onNotificationIOS(event)
     }]);
 }
+
 
 
  

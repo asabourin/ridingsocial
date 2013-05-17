@@ -1,14 +1,9 @@
 angular.module('App')
 
-.controller('MainController', function(Geolocation, Push, Facebook, User, $scope, $rootScope, $location) {
+.controller('MainController', function(Geolocation, CordovaReady, Push, Facebook, User, $scope, $rootScope, $location) {
 
-  // CordovaReady event
-  document.addEventListener("deviceready", function() {
-    hideSplashScreen()
-    setupPush()
-  }, false);
-
-  // 
+  // Init
+  Facebook.init()
   $rootScope.showNav = false;
 
   // Warming up the GPS as early as possible
@@ -18,60 +13,77 @@ angular.module('App')
 
   //Check if user data already in localStorage
 
-  var localUser = JSON.parse(localStorage.getItem('user'));
+  var login = JSON.parse(localStorage.getItem('login'));
 
-  if(localUser == undefined) {
-      logout()
+  if(login == undefined) {
+      $rootScope.logged = false;
+      $scope.loading =false
+      $scope.showFacebook = true
   }
   else {
-    User.me(localUser.token, 
+    User.me(login.token, 
       // Success
       function(response) {
         $rootScope.user = response;
+        $rootScope.login = login
+        Push.init()
         $location.path('/nearby');
       },
       // Failure
       function(response) {
           console.log(response.error)
-          logout()
+          $rootScope.logged = false;
+          $scope.loading =false
+          $scope.showFacebook = true
       })
   }
 
   // Event listeners
 
   $rootScope.$on("fb_connected", function (event, args) {
+    if($rootScope.fb_connected == true) { //Prevent multiple event firing
+
+    }
+
+    else {
+
+      $rootScope.fb_connected = true
+      
       User.login(args.response.authResponse.accessToken, function(response) {
-        login(response.token)
+        $rootScope.$broadcast('rs_connected', {response:response});
       }),
       function(response) {
-        console.log(response.error)
-        logout()
+        console.log(response)
+        $rootScope.logged = false;
+        $scope.loading =false
+        $scope.showFacebook = true
       }
+
+    }
   });
 
   $rootScope.$on("fb_login_failed", function (event, args) {
-      $scope.loading = false
-      $scope.showFacebook = true
+    console.log(args.response)
+    $rootScope.logged = false;
+    $scope.loading =false
+    $scope.showFacebook = true
   });
 
   $rootScope.$on("rs_connected", function (event, args) {
 
-      localStorage.setItem('user', JSON.stringify(args.response));
+      $rootScope.login = args.response
+      localStorage.setItem('login', JSON.stringify(args.response));
 
       User.me(args.response.token, function(response) {
         $rootScope.user = response;
       })
 
+      Push.init()
+
       $location.path('/nearby');
       $rootScope.logged = true;
       $scope.loading = false
   });
-
-  $rootScope.$on("rs_login_failed", function (event, args) {
-      $scope.loading = false
-      $scope.showFacebook = true
-  });
-
 
   // Button functions
 
@@ -80,35 +92,6 @@ angular.module('App')
       $scope.loading = true
       Facebook.login();
   };
-
-  $scope.logout = function () {
-      logout()
-  };
-
-  function logout() {
-    $rootScope.logged = false;
-    localStorage.clear()
-    $location.path('/');
-    $scope.showFacebook = true
-    Facebook.init()
-  }
-
-  // System functions
-
-  function hideSplashScreen() {
-    setTimeout(function() {
-        navigator.splashscreen.hide();
-    }, 600);
-  }
-
-  function setupPush() {
-    var pushNotification = window.plugins.pushNotification;
-    if (device.platform == 'android' || device.platform == 'Android') {
-        pushNotification.register(Push.successHandler, Push.errorHandler,{"senderID":"535845696743","ecb":"onNotificationGCM"});
-    } else {
-        pushNotification.register(Push.tokenHandler, Push.errorHandler, {"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});
-    }
-  }
 
 
 })
