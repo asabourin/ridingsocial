@@ -205,7 +205,8 @@ p.details {
 }
 
 #checkin .spot-name {
-  text-align: center
+  text-align: center;
+  padding: 0 10px;
 }
 
 #checkin h4 {
