@@ -1,6 +1,12 @@
 angular.module('App')
 
-.controller('MainController', function(Geolocation, CordovaReady, Facebook, User, $scope, $rootScope, $location) {
+.controller('MainController', function(Geolocation, Push, Facebook, User, $scope, $rootScope, $location) {
+
+  // CordovaReady event
+  document.addEventListener("deviceready", function() {
+    hideSplashScreen()
+    setupPush()
+  }, false);
 
   // 
   $rootScope.showNav = false;
@@ -66,20 +72,6 @@ angular.module('App')
       $scope.showFacebook = true
   });
 
-  // Push
-
-  CordovaReady(setupPush())
-
-  function setupPush() {
-
-    var pushNotification = window.plugins.pushNotification;
-      if (device.platform == 'android' || device.platform == 'Android') {
-          pushNotification.register(pushSuccessHandler, pushErrorHandler,{"senderID":"535845696743","ecb":"onNotificationGCM"});
-      } else {
-          pushNotification.register(pushTokenHandler, pushErrorHandler, {"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});
-      }
-    
-  }
 
   // Button functions
 
@@ -101,6 +93,22 @@ angular.module('App')
     Facebook.init()
   }
 
+  // System functions
+
+  function hideSplashScreen() {
+    setTimeout(function() {
+        navigator.splashscreen.hide();
+    }, 600);
+  }
+
+  function setupPush() {
+    var pushNotification = window.plugins.pushNotification;
+    if (device.platform == 'android' || device.platform == 'Android') {
+        pushNotification.register(Push.successHandler, Push.errorHandler,{"senderID":"535845696743","ecb":"onNotificationGCM"});
+    } else {
+        pushNotification.register(Push.tokenHandler, Push.errorHandler, {"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});
+    }
+  }
 
 
 })
