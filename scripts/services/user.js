@@ -6,7 +6,6 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
             })
             .error(function(response) {
                 $rootScope.$broadcast('rs_login_failed', {response:response});
-                console.log(response)
             });
         },
         me:function (token, successCallback, errorCallback) {

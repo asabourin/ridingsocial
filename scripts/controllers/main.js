@@ -1,6 +1,6 @@
 angular.module('App')
 
-.controller('MainController', function(Geolocation, Facebook, User, $scope, $rootScope, $location) {
+.controller('MainController', function(Geolocation, CordovaReady, Facebook, User, $scope, $rootScope, $location) {
 
   // 
   $rootScope.showNav = false;
@@ -66,9 +66,18 @@ angular.module('App')
       $scope.showFacebook = true
   });
 
-  // RidingSocial
+  // Push
 
-  function getUser(token) {
+  CordovaReady(setupPush())
+
+  function setupPush() {
+
+    var pushNotification = window.plugins.pushNotification;
+      if (device.platform == 'android' || device.platform == 'Android') {
+          pushNotification.register(pushSuccessHandler, pushErrorHandler,{"senderID":"535845696743","ecb":"onNotificationGCM"});
+      } else {
+          pushNotification.register(pushTokenHandler, pushErrorHandler, {"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});
+      }
     
   }
 

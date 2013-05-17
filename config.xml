@@ -102,5 +102,6 @@
      
      <plugin name="Notification" value="org.apache.cordova.Notification"/>
      <plugin name="Camera" value="org.apache.cordova.CameraLauncher" />
+     <plugin name="PushPlugin" value="com.plugin.GCM.PushPlugin" />
 
 </widget>
