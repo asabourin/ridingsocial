@@ -1,23 +1,5 @@
 'use strict';
 
-var Settings = {
-
-  host: 'http://192.168.1.2:3000/api/',
-  coeff: 0.01,
-  radius: 15,
-  checkin_distance: 12,
-  android_gcm_senderID: "535845696743"
-
-}
-
-var Lang = {
-  en: {
-    'checkin_successful': 'Check-in successful!',
-    'error_checkin': 'Oops...',
-    error: 'Oops...'
-  }
-}
-
 angular.module('Services', []);
 
 angular.module('App', ['Services', 'ui.bootstrap'])
@@ -60,12 +42,17 @@ angular.module('App', ['Services', 'ui.bootstrap'])
       });
   })
 
-// 
+// Hiding splashscreen after Cordova fires deviceready. Timeout needed because of white flash
 document.addEventListener('deviceready', function () {
   setTimeout(function() {
         navigator.splashscreen.hide();
     }, 600)
+  document.addEventListener("backbutton", onBackKeyDown, false);
 }, false)
+
+function onBackKeyDown() {
+  
+}
 
 //For external callbacks that need to access Angular app
 var injector;
