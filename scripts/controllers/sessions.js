@@ -3,9 +3,7 @@ angular.module('App')
 
     $scope.loading = true
 
-    var user = JSON.parse(localStorage.getItem('user'));
-
-    Checkins.followed(user.token, function(response) {
+    Checkins.followed($rootScope.user.token, function(response) {
         $scope.loading = false
         $scope.checkins = response
     })

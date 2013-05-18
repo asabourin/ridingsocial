@@ -13,19 +13,19 @@ angular.module('App')
 
   //Check if user data already in localStorage
 
-  var login = JSON.parse(localStorage.getItem('login'));
+  var user = JSON.parse(localStorage.getItem('user'));
 
-  if(login == undefined) {
+  if(user == undefined) {
       $rootScope.logged = false;
       $scope.loading =false
       $scope.showFacebook = true
   }
   else {
-    User.me(login.token, 
+    User.me(user.token, 
       // Success
       function(response) {
-        $rootScope.user = response;
-        $rootScope.login = login
+        $rootScope.me = response;
+        $rootScope.user = user
         Push.init()
         $location.path('/nearby');
       },
@@ -67,20 +67,10 @@ angular.module('App')
     $scope.showFacebook = true
   });
 
-  $rootScope.$on("pushRegistered", function (event, args) {
-    alert('pushRegistered')
-    User.registerDevice(args.settings, function(response){
-      localStorage.setItem('pushSettings', JSON.stringify(args.settings))
-    }, 
-      function(response) {
-        navigator.notification.alert("Could not save Push Notification settings on backend: "+response, null, Lang.en.error)
-      })
-  })
-
   $rootScope.$on("rs_connected", function (event, args) {
 
-      $rootScope.login = args.response
-      localStorage.setItem('login', JSON.stringify(args.response));
+      $rootScope.user = args.response
+      localStorage.setItem('user', JSON.stringify(args.response));
 
       User.me(args.response.token, function(response) {
         $rootScope.user = response;
@@ -92,6 +82,16 @@ angular.module('App')
       $rootScope.logged = true;
       $scope.loading = false
   });
+
+  $rootScope.$on("pushRegistered", function (event, args) {
+
+    User.registerDevice(args.settings, function(response){
+      localStorage.setItem('pushSettings', JSON.stringify(args.settings))
+    }, 
+      function(response) {
+        navigator.notification.alert("Could not save Push Notification settings on backend: "+response, null, Lang.en.error)
+      })
+  })
 
   // Button functions
 

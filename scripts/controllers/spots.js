@@ -1,5 +1,5 @@
 angular.module('App')
-  .controller('Spots.nearby', function(Geolocation, Riders, Spots, Checkins, $scope, $rootScope, $timeout, $location) {
+  .controller('Spots.nearby', function(Geolocation, Spots, Checkins, $scope, $rootScope, $location) {
 
     // Init
 
@@ -35,6 +35,7 @@ angular.module('App')
     function wannaCheckin(index) {
         if(index == 1) {
             $location.path('/checkin')
+            $scope.$apply()
         }
     }
 
@@ -46,14 +47,14 @@ angular.module('App')
             if((previousNearestSpot == undefined || previousNearestSpot.id != spot['id']) && $rootScope.logged) {
                 localStorage.setItem('nearestSpot', JSON.stringify(spot))
                 navigator.notification.vibrate(300);
-                navigator.notification.confirm("Wanna check-in?", wannaCheckin, "You're at "+spot.name+"!", ['Yeah!','Not now']);
+                navigator.notification.confirm("Wanna check-in?", wannaCheckin, "You're at "+spot.name+"!", "Yeah!,Not now");
             }
         }
     }
 
     function getNearbySpots(position) {
 
-        Spots.nearby(position.latitude, position.longitude, Settings.coeff, Settings.radius, function(response) {
+        Spots.nearby($rootScope.user.token, position.latitude, position.longitude, Settings.coeff, Settings.radius, function(response) {
             $scope.loading = false
             $scope.spots = response
 

@@ -1,15 +1,13 @@
 angular.module('Services').factory('Push', function ($rootScope, User, CordovaReady) {
     return {
         init: CordovaReady(function () {
-            var pushSettings = JSON.parse(localStorage.getItem('pushSettings'));
-            if(pushSettings == undefined) {
-                var pushNotification = window.plugins.pushNotification;
-                if (device.platform == 'android' || device.platform == 'Android') {
-                    pushNotification.register(onSuccessAndroid, onError, {"senderID":Settings.android_gcm_senderID,"ecb":"onNotificationGCM"});
-                } else {
-                    pushNotification.register(onSuccessIOS, onError, {"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});
-                }
+            var pushNotification = window.plugins.pushNotification;
+            if (device.platform == 'android' || device.platform == 'Android') {
+                pushNotification.register(onSuccessAndroid, onError, {"senderID":Settings.android_gcm_senderID,"ecb":"onNotificationGCM"});
+            } else {
+                pushNotification.register(onSuccessIOS, onError, {"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});
             }
+
         }),
 
         onNotificationIOS: function(event) {
@@ -37,7 +35,10 @@ angular.module('Services').factory('Push', function ($rootScope, User, CordovaRe
                 case 'message':
                     if (e.foreground)
                     {
-                        console.log('Android Notification: INLINE NOTIFICATION');
+
+                        navigator.notification.vibrate(300);
+                        navigator.notification.alert(e.payload.message, null, 'Hey!')
+                        navigator.notification.beep(1);
                     }
                     else
                     {  
@@ -46,9 +47,6 @@ angular.module('Services').factory('Push', function ($rootScope, User, CordovaRe
                         else
                         console.log('Android Notification: BACKGROUND');
                     }
-
-                    alert('MESSAGE -> MSG: ' + e.payload.message);
-                    alert('MESSAGE -> MSGCNT: ' + e.payload.msgcnt);
 
                 break;
 
