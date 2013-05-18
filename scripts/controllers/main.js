@@ -41,10 +41,8 @@ angular.module('App')
   // Event listeners
 
   $rootScope.$on("fb_connected", function (event, args) {
-    if($rootScope.fb_connected == true) { //Prevent multiple event firing
-
-    }
-
+    
+    if($rootScope.fb_connected == true) { } //Prevent multiple events firing 
     else {
 
       $rootScope.fb_connected = true
@@ -68,6 +66,16 @@ angular.module('App')
     $scope.loading =false
     $scope.showFacebook = true
   });
+
+  $rootScope.$on("pushRegistered", function (event, args) {
+    alert('pushRegistered')
+    User.registerDevice(args.settings, function(response){
+      localStorage.setItem('pushSettings', JSON.stringify(args.settings))
+    }, 
+      function(response) {
+        navigator.notification.alert("Could not save Push Notification settings on backend: "+response, null, Lang.en.error)
+      })
+  })
 
   $rootScope.$on("rs_connected", function (event, args) {
 
