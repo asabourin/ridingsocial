@@ -13,6 +13,7 @@ angular.module('App')
       $location.path('/');
       $scope.loading =false
       $scope.showFacebook = true
+      clearInterval(watchPosition);
   }
 
 })

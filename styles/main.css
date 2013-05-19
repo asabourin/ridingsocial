@@ -53,10 +53,14 @@ ul.nav {
 }
 
 ul.nav > li {
-  width: 33%;
+  width: 33.32%;
   text-align: center;
   overflow: hidden;
   height: 40px;
+}
+
+.nav>.active>a {
+  color: black;
 }
 
 .navbar-fixed-bottom .navbar-inner, .navbar-fixed-top .navbar-inner {
