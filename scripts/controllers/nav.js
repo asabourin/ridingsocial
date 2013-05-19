@@ -2,18 +2,22 @@ angular.module('App')
 
 .controller('HeaderController', function($scope, $rootScope, $location) {
 
+  $rootScope.$on('gotMe', function(event, args) {
+    $scope.me = args.user
+    console.log(args.user.picture)
+  })
+
   $scope.logout = function () {
       logout()
   };
 
     function logout() {
+      localStorage.clear()
       $rootScope.fb_connected = false
       $rootScope.logged = false;
-      localStorage.clear()
       $location.path('/');
       $scope.loading =false
       $scope.showFacebook = true
-      clearInterval(watchPosition);
   }
 
 })

@@ -6,11 +6,6 @@ angular.module('App')
   Facebook.init()
   $rootScope.showNav = false;
 
-  // Warming up the GPS as early as possible
-  Geolocation.getCurrentPosition(function (position) {
-          Geolocation.onPosition(position)
-        }, function(error) {}, {timeout: 10000})
-
   //Check if user data already in localStorage
 
   var user = JSON.parse(localStorage.getItem('user'));
@@ -25,7 +20,8 @@ angular.module('App')
       // Success
       function(response) {
         $rootScope.me = response;
-        $rootScope.user = user
+        $rootScope.user = user;
+        $rootScope.$broadcast('gotMe', {user:user});
         Push.init()
         $location.path('/nearby');
       },
@@ -73,7 +69,7 @@ angular.module('App')
       localStorage.setItem('user', JSON.stringify(args.response));
 
       User.me(args.response.token, function(response) {
-        $rootScope.user = response;
+        $rootScope.$broadcast('gotMe', {user:response});
       })
 
       Push.init()

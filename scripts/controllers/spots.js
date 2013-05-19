@@ -3,40 +3,49 @@ angular.module('App')
 
     // Init
 
-    localStorage.removeItem('lastPosition')
-    $scope.loading = true
     $rootScope.showNav = true
     $scope.location = $location
+      
+    var watchPosition = setInterval(function() {getPosition()}, Settings.geoloc_timeout)
 
-    // Geolocation
+    var nearby = JSON.parse(localStorage.getItem('nearbySpots'))
+    if (nearby != undefined) {
+        $scope.spots = nearby //Spots already there
+    }
+    else {
+        localStorage.removeItem('lastPosition') // Force position update
+        $scope.loading = true
+    }
+
+    $rootScope.$on("positionUpdated", function (event, args) {
+        getNearbySpots(args.position)
+    });
+
+    $scope.$on('$destroy', function () {
+        clearInterval(watchPosition);
+    });
+
+    // Functions
 
     function getPosition() {
         Geolocation.getCurrentPosition(function (position) {
             Geolocation.onPosition(position)
         }, function(error) {
             navigator.notification.alert('Could not get your location. Check you\'ve got GPS enabled and we\'ll try again!', null, 'Oops...')
-        }, {timeout: 10000}
+        }, {timeout: Settings.geoloc_timeout}
         )
     }
-      
-    var watchPosition = setInterval(getPosition(), 10000)
-      
-    $scope.$on('$destroy', function () {
-        clearInterval(watchPosition);
-    });
 
-    $rootScope.$on("positionUpdated", function (event, args) {
-        $scope.position = args.position
-        getNearbySpots(args.position)
-    });
+    function getNearbySpots(position) {
 
-    // Functions
+        Spots.nearby(position.latitude, position.longitude, Settings.coeff, Settings.radius, function(response) {
+            $scope.loading = false
+            $scope.spots = response
+            localStorage.setItem('nearbySpots', JSON.stringify(response))
+            
+            checkNearest(response[0])
 
-    function wannaCheckin(index) {
-        if(index == 1) {
-            $location.path('/checkin')
-            $scope.$apply()
-        }
+        })
     }
 
     function checkNearest(spot) {
@@ -52,16 +61,14 @@ angular.module('App')
         }
     }
 
-    function getNearbySpots(position) {
-
-        Spots.nearby($rootScope.user.token, position.latitude, position.longitude, Settings.coeff, Settings.radius, function(response) {
-            $scope.loading = false
-            $scope.spots = response
-
-            checkNearest(response[0])
-
-        })
+    function wannaCheckin(index) {
+        if(index == 1) {
+            $location.path('/checkin')
+            $scope.$apply()
+        }
     }
+
+    
 })
 
 .controller('Spots.show', function(Spots, $routeParams, $scope) {
