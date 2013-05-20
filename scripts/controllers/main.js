@@ -6,32 +6,14 @@ angular.module('App')
   Facebook.init()
   $rootScope.showNav = false;
 
-  //Check if user data already in localStorage
-
-  var user = JSON.parse(localStorage.getItem('user'));
-
-  if(user == undefined) {
-      $rootScope.logged = false;
-      $scope.loading =false
-      $scope.showFacebook = true
+  //Check if user previously authenticated
+  if(User.is_logged()) {
+     User.me() 
+     Push.init()
   }
   else {
-    User.me(user.token, 
-      // Success
-      function(response) {
-        $rootScope.me = response;
-        $rootScope.user = user;
-        $rootScope.$broadcast('gotMe', {user:user});
-        Push.init()
-        $location.path('/nearby');
-      },
-      // Failure
-      function(response) {
-          console.log(response.error)
-          $rootScope.logged = false;
-          $scope.loading =false
-          $scope.showFacebook = true
-      })
+    $scope.loading =false
+    $scope.showFacebook = true
   }
 
   // Event listeners
@@ -48,7 +30,6 @@ angular.module('App')
       }),
       function(response) {
         console.log(response)
-        $rootScope.logged = false;
         $scope.loading =false
         $scope.showFacebook = true
       }
@@ -58,26 +39,26 @@ angular.module('App')
 
   $rootScope.$on("fb_login_failed", function (event, args) {
     console.log(args.response)
-    $rootScope.logged = false;
     $scope.loading =false
     $scope.showFacebook = true
   });
 
   $rootScope.$on("rs_connected", function (event, args) {
-
-      $rootScope.user = args.response
-      localStorage.setItem('user', JSON.stringify(args.response));
-
-      User.me(args.response.token, function(response) {
-        $rootScope.$broadcast('gotMe', {user:response});
-      })
-
+      User.me()
       Push.init()
-
-      $location.path('/nearby');
-      $rootScope.logged = true;
-      $scope.loading = false
   });
+
+  $rootScope.$on('gotMe', function(event, args) {
+    $scope.loading = false
+    $location.path('/nearby');
+  });
+        
+
+  $rootScope.$on("rs_login_failed", function(event, args) {
+    console.log(args.response.error)
+    $scope.loading =false
+    $scope.showFacebook = true
+  })
 
   $rootScope.$on("pushRegistered", function (event, args) {
 

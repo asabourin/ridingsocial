@@ -1,12 +1,12 @@
 angular.module('App')
-  .controller('Spots.nearby', function(Geolocation, Spots, Checkins, $scope, $rootScope, $location) {
+  .controller('Spots.nearby', function(User, Geolocation, Spots, Checkins, $scope, $rootScope, $location, $timeout) {
 
     // Init
 
     $rootScope.showNav = true
     $scope.location = $location
       
-    var watchPosition = setInterval(function() {getPosition()}, Settings.geoloc_timeout)
+    var watchPosition = $timeout(function() {getPosition()}, Settings.geoloc_timeout)
 
     var nearby = JSON.parse(localStorage.getItem('nearbySpots'))
     if (nearby != undefined) {
@@ -21,15 +21,11 @@ angular.module('App')
         getNearbySpots(args.position)
     });
 
-    $scope.$on('$destroy', function () {
-        clearInterval(watchPosition);
-    });
-
     // Functions
 
     function getPosition() {
         Geolocation.getCurrentPosition(function (position) {
-            Geolocation.onPosition(position)
+            if(User.is_logged()) {Geolocation.onPosition(position)}
         }, function(error) {
             navigator.notification.alert('Could not get your location. Check you\'ve got GPS enabled and we\'ll try again!', null, 'Oops...')
         }, {timeout: Settings.geoloc_timeout}
@@ -53,7 +49,7 @@ angular.module('App')
 
             var previousNearestSpot = JSON.parse(localStorage.getItem('nearestSpot'))
 
-            if((previousNearestSpot == undefined || previousNearestSpot.id != spot['id']) && $rootScope.logged) {
+            if((previousNearestSpot == undefined || previousNearestSpot.id != spot['id'])) {
                 localStorage.setItem('nearestSpot', JSON.stringify(spot))
                 navigator.notification.vibrate(300);
                 navigator.notification.confirm("Wanna check-in?", wannaCheckin, "You're at "+spot.name+"!", "Yeah!,Not now");
