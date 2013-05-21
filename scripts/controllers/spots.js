@@ -1,5 +1,5 @@
 angular.module('App')
-  .controller('Spots.nearby', function(User, Geolocation, Spots, Checkins, CordovaReady, $scope, $rootScope) {
+  .controller('Spots.nearby', function(User, Geolocation, Spots, Checkins, CordovaReady, $scope, $rootScope, $location) {
 
     // Init
 
@@ -7,54 +7,41 @@ angular.module('App')
 
     CordovaReady(Geolocation.watchPosition())
 
-    var nearby = JSON.parse(localStorage.getItem('nearbySpots'))
+    var nearby = Spots.getNearby()
     if (nearby != undefined) {
-        $scope.spots = nearby //Spots already there
+        $scope.spots = nearby
     }
     else {
-        localStorage.removeItem('lastPosition') // Force position update
+        Geolocation.resetPosition()
         $scope.loading = true
     }
+
+    // Events
+
+    $rootScope.$on("positionUpdated", function (event, args) {
+        Spots.refreshNearby(args.position)
+    });
+
+    $rootScope.$on("nearbyUpdated", function (event, args) {
+        $scope.loading = false
+        $scope.spots = args.nearby
+        Spots.checkNearest()
+    });
+
+    $rootScope.$on("newNearest", function(event, args) {
+        navigator.notification.vibrate(300);
+        navigator.notification.confirm("Wanna check-in?", wannaCheckin, "You're at "+args.spot.name+"!", "Yeah!,Not now");
+    })
 
     $scope.$on('$destroy', function () {
         Geolocation.stopWatching()
     });
 
-    $rootScope.$on("positionUpdated", function (event, args) {
-        getNearbySpots(args.position)
-    });
-
     // Functions
-
-    function getNearbySpots(position) {
-
-        Spots.nearby(position.latitude, position.longitude, Settings.coeff, Settings.radius, function(response) {
-            $scope.loading = false
-            $scope.spots = response
-            localStorage.setItem('nearbySpots', JSON.stringify(response))
-            
-            checkNearest(response[0])
-
-        })
-    }
-
-    function checkNearest(spot) {
-        if(spot['distance'] <= Settings.checkin_distance) {
-
-            var previousNearestSpot = JSON.parse(localStorage.getItem('nearestSpot'))
-
-            if((previousNearestSpot == undefined || previousNearestSpot.id != spot['id'])) {
-                localStorage.setItem('nearestSpot', JSON.stringify(spot))
-                navigator.notification.vibrate(300);
-                navigator.notification.confirm("Wanna check-in?", wannaCheckin, "You're at "+spot.name+"!", "Yeah!,Not now");
-            }
-        }
-    }
 
     function wannaCheckin(index) {
         if(index == 1) {
             $location.path('/checkin')
-            $scope.$apply()
         }
     }
 

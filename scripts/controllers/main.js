@@ -3,11 +3,11 @@ angular.module('App')
 .controller('MainController', function(Geolocation, CordovaReady, Push, Facebook, User, $scope, $rootScope, $location) {
 
   // Init
-  Facebook.init()
   
+  Facebook.init()
+
   $rootScope.showNav = false;
 
-  //Check if user previously authenticated
   if(User.is_logged()) {
      User.me() 
      Push.init()
@@ -17,7 +17,7 @@ angular.module('App')
     $scope.showFacebook = true
   }
 
-  // Event listeners
+  // Events
 
   $rootScope.$on("fb_connected", function (event, args) {
     

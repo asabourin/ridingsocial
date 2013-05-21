@@ -33,6 +33,10 @@ angular.module('Services').factory('Geolocation', function ($rootScope, $timeout
 
   }
 
+  var resetPosition = function() {
+    currentPosition = undefined
+  }
+
   var stopWatching = function() {
     $timeout.cancel(watcher);
   }
@@ -42,7 +46,8 @@ angular.module('Services').factory('Geolocation', function ($rootScope, $timeout
   return {
 
     watchPosition: watchPosition,
-    stopWatching: stopWatching
+    stopWatching: stopWatching,
+    resetPosition: resetPosition
 
   }
 
