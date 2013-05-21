@@ -52,10 +52,17 @@ angular.module('App')
     $scope.loading = false
     $location.path('/nearby');
   });
-        
+
+  $rootScope.$on('gotMe_failed', function(event, args) {
+    console.log(args.response.error)
+    User.logout()
+    $scope.loading =false
+    $scope.showFacebook = true
+  });
 
   $rootScope.$on("rs_login_failed", function(event, args) {
     console.log(args.response.error)
+    User.logout()
     $scope.loading =false
     $scope.showFacebook = true
   })

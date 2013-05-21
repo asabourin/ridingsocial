@@ -1,6 +1,6 @@
 var Settings = {
 
-  host: 'http://freesab.local:3000/api/',
+  host: 'http://www.ridingsocial.net/api/',
   coeff: 0.01,
   radius: 15,
   checkin_distance: 12,

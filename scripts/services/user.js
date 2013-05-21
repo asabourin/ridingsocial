@@ -16,6 +16,8 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
         localStorage.setItem('user', JSON.stringify(user)) 
     }
 
+    //
+
     return {
         is_logged: function() {
             return token != undefined
@@ -54,7 +56,7 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
         logout: function() {
             token = null;
             id = null;
-            localStorage.removeItem('user')
+            localStorage.clear()
         }
 
     }
