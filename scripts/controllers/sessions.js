@@ -1,7 +1,9 @@
 angular.module('App')
-  .controller('Sessions.followed', function(Sessions, User, $scope, $rootScope) {
+  .controller('Sessions.followed', function(Sessions, User, $scope, $rootScope, $location) {
 
     // Init
+
+    $rootScope.showNav = true
 
     var followed = Sessions.getFollowed()
     if (followed != undefined) {

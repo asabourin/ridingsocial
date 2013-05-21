@@ -12,10 +12,11 @@ angular.module('App')
 })
 
 .directive('ngTouch', function () {
-
         return function ($scope, $element, $attrs) {
             $element.bind('touchstart', function () {
-                $scope.$apply($attrs['ngTouch']);
+                if(!$scope.$$phase) {
+                    $scope.$apply($attrs['ngTouch']);
+                }
             });
         };
     })

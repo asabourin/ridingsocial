@@ -12,8 +12,10 @@ angular.module('Services').factory('Geolocation', function ($rootScope, $timeout
         onPositionReceived(position)
         watcher = $timeout(watchPosition, Settings.geoloc_timeout)
       }, function(error) {
-        navigator.notification.alert('Could not get your location. Check you\'ve got GPS enabled and we\'ll try again!', null, 'Oops...')
-        watcher = $timeout(watchPosition, Settings.geoloc_timeout)
+        navigator.notification.alert(Lang.en.error_location, function() {
+          watcher = $timeout(watchPosition, Settings.geoloc_timeout)
+        } , Lang.en.error)
+        
       })
   }
 

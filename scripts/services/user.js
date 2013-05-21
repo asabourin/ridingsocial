@@ -16,14 +16,19 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
         localStorage.setItem('user', JSON.stringify(user)) 
     }
 
+    var isLogged = function() {
+        return token != undefined
+    }
+
     //
 
     return {
-        is_logged: function() {
-            return token != undefined
-        },
+        isLogged: isLogged,
         getToken: function() {
             return token
+        },
+        getUser: function() {
+            return {id: id, token:token, lastCheckinAt:lastCheckinAt}
         },
         picture: function() {
             return picture
@@ -48,7 +53,7 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
         },
         registerDevice:function (settings, successCallback, errorCallback) {
             
-            if(logged) {
+            if(isLogged) {
                 var payload = "platform="+settings.platform+"&device_token="+settings.token
                 $http.post(Settings.host+'register?token='+token, payload, {headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}}).success(successCallback).error(errorCallback);
             }

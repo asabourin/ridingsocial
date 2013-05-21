@@ -3,11 +3,12 @@
 angular.module('Services', []);
 
 angular.module('App', ['Services', 'ui.bootstrap'])
+
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/start.html',
-        controller: 'MainController'
+        controller: 'StartController'
       })
       .when('/nearby', {
         templateUrl: 'views/spots/nearby.html',
@@ -39,8 +40,10 @@ angular.module('App', ['Services', 'ui.bootstrap'])
       })
       .otherwise({
         redirectTo: '/'
-      });
+      })
   })
+
+
 
 // Hiding splashscreen after Cordova fires deviceready. Timeout needed because of white flash
 document.addEventListener('deviceready', function () {
