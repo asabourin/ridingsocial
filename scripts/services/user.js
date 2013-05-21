@@ -1,7 +1,7 @@
 angular.module('Services').factory('User', function ($rootScope, $http) {
 
     // Init
-    var id, token;
+    var id, token, lastCheckinAt;
     var persistedUser = JSON.parse(localStorage.getItem('user'));
 
     if(persistedUser != undefined) {
@@ -12,7 +12,7 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
     var picture;
 
     function persistUser() {
-        var user = {id: id, token:token}
+        var user = {id: id, token:token, lastCheckinAt:lastCheckinAt}
         localStorage.setItem('user', JSON.stringify(user)) 
     }
 
@@ -21,6 +21,9 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
     return {
         is_logged: function() {
             return token != undefined
+        },
+        getToken: function() {
+            return token
         },
         picture: function() {
             return picture
@@ -52,6 +55,9 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
             else {
                 errorCallback('No user token')
             }
+        },
+        setLastCheckinAt: function(time) {
+            lastCheckinAt = time
         },
         logout: function() {
             token = null;

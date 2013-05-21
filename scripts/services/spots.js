@@ -8,6 +8,10 @@ angular.module('Services').factory('Spots', function ($rootScope, $http) {
             return nearby;
         },
 
+        getNearest: function() {
+            return currentNearest
+        },
+
         refreshNearby:function (position) {
             $http.get(Settings.host+'spots/nearby?lat='+position.latitude+'&lng='+position.longitude+'&coeff='+Settings.coeff+'&max_dist='+Settings.radius).success(function(response){
                 nearby = response;
