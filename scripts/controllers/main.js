@@ -4,6 +4,7 @@ angular.module('App')
 
   // Init
   Facebook.init()
+  
   $rootScope.showNav = false;
 
   //Check if user previously authenticated
