@@ -1,9 +1,6 @@
-angular.module('Services').factory('Checkins', function ($rootScope, $http) {
-    return {
+angular.module('Services').factory('Checkin', function ($rootScope, $http) {
 
-        followed:function (token, successCallback) {
-            $http.get(Settings.host+'checkins/followed?token='+token).success(successCallback)
-        },
+    return {
 
         create:function(token, pictureURI, options, successCallback, errorCallback) {
             if(pictureURI != undefined) {
@@ -22,11 +19,8 @@ angular.module('Services').factory('Checkins', function ($rootScope, $http) {
                 }
                 $http.post(Settings.host+'checkins/create?token='+token,  payload, {headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}, transformRequest: transform}).success(successCallback).error(errorCallback)
             }
-        },
-        show: function(id, successCallback, errorCallback) {
-            $http.get(Settings.host+'/checkins/'+id).success(successCallback).error(errorCallback);
         }
-    };
+    }
 
     var transform = function(data){
         return $.param(data);

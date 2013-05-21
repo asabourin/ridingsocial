@@ -4,9 +4,9 @@
  
 
   <ul class="sessions">
-    <li class="session" ng-repeat="checkin in checkins" >
-      <img ng-src="images/flags/{{checkin.color}}_80.png" class="flag" />
-      <h4 class="name">{{checkin.spot}}</h4>
-      <p class="details" ><a ng-href="#/riders/{{checkin.author.id}}">{{checkin.author.name}}</a> {{checkin.others.length}} others</p>
+    <li class="session" ng-repeat="session in sessions" >
+      <img ng-src="images/flags/{{session.color}}_80.png" class="flag" />
+      <h4 class="name">{{session.spot}}</h4>
+      <p class="details" ><a ng-href="#/riders/{{checkin.author.id}}">{{session.author.name}}</a> {{session.others.length}} others</p>
     </li>
   </ul>

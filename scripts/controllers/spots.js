@@ -1,5 +1,5 @@
 angular.module('App')
-  .controller('Spots.nearby', function(User, Geolocation, Spots, Checkins, CordovaReady, $scope, $rootScope, $location) {
+  .controller('Spots.nearby', function(User, Geolocation, Spots, CordovaReady, $scope, $rootScope, $location) {
 
     // Init
 

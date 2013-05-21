@@ -1,6 +1,6 @@
 angular.module('App')
 
-.controller('Checkin', function($rootScope, $scope, $location, User, Riders, Checkins, Spots) {
+.controller('Checkin', function($rootScope, $scope, $location, User, Riders, Checkin, Spots) {
 
   // Init
 

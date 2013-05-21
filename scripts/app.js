@@ -33,9 +33,9 @@ angular.module('App', ['Services', 'ui.bootstrap'])
         templateUrl: 'views/spot.html',
         controller: 'Spots.show'
       })
-      .when('/checkins/:id', {
-        templateUrl: 'views/checkin.html',
-        controller: 'CheckinsController'
+      .when('/sessions/:id', {
+        templateUrl: 'views/session.html',
+        controller: 'SessionsController'
       })
       .otherwise({
         redirectTo: '/'

@@ -1,22 +1,22 @@
 angular.module('App')
-  .controller('Sessions.followed', function(Checkins, $scope, $rootScope) {
+  .controller('Sessions.followed', function(Sessions, User, $scope, $rootScope) {
 
-    var user = JSON.parse(localStorage.getItem('user'))
+    // Init
 
-    var checkins = JSON.parse(localStorage.getItem('lastFollowedCheckins'))
-    if (checkins != undefined) {
-        $scope.checkins = checkins //Checkins already there
+    var followed = Sessions.getFollowed()
+    if (followed != undefined) {
+        $scope.sessions = followed
     }
     else {
         $scope.loading = true
-        Checkins.followed(user.token, function(response) {
-          $scope.loading = false
-          $scope.checkins = response
-          localStorage.setItem('lastFollowedCheckins', JSON.stringify(response))
-      })
+        Sessions.refreshFollowed(User.getToken())
     }
 
-    
+    // Events
 
+    $rootScope.$on("sessionsUpdated", function (event, args) {
+        $scope.loading = false
+        $scope.sessions = args.sessions
+    });
 
 })
