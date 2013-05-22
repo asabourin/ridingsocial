@@ -12,20 +12,12 @@
   </head>
   <body ng-app="App">
 
-    <div ng-controller="MainController" ng-show="showNav" class="navbar navbar-fixed-top">
-        <div ng-include="'views/shared/header.html'" class="navbar-inner"></div>
-    </div>
-
     <!-- Add your site or application content here -->
     <div id="ng-view" ng-view></div>
 
-    <div ng-controller="NavController" ng-show="showNav" class="navbar navbar-fixed-bottom"> 
-        <div ng-include="'views/shared/nav.html'" class="navbar-inner"></div>
-    </div>
-
     <script src="phonegap.js"></script>
 
-    <script src="components/angular-1.0.6.min.js"></script>
+    <script src="components/angular-1.1.4.min.js"></script>
 
     <script src="components/ui-bootstrap-tpls-0.3.0.js"></script>
     <script src="components/underscore-min.js"></script>
@@ -42,7 +34,6 @@
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/start.js"></script>
     <script src="scripts/controllers/nav.js"></script>
-    <script src="scripts/controllers/spots.js"></script>
     <script src="scripts/controllers/sessions.js"></script>
     <script src="scripts/controllers/checkin.js"></script>
     <script src="scripts/controllers/riders.js"></script>
