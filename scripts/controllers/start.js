@@ -39,7 +39,7 @@ angular.module('App')
   });
 
   $rootScope.$on("rs_login_failed", function(event, args) {
-    console.log(args.response.error)
+    console.log(args.response)
     User.logout()
     $scope.loading =false
     $scope.showFacebook = true
