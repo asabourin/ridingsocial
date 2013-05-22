@@ -60,7 +60,7 @@ angular.module('App')
     var options = new FileUploadOptions();
     options.params = checkin;
 
-    Checkins.create(User.getToken(), $scope.picture_src, options, checkinSuccessful, function(result){
+    Checkin.create(User.getToken(), $scope.picture_src, options, checkinSuccessful, function(result){
       navigator.notification.alert(JSON.stringify(result), errorCheckin, Lang.en.checkin_error)
     })
 
