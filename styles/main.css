@@ -266,3 +266,65 @@ button.rating, button.activity {
   margin: 0;
   float: left;
 }
+
+/* Animations */
+
+#ng-view {
+  -webkit-transform: translateZ(0);
+}
+
+.custom-enter-setup,
+.custom-leave-setup,
+.custom-move-setup {
+  -webkit-transition: 1s linear all;
+  -moz-transition: 1s linear all;
+  -o-transition: 1s linear all;
+  transition: 1s linear all;
+  position:relative;
+}
+
+.custom-enter-setup {
+  left:-10px;
+  opacity:0;
+}
+.custom-enter-setup.custom-enter-start {
+  left:0;
+  opacity:1;
+}
+
+.custom-leave-setup {
+  left:0;
+  opacity:1;
+}
+.custom-leave-setup.custom-leave-start {
+  left:-10px;
+  opacity:0;
+}
+
+.custom-move-setup {
+  opacity:0.5;
+}
+.custom-move-setup.custom-move-start {
+  opacity:1;
+}
+
+.fade-hide-setup, .fade-show-setup{
+  -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+  -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+  -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+}
+
+.fade-hide-setup,{
+  opacity:1;
+}
+.fade-hide-setup.fade-hide-start,{
+  opacity:0;
+}
+
+.fade-show-setup,{
+  opacity:0;
+}
+.fade-show-setup.fade-show-start,{
+  opacity:1;
+}

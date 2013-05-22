@@ -1,45 +1,67 @@
 angular.module('App')
+  .controller('MainController', function(User, Geolocation, Spots, Sessions, CordovaReady, $scope, $rootScope, $location, $browser) {
 
-.controller('MainController', function(Push, Facebook, User, $scope, $rootScope, $location) {
+    // Events
 
-  // Init
+    $rootScope.$on("positionUpdated", function (event, args) {
+        Spots.refreshNearby(args.position)
+    });
 
-  // Events
+    $rootScope.$on("nearbyUpdated", function (event, args) {
+        $scope.spots = args.nearby
+        $scope.loading = false
+        Spots.checkNearest()
+    });
 
-  $rootScope.$on("rs_connected", function (event, args) {
-      User.me()
-      Push.init()
-  });
+    $rootScope.$on("newNearest", function(event, args) {
+        navigator.notification.vibrate(300);
+        navigator.notification.confirm("Wanna check-in?", wannaCheckin, "You're at "+args.spot.name+"!", ["Yeah!","Not now"]);
+    })
 
-  $rootScope.$on('gotMe', function(event, args) {
+    $rootScope.$on("sessionsUpdated", function (event, args) {
+        $scope.loading = false
+        $scope.sessions = args.sessions
+    });
+
+    $scope.$on('$destroy', function () {
+        Geolocation.stopWatching()
+    });
+
+    // Init
+
+    $scope.loading = true
     $scope.picture = User.picture()
-    $location.path('/nearby')
+    $rootScope.activeTab = 'nearby'
 
-  });
+    CordovaReady(Geolocation.watchPosition())
 
-  $rootScope.$on('gotMe_failed', function(event, args) {
-    console.log(args.response.error)
-    logout()
-  });
+    var nearby = Spots.getNearby()
+    if (nearby != undefined) {
+        $scope.spots = nearby
+        $scope.loading = false
+    }
 
-  $rootScope.$on("pushRegistered", function (event, args) {
+    var followed = Sessions.getFollowed()
+    if (followed != undefined) {
+        $scope.sessions = followed
+    }
+    else {
+        Sessions.refreshFollowed(User.getToken())
+    }
 
-    User.registerDevice(args.settings, function(response){
-      localStorage.setItem('pushSettings', JSON.stringify(args.settings))
-    }, 
-      function(response) {
-        console.log("Could not save Push Notification settings on backend: "+response, null, Lang.en.error)
-      })
-  })
+    $scope.logout = function() {logout()}
 
-  // Button functions
+    // Functions
 
-  $scope.logout = function() {logout()}
+    function wannaCheckin(index) {
+        if(index == 1) {
+            $location.path('/checkin')
+        }
+    }
 
-  function logout() {
-    User.logout()
-    $location.path('/')
-  }
+    function logout() {
+        User.logout(function() {$location.path('/')})
+    }
 
-
+    
 })

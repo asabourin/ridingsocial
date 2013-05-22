@@ -5,14 +5,7 @@ angular.module('App')
 
     $rootScope.showNav = true
 
-    var followed = Sessions.getFollowed()
-    if (followed != undefined) {
-        $scope.sessions = followed
-    }
-    else {
-        $scope.loading = true
-        Sessions.refreshFollowed(User.getToken())
-    }
+    
 
     // Events
 

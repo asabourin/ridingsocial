@@ -10,17 +10,9 @@ angular.module('App', ['Services', 'ui.bootstrap'])
         templateUrl: 'views/start.html',
         controller: 'StartController'
       })
-      .when('/nearby', {
-        templateUrl: 'views/spots/nearby.html',
-        controller: 'Spots.nearby'
-      })
-      .when('/map', {
-        templateUrl: 'views/spots/map.html',
-        controller: 'Spots.map'
-      })
-      .when('/sessions', {
-        templateUrl: 'views/sessions.html',
-        controller: 'Sessions.followed'
+      .when('/main', {
+        templateUrl: 'views/main.html',
+        controller: 'MainController'
       })
       .when('/checkin', {
         templateUrl: 'views/checkins/new.html',

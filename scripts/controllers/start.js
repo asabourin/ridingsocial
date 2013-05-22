@@ -2,27 +2,12 @@ angular.module('App')
 
 .controller('StartController', function(Push, Facebook, User, $scope, $rootScope, $location) {
 
-
-  // Init
-
-  $rootScope.showNav = false;
-
-
-  if(User.isLogged()) {
-     $rootScope.$broadcast('rs_connected', {response:User.getUser()});
-  }
-  else{
-    Facebook.init()
-    $scope.loading =false
-    $scope.showFacebook = true
-  }
-
   // Events
 
-  $rootScope.$on("fb_connected", function (event, args) {
+  $scope.$on("fb_connected", function (event, args) {
 
     User.login(args.response.authResponse.accessToken, function(response) {
-      $rootScope.$broadcast('rs_connected', {response:response});
+      $scope.$broadcast('rs_connected', {response:response});
     }),
     function(response) {
       console.log(response)
@@ -32,18 +17,57 @@ angular.module('App')
 
   });
 
-  $rootScope.$on("fb_login_failed", function (event, args) {
+  $scope.$on("fb_login_failed", function (event, args) {
     console.log(args.response)
     $scope.loading =false
     $scope.showFacebook = true
   });
 
-  $rootScope.$on("rs_login_failed", function(event, args) {
+  $scope.$on("rs_login_failed", function(event, args) {
     console.log(args.response)
-    User.logout()
+    User.logout(null)
     $scope.loading =false
     $scope.showFacebook = true
   })
+
+  $scope.$on("rs_connected", function (event, args) {
+      console.log('rs_connected')
+      User.me()
+      Push.init()
+  });
+
+  $scope.$on('gotMe', function(event, args) {
+    $location.path('/main')
+  });
+
+  $scope.$on('gotMe_failed', function(event, args) {
+    console.log(args.response.error)
+    User.logout(null)
+    $scope.loading =false
+    $scope.showFacebook = true
+  });
+
+  $scope.$on("pushRegistered", function (event, args) {
+
+    User.registerDevice(args.settings, function(response){
+      
+    }, 
+      function(response) {
+        console.log("Could not save Push Notification settings on backend: "+response, null, Lang.en.error)
+      })
+  })
+
+  // Init
+
+  Facebook.init()
+
+  if(User.isLogged()) {
+     $scope.$broadcast('rs_connected', {response:User.getUser()});
+  }
+  else{
+    $scope.loading =false
+    $scope.showFacebook = true
+  }
   
   // Button functions
 

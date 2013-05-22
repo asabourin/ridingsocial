@@ -17,7 +17,7 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
     }
 
     var isLogged = function() {
-        return token != undefined
+        return (token != undefined && token != null)
     }
 
     //
@@ -34,14 +34,14 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
             return picture
         },
         login:function (accessToken) {
-            $http.get(Settings.host+'login?facebook_token='+accessToken).success(function(response) {
+            $rootScope.$apply($http.get(Settings.host+'login?facebook_token='+accessToken).success(function(response) {
                 id = response.id
                 token = response.token
                 persistUser()
                 $rootScope.$broadcast('rs_connected', {response:response})
             }).error(function(response){
                 $rootScope.$broadcast('rs_login_failed', {response:response})
-            })
+            }))
         },
         me:function () {
             $http.get(Settings.host+'me?token='+token).success(function(response){
@@ -64,10 +64,11 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
         setLastCheckinAt: function(time) {
             lastCheckinAt = time
         },
-        logout: function() {
+        logout: function(then) {
             token = null;
             id = null;
             localStorage.clear()
+            then()
         }
 
     }

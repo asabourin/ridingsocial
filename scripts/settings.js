@@ -5,7 +5,7 @@ var Settings = {
   radius: 15,
   checkin_distance: 12,
   android_gcm_senderID: "535845696743",
-  geoloc_timeout: 5000
+  geoloc_timeout: 2000
 }
 
 var Lang = {
