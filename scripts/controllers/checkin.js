@@ -1,6 +1,6 @@
 angular.module('App')
 
-.controller('Checkin', function($rootScope, $scope, $location, User, Riders, Checkin, Spots) {
+.controller('Checkin', function($rootScope, $scope, $location, $navigate, User, Riders, Checkin, Spots) {
 
   // Init
 
@@ -16,15 +16,11 @@ angular.module('App')
 
   Riders.followed(User.getToken(), function(response) {
       $scope.followed = response
-      $scope.loading = false
-      $scope.$broadcast('followedLoaded')
   })
 
   // Events
 
-  $scope.$on('followedLoaded', function() {
-    takePicture()
-  })
+  takePicture()
 
   // Scope functions
 
@@ -73,11 +69,13 @@ angular.module('App')
       function(imageURI) {
         $scope.picture_src = imageURI;
         $scope.$apply()
+        $scope.loading = false
       }, 
       function(message) {
           console.log(message)
+          $scope.loading = false
       },
-      { quality: 75, allow_edit:true, targetWidth: 1600, targetWidth: 1200, correctOrientation: true, destinationType: Camera.DestinationType.FILE_URI });
+      { quality: 100, allow_edit:true, targetWidth: 1600, targetWidth: 1200, correctOrientation: true, destinationType: Camera.DestinationType.FILE_URI });
   }
 
   function checkinSuccessful(response) {
@@ -87,7 +85,7 @@ angular.module('App')
   }
 
   function goToSpots() {
-    $location.path('/nearby')
+    $navigate.back()
     $scope.$apply()
   }
 

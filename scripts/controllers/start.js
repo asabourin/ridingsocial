@@ -1,6 +1,6 @@
 angular.module('App')
 
-.controller('StartController', function(Push, Facebook, User, $scope, $rootScope, $location) {
+.controller('StartController', function(Push, Facebook, User, $scope, $rootScope, $location, $navigate) {
 
   // Events
 
@@ -37,7 +37,7 @@ angular.module('App')
   });
 
   $scope.$on('gotMe', function(event, args) {
-    $location.path('/main')
+    $navigate.go('/main', 'modal')
   });
 
   $scope.$on('gotMe_failed', function(event, args) {

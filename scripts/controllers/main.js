@@ -1,5 +1,5 @@
 angular.module('App')
-  .controller('MainController', function(User, Geolocation, Spots, Sessions, CordovaReady, $scope, $rootScope, $location, $browser) {
+  .controller('MainController', function(User, Geolocation, Spots, Sessions, CordovaReady, $scope, $rootScope, $location, $navigate) {
 
     // Events
 
@@ -59,7 +59,7 @@ angular.module('App')
 
     function wannaCheckin(index) {
         if(index == 1) {
-            $location.path('/checkin')
+            $navigate.go('/checkin', 'modal')
         }
     }
 
