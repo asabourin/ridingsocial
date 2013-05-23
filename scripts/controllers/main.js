@@ -31,7 +31,7 @@ angular.module('App')
 
     $scope.loading = true
     $scope.picture = User.picture()
-    $rootScope.activeTab = 'nearby'
+    $scope.activeTab = 'nearby'
 
     CordovaReady(Geolocation.watchPosition())
 
@@ -49,9 +49,13 @@ angular.module('App')
         Sessions.refreshFollowed(User.getToken())
     }
 
-    $scope.logout = function() {logout()}
-
     // Functions
+
+    $scope.goToTab = function(tab) {
+        $scope.activeTab = tab;
+    }
+
+    $scope.logout = function() {logout()}
 
     function wannaCheckin(index) {
         if(index == 1) {
