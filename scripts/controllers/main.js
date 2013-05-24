@@ -15,7 +15,7 @@ angular.module('App')
 
     $rootScope.$on("newNearest", function(event, args) {
         navigator.notification.vibrate(300);
-        navigator.notification.confirm("Wanna check-in?", wannaCheckin, "You're at "+args.spot.name+"!", ["Yeah!","Not now"]);
+        navigator.notification.confirm("Wanna check-in?", wannaCheckin, 'You\'re at '+args.spot.name+'!',["Yeah!","Not now"]);
     })
 
     $rootScope.$on("sessionsUpdated", function (event, args) {
@@ -64,7 +64,7 @@ angular.module('App')
     }
 
     function logout() {
-        User.logout(function() {$location.path('/')})
+        User.logout(function() {$navigate.go('/', 'fade')})
     }
 
     

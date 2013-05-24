@@ -15,8 +15,7 @@ body {
     padding: 0;
     height: 100%;
     width: 100%;
-    background: #e6c195 url("../splash.png") no-repeat;
-    -webkit-background-size: 100%;
+    background-color: #ddd
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;    
@@ -59,10 +58,6 @@ ul.nav > li {
   height: 48px;
 }
 
-.nav>.active>a {
-  color: black;
-}
-
 .navbar-fixed-bottom .navbar-inner, .navbar-fixed-top .navbar-inner {
   padding: 0;
 }
@@ -95,7 +90,6 @@ h1 {
 .centered{
   text-align: center;
   height: 100%;
-  background-color: rgba(0,0,0,0.3);
 }
 
 .centered:before {
@@ -127,6 +121,12 @@ span.loader
 }
 
 /* Start */
+
+#start {
+  background: #e6c195 url("../splash.png") no-repeat;
+  -webkit-background-size: 100%;
+  height: 100%;
+}
 
 div#logo {
     position:absolute; 
@@ -165,6 +165,10 @@ img.me {
 
 
 /* Spots n Sessions */
+
+#nearby, #sessions {
+  -webkit-backface-visibility: none;
+}
 
 ul.nearby, ul.sessions {
   padding: 41px 0;
@@ -216,6 +220,7 @@ p.details {
 #checkin h4 {
   overflow: hidden;
   text-overflow: ellipsis;
+  color: white;
 }
 
 #checkin ul.selected-riders {
@@ -269,29 +274,72 @@ button.rating, button.activity {
 
 /* Animations */
 
-#ng-view {
-  -webkit-transform: translateZ(0);
-}
-
 .wave-enter-setup, .wave-leave-setup {
-  -webkit-transition:all 0.3s ease-in-out; 
-  transition: all 0.3s ease-in-out; 
+   -webkit-transition:all linear 0.5s;
+  transition:all linear 0.5s;
 }
 
-.wave-enter-setup {
+.left.wave-enter-setup {
   position:absolute;
-  left:100%;
-}
-
-.wave-enter-start {
-  left:0;
-}
-
-.wave-leave-setup {
-  position:absolute;
-  left:0;
-}
-
-.wave-leave-start {
   left:-100%;
+
+}
+
+.left.wave-enter-start {
+  left:0;
+}
+
+.left.wave-leave-setup {
+  position:absolute;
+  left:0;
+}
+
+.left.wave-leave-start {
+  left:-100%;
+}
+
+.right.wave-enter-setup {
+  position:absolute;
+  right:-100%;
+  width: 100%;
+}
+
+.right.wave-enter-start {
+  right:0;
+}
+
+.right.wave-leave-setup {
+  position:absolute;
+  right:0;
+
+}
+
+.right.wave-leave-start {
+  right:-100%;
+}
+
+
+/*
+ * Fade!
+ */
+@-webkit-keyframes fadeUp {
+  0% { opacity: 0 }
+  100% { opacity: 1 }
+}
+@-webkit-keyframes fadeDown {
+  0% { opacity: 1 }
+  100% { opacity: 0 }
+}
+.mb-fade {
+  z-index: 10;
+  -webkit-animation-duration: 0.4s;
+}
+.mb-fade.mb-in,
+.mb-fade.mb-out.mb-reverse {
+  -webkit-animation-name: fadeUp;
+}
+.mb-fade.mb-in.mb-reverse,
+.mb-fade.mb-out {
+  z-index: 9; /* Lower than fade-in */
+  -webkit-animation-name: fadeDown;
 }

@@ -10,17 +10,21 @@ angular.module('App')
   $scope.checkin = new Object();
   $scope.selectedRiders = new Array();
 
-  $scope.location = $location
+  $scope.navigate = $navigate
 
   $scope.spot = Spots.getNearest()
 
   Riders.followed(User.getToken(), function(response) {
       $scope.followed = response
+      $scope.$broadcast('gotFollowed')
+      
   })
 
-  // Events
+  //
 
-  takePicture()
+  $scope.$on('gotFollowed', function(event, args) {
+    takePicture()
+  })
 
   // Scope functions
 
@@ -68,7 +72,6 @@ angular.module('App')
     navigator.camera.getPicture(
       function(imageURI) {
         $scope.picture_src = imageURI;
-        $scope.$apply()
         $scope.loading = false
       }, 
       function(message) {
@@ -82,15 +85,6 @@ angular.module('App')
     User.setLastCheckinAt(Date.now())
     navigator.notification.alert(response.message, goToSpots, Lang.en.checkin_successful)
     
-  }
-
-  function goToSpots() {
-    $navigate.back()
-    $scope.$apply()
-  }
-
-  function errorCheckin() {
-
   }
 
   

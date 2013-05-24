@@ -1,15 +1,15 @@
-<div class="navbar navbar-fixed-top">
+<div class="navbar navbar-inverse navbar-fixed-top">
     <div ng-include="'views/shared/header.html'" class="navbar-inner"></div>
 </div>
 
 <div ng-show="loading" class="centered"><span class="loader"></span></div>
 
+<div ng-switch on="activeTab" ng-animate="'wave'">
 
-
-    <div id="nearby" ng-show="activeTab=='nearby'">
+    <div id="nearby" class="left" ng-switch-when="nearby" >
 
         <ul class="nearby">
-          <li class="spot" ng-repeat="spot in spots" ng-animate="'wave'">
+          <li class="spot" ng-repeat="spot in spots" >
             <span class="badge badge-info pull-right">{{spot.distance}}km</span>
             <img ng-src="images/flags/{{spot.color}}_80.png" class="flag" />
             <h4 class="name">{{spot.name}}</h4>
@@ -19,10 +19,10 @@
 
     </div>
 
-    <div id="sessions" ng-show="activeTab=='sessions'">
+    <div id="sessions" class="right" ng-switch-when="sessions"  >
 
       <ul class="sessions">
-        <li class="session" ng-repeat="session in sessions" ng-animate="'wave'">
+        <li class="session" ng-repeat="session in sessions">
           <img ng-src="images/flags/{{session.color}}_80.png" class="flag" />
           <h4 class="name">{{session.spot}}</h4>
           <p class="details" ><a ng-href="#/riders/{{checkin.author.id}}">{{session.author.name}}</a> {{session.others.length}} others</p>
@@ -31,7 +31,7 @@
 
     </div>
 
-
+</div>
 
 <div class="navbar navbar-inverse navbar-fixed-bottom"> 
     <div ng-include="'views/shared/nav.html'" class="navbar-inner"></div>

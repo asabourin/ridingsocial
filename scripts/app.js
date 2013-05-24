@@ -2,7 +2,7 @@
 
 angular.module('Services', []);
 
-angular.module('App', ['Services', 'ui.bootstrap', 'ajoslin.mobile-navigate'])
+angular.module('App', ['Services', 'ui.bootstrap', 'ajoslin.mobile-navigate', 'hmTouchevents'])
 
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider
@@ -15,7 +15,7 @@ angular.module('App', ['Services', 'ui.bootstrap', 'ajoslin.mobile-navigate'])
         controller: 'MainController'
       })
       .when('/checkin', {
-        templateUrl: 'views/checkins/new.html',
+        templateUrl: 'views/checkin.html',
         controller: 'Checkin'
       })
       .when('/riders/:id', {

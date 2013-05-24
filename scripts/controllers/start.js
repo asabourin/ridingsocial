@@ -37,7 +37,7 @@ angular.module('App')
   });
 
   $scope.$on('gotMe', function(event, args) {
-    $navigate.go('/main', 'modal')
+    $navigate.go('/main', 'fade')
   });
 
   $scope.$on('gotMe_failed', function(event, args) {
