@@ -2,13 +2,15 @@
     <div ng-include="'views/shared/header.html'" class="navbar-inner"></div>
 </div>
 
+
 <div ng-show="loading" class="centered"><span class="loader"></span></div>
 
-<div ng-switch on="activeTab" ng-animate="'wave'">
+<div id="main" ng-switch="activeTab" ng-animate="'wave'">
 
     <div id="nearby" class="left" ng-switch-when="nearby" >
 
         <ul class="nearby">
+
           <li class="spot" ng-repeat="spot in spots" >
             <span class="badge badge-info pull-right">{{spot.distance}}km</span>
             <img ng-src="images/flags/{{spot.color}}_80.png" class="flag" />
@@ -25,6 +27,7 @@
         <li class="session" ng-repeat="session in sessions">
           <img ng-src="images/flags/{{session.color}}_80.png" class="flag" />
           <h4 class="name">{{session.spot}}</h4>
+          <img ng-src="{{session.photo}}" class="session-photo" />
           <p class="details" ><a ng-href="#/riders/{{checkin.author.id}}">{{session.author.name}}</a> {{session.others.length}} others</p>
         </li>
       </ul>
