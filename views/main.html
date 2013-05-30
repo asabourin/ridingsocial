@@ -28,7 +28,16 @@
           <img ng-src="images/flags/{{session.color}}_80.png" class="flag" />
           <h4 class="name">{{session.spot}}</h4>
           <img ng-src="{{session.photo}}" class="session-photo" />
-          <p class="details" ><a ng-href="#/riders/{{checkin.author.id}}">{{session.author.name}}</a> {{session.others.length}} others</p>
+          <p class="details" >
+            <a ng-href="#/riders/{{checkin.author.id}}">
+              <img ng-src="{{session.author.picture}}" class="rider-small" /></a> 
+              <b>{{session.author.name}}</b>
+              <br>
+              {{session.action}}
+              <span ng-show="session.others">with {{session.others.length}} others</span>
+              <br>
+              <span class="time">{{session.created_at | date:'MMM d, y h:mm a'}}</span>
+          </p>
         </li>
       </ul>
 
