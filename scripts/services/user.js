@@ -64,11 +64,10 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
         setLastCheckinAt: function(time) {
             lastCheckinAt = time
         },
-        logout: function(then) {
+        logout: function() {
             token = null;
             id = null;
             localStorage.clear()
-            then()
         }
 
     }

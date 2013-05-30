@@ -32,6 +32,7 @@ angular.module('App')
     $scope.loading = true
     $scope.picture = User.picture()
     $scope.activeTab = 'nearby'
+    $scope.navigate = $navigate
 
     CordovaReady(Geolocation.watchPosition())
 
@@ -59,12 +60,13 @@ angular.module('App')
 
     function wannaCheckin(index) {
         if(index == 1) {
-            $navigate.go('/checkin', 'modal')
+            $location.path('/checkin')
         }
     }
 
     function logout() {
-        User.logout(function() {$navigate.go('/', 'fade')})
+        User.logout()
+        $location.path('/')
     }
 
     

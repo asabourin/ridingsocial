@@ -1,11 +1,8 @@
 angular.module('App')
 
-.controller('Checkin', function($rootScope, $scope, $location, $navigate, User, Riders, Checkin, Spots) {
+.controller('Checkin', function($rootScope, $scope, $timeout, $navigate, User, Riders, Checkin, Spots) {
 
   // Init
-
-  $rootScope.showNav = false
-  $scope.loading = true
 
   $scope.checkin = new Object();
   $scope.selectedRiders = new Array();
@@ -16,14 +13,10 @@ angular.module('App')
 
   Riders.followed(User.getToken(), function(response) {
       $scope.followed = response
-      $scope.$broadcast('gotFollowed')
-      
   })
 
-  //
-
-  $scope.$on('gotFollowed', function(event, args) {
-    takePicture()
+  $rootScope.$on('$pageTransitionSuccess', function(event, args) {
+    $timeout(takePicture(), 1500)
   })
 
   // Scope functions
@@ -73,6 +66,7 @@ angular.module('App')
       function(imageURI) {
         $scope.picture_src = imageURI;
         $scope.loading = false
+        $scope.$apply()
       }, 
       function(message) {
           console.log(message)
