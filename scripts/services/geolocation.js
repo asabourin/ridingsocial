@@ -20,7 +20,7 @@ angular.module('Services').factory('Geolocation', function ($rootScope, $timeout
   }
 
   function getCurrentPosition(onSuccess, onError) {
-      navigator.geolocation.getCurrentPosition(onSuccess, onError, {timeout: Settings.geoloc_timeout});
+      navigator.geolocation.getCurrentPosition(onSuccess, onError, {maximumAge: Settings.geoloc_timeout, timeout: Settings.geoloc_timeout, enableHighAccuracy: true});
   }
 
   function onPositionReceived(position) {
