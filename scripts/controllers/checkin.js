@@ -15,9 +15,7 @@ angular.module('App')
       $scope.followed = response
   })
 
-  $rootScope.$on('$pageTransitionSuccess', function(event, args) {
-    $timeout(takePicture(), 1500)
-  })
+  takePicture()
 
   // Scope functions
 

@@ -56,12 +56,18 @@ angular.module('App')
         $scope.activeTab = tab;
     }
 
-    $scope.logout = function() {logout()}
-
     function wannaCheckin(index) {
         if(index == 1) {
-            $location.path('/checkin')
+            $scope.loading = true
+            $navigate.go('/checkin', 'modal')
         }
+    }
+
+    // Debug
+
+    $scope.logout = function() {logout()}
+    $scope.checkin = function() {
+      $navigate.go('/checkin', 'modal')
     }
 
     function logout() {
