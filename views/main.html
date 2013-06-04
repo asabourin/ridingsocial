@@ -4,7 +4,7 @@
 
 <div ng-show="loading" class="dim"><div class="centered"><span class="loader"></span></div></div>
 
-<div id="main" ng-switch="activeTab" ng-animate="'wave'">
+<div id="main" ng-switch="activeTab">
 
     <div id="nearby" class="left" ng-switch-when="nearby" >
 
@@ -18,6 +18,10 @@
           </li>
         </ul>
 
+    </div>
+
+    <div id="map" ng-switch-when="map" >
+      <google-map center="center" draggable="true" zoom="zoom" markers="markers"></google-map>
     </div>
 
     <div id="sessions" class="right" ng-switch-when="sessions"  >

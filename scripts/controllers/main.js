@@ -51,6 +51,15 @@ angular.module('App')
 
     User.getFollowedRiders()
 
+    angular.extend($scope, {
+      center: {
+        latitude: -33.98, // initial map center latitude
+        longitude: 151.1, // initial map center longitude
+      },
+      markers: [], // an array of markers,
+      zoom: 8, // the zoom level
+    });
+
     // Functions
 
     $scope.goToTab = function(tab) {
