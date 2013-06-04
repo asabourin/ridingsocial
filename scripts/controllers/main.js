@@ -30,7 +30,6 @@ angular.module('App')
     // Init
 
     $scope.loading = true
-    $scope.picture = User.picture()
     $scope.activeTab = 'nearby'
     $scope.navigate = $navigate
 
@@ -59,7 +58,7 @@ angular.module('App')
     function wannaCheckin(index) {
         if(index == 1) {
             $scope.loading = true
-            $navigate.go('/checkin', 'modal')
+            $navigate.go('/checkin', 'fade')
         }
     }
 
@@ -67,12 +66,12 @@ angular.module('App')
 
     $scope.logout = function() {logout()}
     $scope.checkin = function() {
-      $navigate.go('/checkin', 'modal')
+      $navigate.go('/checkin', 'fade')
     }
 
     function logout() {
         User.logout()
-        $location.path('/')
+        $navigate.go('/', 'fade')
     }
 
     

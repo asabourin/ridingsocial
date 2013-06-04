@@ -1,13 +1,13 @@
 angular.module('App')
 
-.controller('Checkin', function($rootScope, $scope, $timeout, $navigate, User, Riders, Checkin, Spots) {
+.controller('Checkin', function($rootScope, $scope, $route, $navigate, User, Riders, Checkin, Spots) {
 
   // Init
 
+  $scope.navigate = $navigate
+
   $scope.checkin = new Object();
   $scope.selectedRiders = new Array();
-
-  $scope.navigate = $navigate
 
   $scope.spot = Spots.getNearest()
 
@@ -15,7 +15,11 @@ angular.module('App')
       $scope.followed = response
   })
 
-  takePicture()
+  // Events
+
+  var pageTransitionListener = $scope.$on('$pageTransitionSuccess', function() {
+    takePicture()
+  })
 
   // Scope functions
 
@@ -63,22 +67,26 @@ angular.module('App')
     navigator.camera.getPicture(
       function(imageURI) {
         $scope.picture_src = imageURI;
-        $scope.loading = false
+        pageTransitionListener() // Turn off event listener
         $scope.$apply()
       }, 
       function(message) {
           console.log(message)
-          $scope.loading = false
+          pageTransitionListener() // Turn off event listener
       },
       { quality: 100, allow_edit:true, targetWidth: 1600, targetWidth: 1200, correctOrientation: true, destinationType: Camera.DestinationType.FILE_URI });
   }
 
   function checkinSuccessful(response) {
     User.setLastCheckinAt(Date.now())
-    navigator.notification.alert(response.message, goToSpots, Lang.en.checkin_successful)
+    $scope.loading = false;
+    navigator.notification.alert(response.message, goBack, Lang.en.checkin_successful)
     
   }
 
-  
+  function goBack() {
+    $navigate.back()
+    $scope.$apply()
+  }
 
 })
