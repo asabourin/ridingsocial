@@ -10,10 +10,10 @@ angular.module('Services').factory('Geolocation', function ($rootScope, $timeout
     getCurrentPosition( 
       function(position) {
         onPositionReceived(position)
-        watcher = $timeout(watchPosition, Settings.geoloc_timeout)
+        watcher = $timeout(watchPosition, Settings.geoloc_refresh)
       }, function(error) {
         navigator.notification.alert(Lang.en.error_location, function() {
-          watcher = $timeout(watchPosition, Settings.geoloc_timeout)
+          watcher = $timeout(watchPosition, Settings.geoloc_refresh)
         } , Lang.en.error)
         
       })

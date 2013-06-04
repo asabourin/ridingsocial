@@ -1,11 +1,12 @@
 var Settings = {
 
-  host: 'http://www.ridingsocial.net/api/',
+  host: 'http://ridingsocial.net/api/',
   coeff: 0.01,
   radius: 15,
   checkin_distance: 1,
   android_gcm_senderID: "535845696743",
-  geoloc_timeout: 2000
+  geoloc_timeout: 20000,
+  geoloc_refresh: 2000
 }
 
 var Lang = {
