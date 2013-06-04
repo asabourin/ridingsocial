@@ -72,6 +72,11 @@ ul.nav > li {
   height: 48px;
 }
 
+.navbar .nav > li > a{
+  padding: 0;
+  line-height: 48px;
+}
+
 .navbar-fixed-bottom .navbar-inner, .navbar-fixed-top .navbar-inner {
   padding: 0;
 }
