@@ -1,7 +1,7 @@
 angular.module('Services').factory('User', function ($rootScope, $http) {
 
     // Init
-    var id, token, lastCheckinAt;
+    var id, token, followedRiders, lastCheckinAt;
     var persistedUser = JSON.parse(localStorage.getItem('user'));
 
     if(persistedUser != undefined) {
@@ -11,6 +11,8 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
 
     var picture;
 
+    //
+
     function persistUser() {
         var user = {id: id, token:token, lastCheckinAt:lastCheckinAt}
         localStorage.setItem('user', JSON.stringify(user)) 
@@ -18,6 +20,12 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
 
     var isLogged = function() {
         return (token != undefined && token != null)
+    }
+
+    fetchFollowed = function (successCallback) {
+            $http.get(Settings.host+'riders/followed?token='+token).success(successCallback).error(function(response) {
+                console.log(response)
+            })
     }
 
     //
@@ -29,6 +37,17 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
         },
         getUser: function() {
             return {id: id, token:token, lastCheckinAt:lastCheckinAt}
+        },
+        getFollowedRiders: function() {
+            if(followedRiders != undefined) {
+                return followedRiders
+            }
+            else {
+                fetchFollowed(function(response){
+                    followedRiders = response
+                    return followedRiders
+                })
+            }
         },
         picture: function() {
             return picture
@@ -51,6 +70,7 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
                 $rootScope.$broadcast('gotMe_failed', {response:response})
             })
         },
+        
         registerDevice:function (settings, successCallback, errorCallback) {
             
             if(isLogged) {

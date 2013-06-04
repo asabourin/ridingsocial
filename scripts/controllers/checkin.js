@@ -11,9 +11,7 @@ angular.module('App')
 
   $scope.spot = Spots.getNearest()
 
-  Riders.followed(User.getToken(), function(response) {
-      $scope.followed = response
-  })
+  $scope.followed = User.getFollowedRiders()
 
   // Events
 

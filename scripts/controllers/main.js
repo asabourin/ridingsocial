@@ -41,13 +41,15 @@ angular.module('App')
         $scope.loading = false
     }
 
-    var followed = Sessions.getFollowed()
-    if (followed != undefined) {
-        $scope.sessions = followed
+    var followedSessions = Sessions.getFollowed()
+    if (followedSessions != undefined) {
+        $scope.sessions = followedSessions
     }
     else {
         Sessions.refreshFollowed(User.getToken())
     }
+
+    User.getFollowedRiders()
 
     // Functions
 
