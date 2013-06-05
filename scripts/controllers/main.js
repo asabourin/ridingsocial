@@ -5,6 +5,7 @@ angular.module('App')
 
     $rootScope.$on("positionUpdated", function (event, args) {
         Spots.refreshNearby(args.position)
+        updateMap(args.position.latitude, args.position.longitude)
     });
 
     $rootScope.$on("nearbyUpdated", function (event, args) {
@@ -51,13 +52,16 @@ angular.module('App')
 
     User.getFollowedRiders()
 
+    // New look for Google Maps
+    google.maps.visualRefresh = true;
+
     angular.extend($scope, {
       center: {
-        latitude: -33.98, // initial map center latitude
-        longitude: 151.1, // initial map center longitude
+        latitude: 0, // initial map center latitude
+        longitude: 0, // initial map center longitude
       },
       markers: [], // an array of markers,
-      zoom: 8, // the zoom level
+      zoom: 12, // the zoom level
     });
 
     // Functions
@@ -71,6 +75,17 @@ angular.module('App')
             $scope.loading = true
             $navigate.go('/checkin', 'fade')
         }
+    }
+
+    function updateMap(latitude, longitude) {
+      $scope.markers = _.reject($scope.markers, function(m){ return m.id == 'me'; });
+      $scope.markers.push({
+        id: 'me',
+        latitude: parseFloat(latitude),
+        longitude: parseFloat(longitude)
+      });
+      $scope.center.latitude = latitude
+      $scope.center.longitude = longitude
     }
 
     // Debug
