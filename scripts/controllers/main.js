@@ -8,13 +8,13 @@ angular.module('App')
         updateMap(args.position.latitude, args.position.longitude)
     });
 
-    $rootScope.$on("nearbyUpdated", function (event, args) {
+    $rootScope.$on("nearbySpotsUpdated", function (event, args) {
         $scope.spots = args.nearby
         $scope.loading = false
         Spots.checkNearest()
     });
 
-    $rootScope.$on("newNearest", function(event, args) {
+    $rootScope.$on("newNearestSpot", function(event, args) {
         navigator.notification.vibrate(300);
         navigator.notification.confirm("Wanna check-in?", wannaCheckin, "You're at "+args.spot.name+"!", "Yeah!, Not now");
     })
@@ -26,6 +26,24 @@ angular.module('App')
 
     $scope.$on('$destroy', function () {
         Geolocation.stopWatching()
+    });
+
+    $scope.$watch('bounds', function(oldVal, newVal){
+      buffered_bounds = Spots.bufferBounds($scope.bounds)
+      if(newVal != oldVal) {Spots.fetchWithinBounds(buffered_bounds)}
+    }, true)
+
+    $rootScope.$on("spotsWithinBoundsUpdated", function (event, args) {
+      $scope.markers = _.reject($scope.markers, function(m){ return m.id != 'me'; });
+      markers = _.each(args.withinBounds.spots, function(spot) {
+        $scope.markers.push( {
+          id: spot.id,
+          latitude: parseFloat(spot.lat),
+          longitude: parseFloat(spot.lng),
+          icon: 'images/flags/'+spot.color+'_32.png',
+          title: spot.name
+        })
+      })
     });
 
     // Init
@@ -60,6 +78,7 @@ angular.module('App')
         latitude: 0, // initial map center latitude
         longitude: 0, // initial map center longitude
       },
+      bounds: {},
       markers: [], // an array of markers,
       zoom: 12, // the zoom level
     });
