@@ -48,8 +48,8 @@ body {
   text-align: center;
 }
 
-.navbar-fixed-top {
-   box-shadow: 0px 0px 5px rgba(0,0,0,0.75)
+.navbar-inner {
+  box-shadow: none;
 }
 
 .navbar-blue {
@@ -152,12 +152,6 @@ span.loader
 
 /* Start */
 
-#start {
-  background: #e6c195 url("../splash.png") no-repeat;
-  -webkit-background-size: 100%;
-  height: 100%;
-}
-
 div#logo {
     position:absolute; 
     top:0; 
@@ -194,32 +188,32 @@ a.back-button {
   margin: 0 !important;
 }
 
-/* Spots n Sessions */
+/* Spots, map n Sessions */
 
-#nearby, #sessions, #map {
-  position: absolute;
+#main ul {
   padding: 48px 0;
-  width: 100%;
-  height: 100%;
-  -webkit-backface-visibility: none;
 }
 
 #map {
-  padding: 0;
+  padding: 48px 0;
 }
 
-li.spot, li.session {
+li.box {
   display: block;
   min-height: 64px;
-  padding: 5px;
+  padding: 5px 0;
   background: white;
   margin: 8px;
-  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
-  border-radius: 2px;
 }
 
+.box > .distance {
+  position: absolute;
+  right: 10px;
+}
+
+
 h4.name {
-  margin: 5px 0 0 0;
+  margin: 0;
   position: relative;
   z-index: 1;
 }
@@ -231,6 +225,7 @@ img.flag {
   float: left;
   position: relative;
   z-index: 1;
+  margin: -8px 0 0 -8px;
 }
 
 img.session-photo {
@@ -242,7 +237,7 @@ img.session-photo {
 img.rider-small {
   width: 50px;
   height: 50px;
-  margin: -5px 3px 0 0;
+  margin:0 3px 3px 3px;
   float: left;
   border-radius: 500px;
 }
@@ -254,7 +249,7 @@ span.time {
 
 p.details {
   clear: both;
-  margin: 10px 0 0 0;
+  margin: 5px 0 0 0;
 }
 
 /* Map */
@@ -262,7 +257,7 @@ p.details {
 google-map {
   display: block;
   height: 100%;
-  margin: 48px 0;
+  margin: 0;
 }
 
 #map img {
