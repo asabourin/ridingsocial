@@ -54,7 +54,8 @@
     var _defaults = { 
         zoom: 8,
         draggable: false,
-        container: null
+        container: null,
+        bounds: {}
       };
     
     /**
@@ -75,6 +76,7 @@
       this.draggable = o.draggable;
       this.dragging = false;
       this.selector = o.container;
+      this.bounds = o.bounds;
       this.markers = [];
       this.options = o.options;
       
@@ -131,6 +133,14 @@
                 that.center = _instance.getCenter();
               }
           );
+
+          google.maps.event.addListener(_instance, "bounds_changed",
+
+              function () {
+                that.bounds = _instance.getBounds();
+              }
+          );
+
           
           // Attach additional event listeners if needed
           if (_handlers.length) {
@@ -338,7 +348,8 @@
         zoom: "=zoom", // required
         refresh: "&refresh", // optional
         windows: "=windows", // optional
-        events: "=events"
+        events: "=events",
+        bounds: "=bounds"
       },
       controller: controller,      
       link: function (scope, element, attrs, ctrl) {
@@ -414,6 +425,27 @@
             });
           });
         });
+
+        _m.on("bounds_changed", function () {
+          
+          if (angular.isDefined(scope.bounds)) {
+
+            var b = _m.bounds
+            var ne = b.getNorthEast()
+            var sw = b.getSouthWest()
+
+            $timeout(function () {
+
+              scope.$apply(function (s) {
+
+                scope.bounds.northeast = {latitude: ne.lat(), longitude: ne.lng()} ;
+                scope.bounds.southwest = {latitude: sw.lat(), longitude: sw.lng()} ;
+                
+              });
+            });
+          };
+        });
+
         
         if (angular.isDefined(scope.events)) {
           for (var eventName in scope.events) {
