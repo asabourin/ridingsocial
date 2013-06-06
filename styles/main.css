@@ -286,15 +286,6 @@ google-map {
   color: white;
 }
 
-#checkin ul.selected-riders {
-  margin: 10px 0;
-}
-
-#checkin li.rider {
-  display: inline-block;
-  margin: 0 3px 3px 0;
-}
-
 #checkin-form {
   height: 100%;
   padding: 10px;
@@ -309,7 +300,7 @@ google-map {
 }
 
 #checkin-form input, #checkin-form textarea, #checkin-form .typeahead > li > a{
-  font-size: 120%;
+  font-size: 110%;
   height: auto;
   padding: 8px;
 }
@@ -319,7 +310,7 @@ google-map {
 }
 
 #checkin-form button.pulse {
-  -webkit-animation-duration: 0.4s;
+  -webkit-animation-duration: 0.3s;
   -webkit-animation-name: pulse;
 }
 

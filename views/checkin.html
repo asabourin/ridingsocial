@@ -28,7 +28,7 @@
 
       <ul class="selected-riders">
         <li class="rider" ng-repeat="rider in selectedRiders">
-          <button class="btn" ng-click="removeRider(rider.id)"><img width="40" height="40" ng-src="{{rider.picture}}" /></button>
+          <a ng-click="removeRider(rider.id)"><img class="rider-small" ng-src="{{rider.picture}}" /></a>
         </li>
       </ul>
 
