@@ -1,10 +1,11 @@
 angular.module('App')
 
-.controller('Checkin', function($rootScope, $scope, $route, $navigate, User, Riders, Checkin, Spots) {
+.controller('Checkin', function($rootScope, $scope, $route, $navigate, $location, User, Riders, Checkin, Spots) {
 
   // Init
 
   $scope.navigate = $navigate
+  $scope.location = $location
 
   $scope.checkin = new Object();
   $scope.selectedRiders = new Array();

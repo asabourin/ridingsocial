@@ -41,7 +41,7 @@ angular.module('App', ['Services', 'ui.bootstrap', 'google-maps', 'ajoslin.mobil
 document.addEventListener('deviceready', function () {
   setTimeout(function() {
         navigator.splashscreen.hide();
-    }, 600)
+    }, 500)
   document.addEventListener("backbutton", onBackKeyDown, false);
 }, false)
 

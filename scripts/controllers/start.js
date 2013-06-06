@@ -42,10 +42,9 @@ angular.module('App')
 
   $scope.$on('gotMe_failed', function(event, args) {
     console.log(args.response.error)
-    
+    User.logout(null)
     $scope.loading =false
     $scope.showFacebook = true
-    User.logout()
   });
 
   $scope.$on("pushRegistered", function (event, args) {
