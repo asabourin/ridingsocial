@@ -43,13 +43,23 @@ body {
 .navbar {
   margin-left: 0;
   margin-right: 0;
-  position: fixed !important;
   height: 48px;
   text-align: center;
 }
 
 .navbar-inner {
-  box-shadow: none;
+  box-shadow: none !important;
+}
+
+.navbar-fixed-bottom .navbar-inner, .navbar-fixed-top .navbar-inner {
+  padding: 0;
+}
+
+.navbar-static-top {
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
 }
 
 .navbar-blue {
@@ -62,6 +72,7 @@ body {
   background-repeat: repeat-x;
   height: 48px;
   border: 0;
+  padding: 0;
 }
 
 ul.nav {
@@ -81,9 +92,7 @@ ul.nav > li {
   line-height: 48px;
 }
 
-.navbar-fixed-bottom .navbar-inner, .navbar-fixed-top .navbar-inner {
-  padding: 0;
-}
+
 
 ul {
   list-style-type: none;
@@ -270,7 +279,7 @@ google-map {
 /* Checkin */
 #checkin {
   width: 100%;
-  margin: 48px 0 0 0;
+  margin: 0;
   height: auto;
   padding: 0;
   position: absolute;
@@ -341,6 +350,7 @@ button.rating, button.activity {
 /*
  * Animations
  */
+
 @-webkit-keyframes fadeUp {
   0% { opacity: 0 }
   100% { opacity: 1 }
