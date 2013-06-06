@@ -192,16 +192,10 @@ a.back-button {
   margin: 0 !important;
 }
 
-/* Spots, map n Sessions */
+/* Spots n Sessions */
 
 #main ul {
   padding: 48px 0;
-}
-
-#map {
-  height: 100%;
-  padding: 48px 0;
-  box-sizing: border-box;
 }
 
 li.box {
@@ -260,15 +254,17 @@ p.details {
 
 /* Map */
 
+#map_canvas {
+  height: 100%;
+  padding: 48px 0;
+  box-sizing: border-box;
+}
+
 google-map {
   display: block;
   height: 100%;
   width: 100%;
   margin: 0;
-}
-
-google-map > img {
-    max-width: none;
 }
 
 /* Checkin */
@@ -322,8 +318,8 @@ google-map > img {
   width: 100%;
 }
 
-#checkin-form.ng-valid > a.submit {
-  -webkit-animation-duration: 1.5s;
+#checkin-form button.pulse {
+  -webkit-animation-duration: 0.4s;
   -webkit-animation-name: pulse;
 }
 
@@ -351,60 +347,8 @@ button.rating, button.activity {
   float: left;
 }
 
-/* Animations */
-
-.wave-enter, .wave-leave {
-  -webkit-animation-duration: 0.3s;
-  -webkit-animation-timing-function: ease;
-  animation-duration: 0.3s;
-  animation-timing-function: ease;
-  -webkit-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-}
-
-.left.wave-enter {
- -webkit-animation-name: slideInFromLeft;
-  animation-name: slideInFromLeft;
-
-}
-
-.left.wave-enter-active {
- 
-}
-
-.left.wave-leave {
--webkit-animation-name: slideOutToLeft;
-  animation-name: slideOutToLeft;
-  -webkit-transform: translate3d(-100%, 0, 0);
-  transform: translate3d(-100%, 0, 0);
-}
-
-.left.wave-leave-active {
-  
-}
-
-.right.wave-enter{
- -webkit-animation-name: slideInFromRight;
-  animation-name: slideInFromRight;
-}
-
-.right.wave-enter-active {
-
-}
-
-.right.wave-leave {
--webkit-animation-name: slideOutToRight;
-  -webkit-transform: translate3d(100%, 0, 0);
-
-}
-
-.right.wave-leave-active {
-
-}
-
-
 /*
- * Fade!
+ * Animations
  */
 @-webkit-keyframes fadeUp {
   0% { opacity: 0 }

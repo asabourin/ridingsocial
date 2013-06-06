@@ -19,6 +19,14 @@ angular.module('App')
     takePicture()
   })
 
+  $scope.$watch('activity', function() {  
+    $scope.submitEnabled = validate()
+  })
+
+  $scope.$watch('rating', function() {  
+    $scope.submitEnabled = validate()
+  })
+
   // Scope functions
 
   $scope.addRider = function() {
@@ -79,7 +87,10 @@ angular.module('App')
     User.setLastCheckinAt(Date.now())
     $scope.loading = false;
     navigator.notification.alert(response.message, goBack, Lang.en.checkin_successful)
-    
+  }
+
+  function validate() {
+    return ($scope.spot != undefined && $scope.rating != undefined && $scope.activity != undefined)
   }
 
   function goBack() {

@@ -39,7 +39,7 @@
           {{session.action}} at {{session.spot}}
           <span ng-show="session.others">with {{session.others.length}} others</span>
           
-          <img ng-src="{{session.photo}}" class="session-photo" />
+          <img ng-src="{{session.photo}}" ng-animate="'fade'" class="session-photo" />
 
           <p class="details">
             <img ng-src="images/flags/{{session.color}}_80.png" class="flag" />

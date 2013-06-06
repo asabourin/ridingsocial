@@ -33,7 +33,7 @@
       </ul>
 
       <div class="action">
-        <button class="btn btn-block btn-large btn-success submit" ng-click="submit()" ng-disabled="!rating || !activity || submitDisabled"><i class="icon-ok icon-white"></i> Check-in!</button>
+        <button class="btn btn-block btn-large btn-success submit" ng-class="{pulse: submitEnabled}" ng-click="submit()" ng-disabled="!submitEnabled"><i class="icon-ok icon-white"></i> Check-in!</button>
       </div>
 
     </form>
