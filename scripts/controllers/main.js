@@ -28,9 +28,11 @@ angular.module('App')
         Geolocation.stopWatching()
     });
 
-    $scope.$watch('bounds', function(oldVal, newVal){
-      buffered_bounds = Spots.bufferBounds($scope.bounds)
-      if(newVal != oldVal) {Spots.fetchWithinBounds(buffered_bounds)}
+    $scope.$watch('center', function(oldVal, newVal){
+      if(newVal != oldVal) {
+        buffered_bounds = Spots.bufferBounds($scope.bounds)
+        Spots.fetchWithinBounds(buffered_bounds)
+      }
     }, true)
 
     $rootScope.$on("spotsWithinBoundsUpdated", function (event, args) {
@@ -52,6 +54,7 @@ angular.module('App')
     $scope.activeTab = 'nearby'
     $scope.navigate = $navigate
 
+    Geolocation.resetPosition()
     CordovaReady(Geolocation.watchPosition())
 
     var nearby = Spots.getNearby()
