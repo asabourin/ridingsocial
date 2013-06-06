@@ -28,24 +28,16 @@ angular.module('App')
         Geolocation.stopWatching()
     });
 
-    $scope.$watch('center', function(oldVal, newVal){
-      if(newVal != oldVal) {
-        buffered_bounds = Spots.bufferBounds($scope.bounds)
-        Spots.fetchWithinBounds(buffered_bounds)
-      }
+    $scope.$watch('bounds', function(oldVal, newVal){ 
+        if($scope.bounds.northeast != undefined) {
+            buffered_bounds = Spots.bufferBounds($scope.bounds)
+            Spots.fetchWithinBounds(buffered_bounds)
+        }
     }, true)
 
     $rootScope.$on("spotsWithinBoundsUpdated", function (event, args) {
       $scope.markers = _.reject($scope.markers, function(m){ return m.id != 'me'; });
-      markers = _.each(args.withinBounds.spots, function(spot) {
-        $scope.markers.push( {
-          id: spot.id,
-          latitude: parseFloat(spot.lat),
-          longitude: parseFloat(spot.lng),
-          icon: 'images/flags/'+spot.color+'_32.png',
-          title: spot.name
-        })
-      })
+      markers = buildSpotsMarkers(args.withinBounds.spots)
     });
 
     // Init
@@ -78,8 +70,8 @@ angular.module('App')
 
     angular.extend($scope, {
       center: {
-        latitude: Geolocation.currentPosition.latitude, // initial map center latitude
-        longitude: Geolocation.currentPosition.longitude, // initial map center longitude
+        latitude: 0, // initial map center latitude
+        longitude: 0, // initial map center longitude
       },
       bounds: {},
       markers: [], // an array of markers,
@@ -107,6 +99,23 @@ angular.module('App')
       });
       $scope.center.latitude = latitude
       $scope.center.longitude = longitude
+    }
+
+    function buildSpotsMarkers(spots) {
+       markers = _.each(spots, function(spot) {
+        $scope.markers.push( {
+          id: spot.id,
+          latitude: parseFloat(spot.lat),
+          longitude: parseFloat(spot.lng),
+          icon: 'images/flags/'+spot.color+'_32.png',
+          infoWindow: formatMarkerInfo(spot)
+        })
+      })
+       return markers
+    }
+
+    function formatMarkerInfo(spot) {
+        return '<p><b>'+spot.name+'</b><br>'+spot.checkins+' recent checkins</p>'
     }
 
     // Debug

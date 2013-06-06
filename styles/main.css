@@ -77,7 +77,7 @@ body {
 
 ul.nav {
   width: 100%;
-  font-size: 120%;
+  font-size: 110%;
 }
 
 ul.nav > li {
@@ -91,8 +91,6 @@ ul.nav > li {
   padding: 0;
   line-height: 48px;
 }
-
-
 
 ul {
   list-style-type: none;
@@ -267,6 +265,10 @@ p.details {
   height: 100%;
   padding: 48px 0;
   box-sizing: border-box;
+}
+
+img[src*="gstatic.com/"], img[src*="googleapis.com/"]  {
+    max-width: 99999px;
 }
 
 google-map {
