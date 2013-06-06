@@ -98,6 +98,10 @@ h1 {
   font-size: 16px !important; 
 }
 
+.btn {
+  border-radius: 0 !important;
+}
+
 .loading {
     position:absolute; 
     top:0; 
@@ -195,7 +199,9 @@ a.back-button {
 }
 
 #map {
+  height: 100%;
   padding: 48px 0;
+  box-sizing: border-box;
 }
 
 li.box {
@@ -257,10 +263,11 @@ p.details {
 google-map {
   display: block;
   height: 100%;
+  width: 100%;
   margin: 0;
 }
 
-#map img {
+google-map > img {
     max-width: none;
 }
 
