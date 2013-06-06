@@ -3,6 +3,7 @@ angular.module('Services').factory('Geolocation', function ($rootScope, $timeout
   //
 
   var watcher, currentPosition;
+  currentPosition = {latitude: 0, longitude:0}
 
   //
 
@@ -47,6 +48,7 @@ angular.module('Services').factory('Geolocation', function ($rootScope, $timeout
 
   return {
 
+    currentPosition: currentPosition,
     watchPosition: watchPosition,
     stopWatching: stopWatching,
     resetPosition: resetPosition

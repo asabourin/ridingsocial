@@ -75,8 +75,8 @@ angular.module('App')
 
     angular.extend($scope, {
       center: {
-        latitude: 0, // initial map center latitude
-        longitude: 0, // initial map center longitude
+        latitude: Geolocation.currentPosition.latitude, // initial map center latitude
+        longitude: Geolocation.currentPosition.longitude, // initial map center longitude
       },
       bounds: {},
       markers: [], // an array of markers,
