@@ -49,6 +49,7 @@ body {
 
 .navbar-inner {
   box-shadow: none !important;
+  color: white;
 }
 
 .navbar-fixed-bottom .navbar-inner, .navbar-fixed-top .navbar-inner {
@@ -103,6 +104,11 @@ h1 {
   color: white;
   text-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
   font-size: 16px !important; 
+}
+
+.navbar h4 {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .btn {
@@ -186,11 +192,15 @@ div#logo h1 {
 /* Main */
 
 
-img.navbar-icon {
+.navbar-icon {
     width: 40px;
     height: 40px;
     margin: 4px;
   }
+
+.navbar-icon i {
+  line-height: 32px;
+}
 
 a.back-button {
   border-top: 0;
@@ -245,7 +255,12 @@ img.rider-small {
   width: 50px;
   height: 50px;
   margin:0 3px 3px 3px;
-  float: left;
+  border-radius: 500px;
+}
+
+img.rider-profile {
+  width: 100px;
+  height: 100px;
   border-radius: 500px;
 }
 
@@ -289,12 +304,6 @@ google-map {
   bottom: 0;
   overflow: hidden;
   background-size: cover;
-}
-
-#checkin h4 {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: white;
 }
 
 #checkin-form {
@@ -347,6 +356,12 @@ button.rating, button.activity {
   width: 33.3%;
   margin: 0;
   float: left;
+}
+
+/* Rider */
+
+#rider {
+  text-align: center;
 }
 
 /*

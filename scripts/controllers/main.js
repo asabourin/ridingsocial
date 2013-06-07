@@ -43,8 +43,8 @@ angular.module('App')
     // Init
 
     $scope.loading = true
-    $scope.activeTab = 'nearby'
-    $scope.navigate = $navigate
+    $rootScope.activeTab = $rootScope.activeTab || 'nearby'
+    $navigate.eraseHistory()
 
     Geolocation.resetPosition()
     CordovaReady(Geolocation.watchPosition())
@@ -60,7 +60,7 @@ angular.module('App')
         $scope.sessions = followedSessions
     }
     else {
-        Sessions.refreshFollowed(User.getToken())
+        Sessions.refreshFollowed(User.token())
     }
 
     User.getFollowedRiders()
@@ -81,7 +81,7 @@ angular.module('App')
     // Functions
 
     $scope.goToTab = function(tab) {
-        $scope.activeTab = tab;
+        $rootScope.activeTab = tab;
     }
 
     function wannaCheckin(index) {

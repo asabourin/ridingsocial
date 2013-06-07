@@ -32,7 +32,7 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
 
     return {
         isLogged: isLogged,
-        getToken: function() {
+        token: function() {
             return token
         },
         getUser: function() {

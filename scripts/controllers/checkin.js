@@ -4,9 +4,6 @@ angular.module('App')
 
   // Init
 
-  $scope.navigate = $navigate
-  $scope.location = $location
-
   $scope.checkin = new Object();
   $scope.selectedRiders = new Array();
 
@@ -62,7 +59,7 @@ angular.module('App')
     var options = new FileUploadOptions();
     options.params = checkin;
 
-    Checkin.create(User.getToken(), $scope.picture_src, options, checkinSuccessful, function(result){
+    Checkin.create(User.token(), $scope.picture_src, options, checkinSuccessful, function(result){
       navigator.notification.alert(JSON.stringify(result), errorCheckin, Lang.en.checkin_error)
     })
 

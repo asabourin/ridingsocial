@@ -19,8 +19,8 @@ angular.module('App', ['Services', 'ui.bootstrap', 'google-maps', 'ajoslin.mobil
         controller: 'Checkin'
       })
       .when('/riders/:id', {
-        templateUrl: 'views/riders/show.html',
-        controller: 'RidersController'
+        templateUrl: 'views/rider.html',
+        controller: 'Riders.show'
       })
       .when('/spots/:id', {
         templateUrl: 'views/spot.html',

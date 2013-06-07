@@ -1,0 +1,39 @@
+<div class="navbar navbar-static-top" >
+  <div class="navbar-inner navbar-blue">
+    <a class="btn btn-primary back-button pull-left" ng-touch="navigate.back()"><i class="icon-chevron-left "></i></a>
+    <span class="pull-right navbar-icon">&nbsp;</span>
+    <h4>{{rider.name}}</h4>
+
+  </div>
+</div>
+
+<div ng-show="loading" class="dim"><div class="centered"><span class="loader"></span></div></div>
+
+<div id="rider">
+    <img ng-src="{{rider.picture}}" class="rider-profile" />
+
+    <p><span class="btn btn-primary"><img src="images/shaka.png" width="20" height="20"> {{rider.score}} shakas</span></p>
+
+    <p>
+        <span class="btn"><i class="icon icon-user"></i> {{rider.nb_followers}} followers</span>
+        <span class="btn"><i class="icon icon-flag-checkered"></i> {{rider.nb_sessions}} sessions</span>
+    </p>
+
+    <p>
+        <button class="btn btn-large btn-success" ng-show="rider.following" ng-touch="unfollow(rider.id)"><i class="icon-check"></i> Following</button>
+        <button class="btn btn-large" ng-show="!rider.following" ng-touch="follow(rider.id)"><i class="icon-check-empty"></i> Follow</button>
+
+</div>
+
+
+
+<ul id="items">
+
+    <li class="item" ng-repeat="item in rider.items">
+        <img ng-src="{{item.picture}}" class="item-small pull-left">
+        {{item.name}}
+    </li>
+    
+</ul>
+
+  
