@@ -1,4 +1,4 @@
-<div class="navbar navbar-static-top" >
+<div class="navbar navbar-fixed-top" >
   <div class="navbar-inner navbar-blue">
     <a class="btn btn-primary back-button pull-left" ng-touch="navigate.back()"><i class="icon-chevron-left "></i></a>
     <span class="pull-right navbar-icon">&nbsp;</span>
@@ -9,7 +9,7 @@
 
 <div ng-show="loading" class="dim"><div class="centered"><span class="loader"></span></div></div>
 
-<div id="rider">
+<div id="rider" ng-show="rider">
     <img ng-src="{{rider.picture}}" class="rider-profile" />
 
     <p><span class="btn btn-primary"><img src="images/shaka.png" width="20" height="20"> {{rider.score}} shakas</span></p>

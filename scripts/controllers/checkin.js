@@ -4,6 +4,8 @@ angular.module('App')
 
   // Init
 
+  $scope.loading = true
+
   $scope.checkin = new Object();
   $scope.selectedRiders = new Array();
 
@@ -72,11 +74,14 @@ angular.module('App')
       function(imageURI) {
         $scope.picture_src = imageURI;
         pageTransitionListener() // Turn off event listener
+        $scope.loading = false
         $scope.$apply()
       }, 
       function(message) {
           console.log(message)
           pageTransitionListener() // Turn off event listener
+          $scope.loading = false
+          $scope.$apply()
       },
       { quality: 100, allow_edit:true, targetWidth: 1600, targetWidth: 1200, correctOrientation: true, destinationType: Camera.DestinationType.FILE_URI });
   }

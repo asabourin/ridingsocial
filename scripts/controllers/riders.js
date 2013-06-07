@@ -2,8 +2,11 @@ angular.module('App')
   
   .controller('Riders.show', function(User, Riders, $scope, $routeParams) {
 
+    $scope.loading = true
+
     Riders.show(User.token(), $routeParams.id, function(response) {
         $scope.rider = response;
+        $scope.loading = false
     })
 
     $scope.follow = function(rider_id) {

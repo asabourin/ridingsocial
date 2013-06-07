@@ -135,6 +135,7 @@ h1 {
   top: 0;
   bottom: 0;
   width: 100%;
+  z-index: 100;
   background-color: rgba(0,0,0, 0.5)
 }
 
@@ -361,6 +362,7 @@ button.rating, button.activity {
 /* Rider */
 
 #rider {
+  margin-top: 48px;
   text-align: center;
 }
 
