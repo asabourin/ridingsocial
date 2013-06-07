@@ -34,6 +34,10 @@ angular.module('App', ['Services', 'ui.bootstrap', 'google-maps', 'ajoslin.mobil
         redirectTo: '/'
       })
   })
+  .run(function($templateCache,$http){
+      $http.get('views/main.html', {cache:$templateCache});
+      $http.get('views/checkin.html', {cache:$templateCache});
+});
 
 
 
