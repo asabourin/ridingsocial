@@ -93,6 +93,10 @@ ul.nav > li {
   line-height: 48px;
 }
 
+i.nav-icon {
+  font-size: 24px;
+}
+
 ul {
   list-style-type: none;
   margin: 0;
@@ -109,10 +113,6 @@ h1 {
 .navbar h4 {
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.btn {
-  border-radius: 0 !important;
 }
 
 .loading {
@@ -216,12 +216,13 @@ a.back-button {
   padding: 48px 0;
 }
 
-li.box {
+.box {
   display: block;
   min-height: 64px;
   padding: 5px 0;
   background: white;
   margin: 8px;
+  box-shadow: 0px 1px 3px rgba(0,0,0,0.3);
 }
 
 .box > .distance {
@@ -256,12 +257,6 @@ img.rider-small {
   width: 50px;
   height: 50px;
   margin:0 3px 3px 3px;
-  border-radius: 500px;
-}
-
-img.rider-profile {
-  width: 100px;
-  height: 100px;
   border-radius: 500px;
 }
 
@@ -364,6 +359,22 @@ button.rating, button.activity {
 #rider {
   margin-top: 48px;
   text-align: center;
+  margin-bottom: 10px;
+}
+
+.badges {
+  margin-top: 10px;
+}
+
+img.rider-profile {
+  width: 100px;
+  height: 100px;
+  margin: 0 5px;
+}
+
+#rider .follow {
+  clear:both;
+  padding: 5px 5px 0 5px;
 }
 
 /*

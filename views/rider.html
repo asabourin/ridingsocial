@@ -9,25 +9,28 @@
 
 <div ng-show="loading" class="dim"><div class="centered"><span class="loader"></span></div></div>
 
-<div id="rider" ng-show="rider">
-    <img ng-src="{{rider.picture}}" class="rider-profile" />
+<div id="rider" ng-show="rider" class="clearfix">
+    
+    <div class="box">
 
-    <p><span class="btn btn-primary"><img src="images/shaka.png" width="20" height="20"> {{rider.score}} shakas</span></p>
+        <img ng-src="{{rider.picture}}" class="rider-profile pull-left" />
 
-    <p>
-        <span class="btn"><i class="icon icon-user"></i> {{rider.nb_followers}} followers</span>
-        <span class="btn"><i class="icon icon-flag-checkered"></i> {{rider.nb_sessions}} sessions</span>
-    </p>
+        <div class="badges">
+            <span class="btn btn-primary">{{rider.score}} <img src="images/shaka.png" width="20" height="20"></span>
+            <br><br>
+            <i class="icon icon-user"></i> {{rider.nb_followers}} followers
+            <br>
+            <i class="icon icon-flag-checkered"></i> {{rider.nb_sessions}} sessions
+        </div>
 
-    <p>
-        <button class="btn btn-large btn-success" ng-show="rider.following" ng-touch="unfollow(rider.id)"><i class="icon-check"></i> Following</button>
-        <button class="btn btn-large" ng-show="!rider.following" ng-touch="follow(rider.id)"><i class="icon-check-empty"></i> Follow</button>
+        <div class="follow">
+            <button class="btn btn-large btn-success btn-block" ng-show="rider.following" ng-touch="unfollow(rider.id)"><i class="icon-check"></i> Following</button>
+            <button class="btn btn-large btn-block" ng-show="!rider.following" ng-touch="follow(rider.id)"><i class="icon-check-empty"></i> Follow</button>
+        </div>
 
-</div>
+    </div>
 
-
-
-<ul id="items">
+    <ul id="items">
 
     <li class="item" ng-repeat="item in rider.items">
         <img ng-src="{{item.picture}}" class="item-small pull-left">
@@ -35,5 +38,11 @@
     </li>
     
 </ul>
+
+</div>
+
+
+
+
 
   
