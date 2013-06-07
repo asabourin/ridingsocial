@@ -46,12 +46,7 @@ document.addEventListener('deviceready', function () {
   setTimeout(function() {
         navigator.splashscreen.hide();
     }, 500)
-  document.addEventListener("backbutton", onBackKeyDown, false);
 }, false)
-
-function onBackKeyDown() {
-  
-}
 
 //For external callbacks that need to access Angular app
 var injector;

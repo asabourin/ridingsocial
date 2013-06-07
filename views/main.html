@@ -4,9 +4,9 @@
 
 <div ng-show="loading" class="dim"><div class="centered"><span class="loader"></span></div></div>
 
-<div id="main" ng-switch="activeTab">
+<div id="main" ng-switch="activeTab" ng-animate="'fade'">
 
-    <div id="nearby" class="left" ng-switch-when="nearby" >
+    <div id="nearby" ng-switch-when="nearby" >
 
         <ul class="nearby">
 
@@ -26,7 +26,7 @@
       <google-map center="center" draggable="true" dragging="dragging" zoom="zoom" markers="markers" bounds="bounds"></google-map>
     </div>
 
-    <div id="sessions" class="right" ng-switch-when="sessions"  >
+    <div id="sessions" ng-switch-when="sessions"  >
 
       <ul class="sessions">
 
@@ -34,7 +34,7 @@
 
           <small class="distance muted">{{session.created_at | date:'MMM d h:mma'}}</small>
 
-          <a ng-href="#/riders/{{checkin.author.id}}"><img ng-src="{{session.author.picture}}" class="rider-small" /></a>
+          <img ng-touch="navigate.go('/riders/'+checkin.author.id)" ng-src="{{session.author.picture}}" class="rider-small" />
           <h4 class="name">{{session.author.name}}</h4>
           {{session.action}} at {{session.spot}}
           <span ng-show="session.others">with {{session.others.length}} others</span>

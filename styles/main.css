@@ -363,7 +363,7 @@ button.rating, button.activity {
 }
 .mb-fade {
   z-index: 10;
-  -webkit-animation-duration: 0.3s;
+  -webkit-animation-duration: 0.25s;
 }
 .mb-fade.mb-in,
 .mb-fade.mb-out.mb-reverse {
@@ -373,6 +373,37 @@ button.rating, button.activity {
 .mb-fade.mb-out {
   z-index: 9; /* Lower than fade-in */
   -webkit-animation-name: fadeDown;
+}
+
+@-webkit-keyframes popUp {
+  0% { opacity: 0 ; -webkit-transform: scale(0);}
+  100% { opacity: 1 ; -webkit-transform: scale(1);}
+}
+@-webkit-keyframes popDown {
+  0% { opacity: 1; -webkit-transform: scale(1); }
+  100% { opacity: 0 ; -webkit-transform: scale(0);}
+}
+.mb-pop {
+  z-index: 10;
+  -webkit-animation-duration: 0.25s;
+}
+.mb-pop.mb-in,
+.mb-pop.mb-out.mb-reverse {
+  -webkit-animation-name: popUp;
+}
+.mb-pop.mb-in.mb-reverse,
+.mb-pop.mb-out {
+  z-index: 9; /* Lower than fade-in */
+  -webkit-animation-name: popDown;
+}
+
+.fade-enter {
+ z-index: 10;
+  -webkit-animation-duration: 0.5s;
+}
+ 
+.fade-enter.fade-enter-active {
+  -webkit-animation-name: fadeUp;
 }
 
 /*

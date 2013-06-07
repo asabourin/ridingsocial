@@ -86,7 +86,7 @@ angular.module('App')
 
     function wannaCheckin(index) {
         if(index == 1) {
-            $navigate.go('/checkin', 'slide')
+            $navigate.go('/checkin', 'pop')
         }
     }
 
@@ -122,7 +122,7 @@ angular.module('App')
 
     $scope.logout = function() {logout()}
     $scope.checkin = function() {
-      $navigate.go('/checkin', 'slide')
+      $navigate.go('/checkin', 'pop')
     }
 
     function logout() {
