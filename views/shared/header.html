@@ -1,4 +1,11 @@
+<img src="images/shaka.png" class="navbar-icon pull-left" />
 
-  <img src="images/shaka.png" class="navbar-icon pull-left" />
+<a class="navbar-button pull-right" ng-touch="refresh()">
+  <i class="icon-refresh icon-large"  ng-hide="loading"></i>
+  <span class="loader" ng-show="loading"></span>
+</a>
+
+   
+
    <button ng-touch="logout()">Logout</button>
    <button ng-touch="checkin()">Checkin</button>

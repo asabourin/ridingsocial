@@ -48,7 +48,9 @@ angular.module('Services').factory('Geolocation', function ($rootScope, $timeout
 
   return {
 
-    currentPosition: currentPosition,
+    currentPosition: function() {
+      return currentPosition
+    },
     watchPosition: watchPosition,
     stopWatching: stopWatching,
     resetPosition: resetPosition

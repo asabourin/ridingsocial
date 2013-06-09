@@ -31,7 +31,6 @@ angular.module('App')
   })
 
   $scope.$on("rs_connected", function (event, args) {
-      console.log('rs_connected')
       User.me()
       Push.init()
   });

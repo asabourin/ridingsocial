@@ -21,14 +21,6 @@ angular.module('Services').factory('Spots', function ($rootScope, $http) {
             });
         },
 
-        bufferBounds: function(bounds) {
-            var min_lat = ( bounds.southwest.latitude-Math.abs(bounds.southwest.latitude)*0.01 ).toFixed(6)
-            var min_lng = ( bounds.southwest.longitude-Math.abs(bounds.southwest.longitude)*0.01 ).toFixed(6)
-            var max_lat = ( bounds.northeast.latitude+Math.abs(bounds.northeast.latitude)*0.01 ).toFixed(6)
-            var max_lng = ( bounds.northeast.longitude+Math.abs(bounds.northeast.longitude)*0.01 ).toFixed(6)
-            return {min_lat: min_lat, max_lat: max_lat, min_lng: min_lng, max_lng: max_lng}
-        },
-
         fetchWithinBounds:function (bounds) {
             $http.get(Settings.host+'spots/within?min_lat='+bounds.min_lat+'&min_lng='+bounds.min_lng+'&max_lat='+bounds.max_lat+'&max_lng='+bounds.max_lng+'&limit=100' ).success(function(response){
                 withinBounds = response;
