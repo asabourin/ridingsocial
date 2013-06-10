@@ -9,9 +9,9 @@
 
 <div ng-show="loading" class="dim"><div class="centered"><span class="loader"></span></div></div>
 
-<div id="rider" ng-show="rider" class="clearfix">
+<div id="rider" ng-show="rider">
     
-    <div class="box">
+    <div class="box clearfix">
 
         <img ng-src="{{rider.picture}}" class="rider-profile pull-left" />
 
@@ -23,21 +23,40 @@
             <i class="icon icon-flag-checkered"></i> {{rider.nb_sessions}} sessions
         </div>
 
-        <div class="follow">
-            <button class="btn btn-large btn-success btn-block" ng-show="rider.following" ng-touch="unfollow(rider.id)"><i class="icon-check"></i> Following</button>
-            <button class="btn btn-large btn-block" ng-show="!rider.following" ng-touch="follow(rider.id)"><i class="icon-check-empty"></i> Follow</button>
-        </div>
-
     </div>
 
-    <ul id="items">
+    <div class="follow">
+        <button class="btn btn-large btn-success btn-block" ng-show="rider.following" ng-touch="unfollow(rider.id)"><i class="icon-check"></i> Following</button>
+        <button class="btn btn-large btn-block" ng-show="!rider.following" ng-touch="follow(rider.id)"><i class="icon-check-empty"></i> Follow</button>
+    </div>
 
-    <li class="item" ng-repeat="item in rider.items">
-        <img ng-src="{{item.picture}}" class="item-small pull-left">
-        {{item.name}}
-    </li>
-    
-</ul>
+    <div id="rider-tabs" ng-switch="tab" ng-animate="'fade'" class="box">
+
+        <ul class="rider-tabs-nav">
+          <li ng-class="{active: tab == 'gear'}"><a ng-touch="showTab('gear')" ><i class="icon-wrench"></i> Gear</a></li><li ng-class="{active: tab == 'sessions'}"><a ng-touch="showTab('sessions')" ><i class="icon-flag-checkered"></i> Sessions</a></li>
+        </ul>
+
+
+        <ul id="items" ng-switch-when="gear" class="clearfix">
+
+            <li class="item" ng-repeat="item in rider.items">
+                <img ng-src="{{item.picture}}" class="item-small pull-left">
+                {{item.name}}
+            </li>
+            
+        </ul>
+
+        <ul id="sessions" ng-switch-when="sessions">
+
+            <li class="session" ng-repeat="session in rider.sessions">
+                {{session.action}} at {{session.spot}}
+                <span ng-show="session.others">with {{session.others.length}} others</span>
+                <small class="distance muted">{{session.created_at | date:'MMM d h:mma'}}</small>
+            </li>
+            
+        </ul>
+
+    </div>
 
 </div>
 

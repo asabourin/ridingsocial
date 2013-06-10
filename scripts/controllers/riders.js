@@ -4,10 +4,18 @@ angular.module('App')
 
     $scope.loading = true
 
+
     Riders.show(User.token(), $routeParams.id, function(response) {
         $scope.rider = response;
         $scope.loading = false
+        $scope.tab = 'gear'
     })
+
+    // Functions
+
+    $scope.showTab = function(tab) {
+        $scope.tab = tab;
+    }
 
     $scope.follow = function(rider_id) {
         $scope.loading = true
