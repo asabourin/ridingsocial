@@ -9,7 +9,7 @@ angular.module('App')
     });
 
     $rootScope.$on("nearbySpotsUpdated", function (event, args) {
-        $scope.spots = args.nearby
+        $rootScope.spots = args.nearby
         $scope.loading = false
         Spots.checkNearest()
     });
@@ -20,7 +20,7 @@ angular.module('App')
     })
 
     $rootScope.$on("sessionsUpdated", function (event, args) {
-        $scope.sessions = args.sessions
+        $rootScope.sessions = args.sessions
     });
 
     $scope.$on('$destroy', function () {
