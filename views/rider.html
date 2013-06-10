@@ -48,9 +48,12 @@
 
         <ul id="sessions" ng-switch-when="sessions">
 
-            <li class="session" ng-repeat="session in rider.sessions">
+            <li class="session" ng-repeat="session in sessions">
+                <img ng-src="images/flags/{{session.color}}_80.png" class="flag pull-left" />
                 {{session.action}} at {{session.spot}}
-                <span ng-show="session.others">with {{session.others.length}} others</span>
+                <span ng-show="session.others">with<span ng-repeat="rider in session.others"> {{{true: 'and ', false: ''}[$last]}}{{rider.name}}{{{true: '', false: ', '}[$last]}}</span>.</span>
+                <br>
+                <i>&ldquo;{{session.comment}}&rdquo;</i>
                 <small class="distance muted">{{session.created_at | date:'MMM d h:mma'}}</small>
             </li>
             

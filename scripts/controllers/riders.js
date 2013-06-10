@@ -11,6 +11,10 @@ angular.module('App')
         $scope.tab = 'gear'
     })
 
+    Riders.sessions(User.token(), $routeParams.id, function(response) {
+        $scope.sessions = response;
+    })
+
     // Functions
 
     $scope.showTab = function(tab) {
