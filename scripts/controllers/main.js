@@ -5,13 +5,12 @@ angular.module('App')
 
     $rootScope.$on("positionUpdated", function (event, args) {
         Spots.refreshNearby(args.position)
-        Spots.computeDistanceFavorites()
+        Spots.computeDistanceFavorites(args.position)
         updateMap(args.position)
     });
 
     $rootScope.$on("favoritesSpotsUpdated", function (event, args) {
         $rootScope.spots = args.favorites
-        $scope.loading = false
     });
 
     $rootScope.$on("nearbySpotsUpdated", function(event, args) {
@@ -25,6 +24,7 @@ angular.module('App')
 
     $rootScope.$on("sessionsUpdated", function (event, args) {
         $rootScope.sessions = args.sessions
+        $scope.loading = false
     });
 
     $scope.$on('$destroy', function () {

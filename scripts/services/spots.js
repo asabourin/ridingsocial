@@ -3,7 +3,14 @@ angular.module('Services').factory('Spots', function ($rootScope, $http) {
     var nearby, favorites, currentNearest, withinBounds;
 
     function distance(spot, location) {
-        return "0"
+      var r = 6371 //km
+      var rad = 3.1416 / 180
+      lat1 = spot.lat * rad
+      lon1 = spot.lng * rad
+      lat2 = location.latitude * rad
+      lon2= location.longitude * rad
+      d = Math.acos(Math.sin(lat1)*Math.sin(lat2) + Math.cos(lat1)*Math.cos(lat2) * Math.cos(lon2-lon1)) * r;
+      return d.toFixed(1)
     }
 
     return {
@@ -21,10 +28,11 @@ angular.module('Services').factory('Spots', function ($rootScope, $http) {
         },
 
         computeDistanceFavorites: function(location) {
-            favorites = _.map(favorites, function(spot) {
+            spots = _.map(favorites, function(spot) {
                 spot.distance = distance(spot, location);
                 return spot
             })
+            favorites = _.sortBy(spots, function(spot){spot.distance})
             $rootScope.$broadcast('favoritesSpotsUpdated', {favorites:favorites})
         },
 

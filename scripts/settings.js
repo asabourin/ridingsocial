@@ -1,6 +1,6 @@
 var Settings = {
 
-  host: 'http://localhost:3000/api/',
+  host: 'http://ridingsocial.net/api/',
   coeff: 0.01,
   radius: 15,
   checkin_distance: 1,
