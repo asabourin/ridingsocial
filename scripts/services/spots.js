@@ -1,6 +1,10 @@
 angular.module('Services').factory('Spots', function ($rootScope, $http) {
 
-    var nearby, currentNearest, withinBounds;
+    var nearby, favorites, currentNearest, withinBounds;
+
+    function distance(spot, location) {
+        return "0"
+    }
 
     return {
 
@@ -10,6 +14,18 @@ angular.module('Services').factory('Spots', function ($rootScope, $http) {
 
         getNearest: function() {
             return currentNearest
+        },
+
+        favorites: function() {
+            return favorites
+        },
+
+        computeDistanceFavorites: function(location) {
+            favorites = _.map(favorites, function(spot) {
+                spot.distance = distance(spot, location);
+                return spot
+            })
+            $rootScope.$broadcast('favoritesSpotsUpdated', {favorites:favorites})
         },
 
         refreshNearby:function (position) {
@@ -30,13 +46,20 @@ angular.module('Services').factory('Spots', function ($rootScope, $http) {
             });
         },
 
-        checkNearest: function() {
+        fetchFavorites: function(token) {
+            $http.get(Settings.host+'spots/favorites?&token='+token).success(function(response){
+                favorites = response;
+                $rootScope.$broadcast('favoritesSpotsUpdated', {favorites:favorites})
+            }, function(error) {
 
+            });
+        },
+
+        checkNearest: function() {
             if(nearby[0]['distance'] <= Settings.checkin_distance && (currentNearest == undefined || currentNearest.id != nearby[0]['id'])) {
                 currentNearest = nearby[0];
                 $rootScope.$broadcast('newNearestSpot', {spot:currentNearest})
             }
-
         },
 
         show: function(id, successCallback, errorCallback) {

@@ -5,14 +5,18 @@ angular.module('App')
 
     $rootScope.$on("positionUpdated", function (event, args) {
         Spots.refreshNearby(args.position)
+        Spots.computeDistanceFavorites()
         updateMap(args.position)
     });
 
-    $rootScope.$on("nearbySpotsUpdated", function (event, args) {
-        $rootScope.spots = args.nearby
+    $rootScope.$on("favoritesSpotsUpdated", function (event, args) {
+        $rootScope.spots = args.favorites
         $scope.loading = false
-        Spots.checkNearest()
     });
+
+    $rootScope.$on("nearbySpotsUpdated", function(event, args) {
+      Spots.checkNearest()
+    })
 
     $rootScope.$on("newNearestSpot", function(event, args) {
         navigator.notification.vibrate(300);
@@ -41,13 +45,14 @@ angular.module('App')
     // Init
 
     $scope.loading = true
-    $rootScope.activeTab = $rootScope.activeTab || 'nearby'
+    $rootScope.activeTab = $rootScope.activeTab || 'sessions'
     $navigate.eraseHistory()
 
     Geolocation.resetPosition()
     CordovaReady(Geolocation.watchPosition())
 
     Sessions.refreshFollowed(User.token())
+    Spots.fetchFavorites(User.token())
 
     User.getFollowedRiders()
 
@@ -73,6 +78,7 @@ angular.module('App')
     $scope.refresh = function() {
       $scope.loading =true
       Spots.refreshNearby(Geolocation.currentPosition())
+      Spots.fetchFavorites(User.token())
       Sessions.refreshFollowed(User.token())
       updateMap(Geolocation.currentPosition())
     }

@@ -39,7 +39,7 @@
 
         <ul id="items" ng-switch-when="gear" class="clearfix">
 
-            <li class="item" ng-repeat="item in rider.items">
+            <li class="item clearfix" ng-repeat="item in rider.items">
                 <img ng-src="{{item.picture}}" class="item-small pull-left">
                 {{item.name}}
             </li>
