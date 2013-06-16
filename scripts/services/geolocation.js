@@ -8,20 +8,16 @@ angular.module('Services').factory('Geolocation', function ($rootScope, $timeout
   //
 
   var watchPosition = function() {
-    getCurrentPosition( 
+    watcher = navigator.geolocation.watchPosition(
       function(position) {
         onPositionReceived(position)
-        watcher = $timeout(watchPosition, Settings.geoloc_refresh)
-      }, function(error) {
-        navigator.notification.alert(Lang.en.error_location, function() {
-          watcher = $timeout(watchPosition, Settings.geoloc_refresh)
-        } , Lang.en.error)
-        
-      })
-  }
-
-  function getCurrentPosition(onSuccess, onError) {
-      navigator.geolocation.getCurrentPosition(onSuccess, onError, {maximumAge: Settings.geoloc_timeout, timeout: Settings.geoloc_timeout, enableHighAccuracy: true});
+      }
+      , function(error) {
+        navigator.notification.alert(Lang.en.error_location, null, Lang.en.error)
+      }
+      , {maximumAge: Settings.geoloc_timeout, timeout: Settings.geoloc_timeout, enableHighAccuracy: true}
+    );
+     
   }
 
   function onPositionReceived(position) {
@@ -32,6 +28,7 @@ angular.module('Services').factory('Geolocation', function ($rootScope, $timeout
     if(positionChanged) {
         currentPosition = newPosition
         $rootScope.$broadcast('positionUpdated', {position:newPosition});
+        $rootScope.$apply()
     } 
 
   }
