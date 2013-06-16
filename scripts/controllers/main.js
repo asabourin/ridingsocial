@@ -77,9 +77,9 @@ angular.module('App')
 
     $scope.refresh = function() {
       $scope.loading =true
-      Spots.refreshNearby(Geolocation.currentPosition())
       Spots.fetchFavorites(User.token())
       Sessions.refreshFollowed(User.token())
+      Spots.refreshNearby(Geolocation.currentPosition())
       updateMap(Geolocation.currentPosition())
     }
 

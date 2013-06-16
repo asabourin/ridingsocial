@@ -1,7 +1,10 @@
 <div class="navbar navbar-fixed-top" >
   <div class="navbar-inner navbar-blue">
     <a class="navbar-button pull-left" ng-touch="navigate.back()"><i class="icon-chevron-left "></i></a>
-    <span class="pull-right navbar-icon">&nbsp;</span>
+    <span ng-hide="rider.id == user.id">
+        <a class="navbar-button pull-right" ng-show="!rider.following" ng-touch="follow()"><i class="icon-check-empty "></i></a>
+        <a class="navbar-button pull-right" ng-show="rider.following" ng-touch="unfollow()"><i class="icon-check"></i></a>
+    </span>
     <h4>{{rider.name}}</h4>
 
   </div>
@@ -9,32 +12,23 @@
 
 <div ng-show="loading" class="dim"><div class="centered"><span class="loader"></span></div></div>
 
-<div id="rider" ng-show="rider">
-    
-    <div class="box clearfix">
+<div id="rider" class="box clearfix" ng-show="rider">
 
-        <img ng-src="{{rider.picture}}" class="rider-profile pull-left" />
+    <img ng-src="{{rider.picture}}" class="rider-profile pull-left" />
 
-        <div class="badges">
-            <span class="btn btn-primary">{{rider.score}} <img src="images/shaka.png" width="20" height="20"></span>
-            <br><br>
-            <i class="icon icon-user"></i> {{rider.nb_followers}} followers
-            <br>
-            <i class="icon icon-flag-checkered"></i> {{rider.nb_sessions}} sessions
+    <div class="badges">
+        <span class="btn btn-primary">{{rider.score}} <img src="images/shaka.png" width="20" height="20"></span>
+        <br><br>
+        <i class="icon icon-user"></i> {{rider.nb_followers}} followers
+        <br>
+        <i class="icon icon-flag-checkered"></i> {{rider.nb_sessions}} sessions
+    </div>
+
+    <div id="rider-tabs" ng-switch="tab" ng-animate="'fade'">
+
+        <div class="btn-group">
+            <button type="button" class="btn btn-large fifty" ng-model="tab" btn-radio="'sessions'"><i class="icon-flag-checkered"></i> Sessions</button> <button type="button" class="btn btn-large fifty" ng-model="tab" btn-radio="'gear'"><i class="icon-wrench"></i> Gear</button>
         </div>
-
-    </div>
-
-    <div class="follow">
-        <button class="btn btn-large btn-success btn-block" ng-show="rider.following" ng-touch="unfollow(rider.id)"><i class="icon-check"></i> Following</button>
-        <button class="btn btn-large btn-block" ng-show="!rider.following" ng-touch="follow(rider.id)"><i class="icon-check-empty"></i> Follow</button>
-    </div>
-
-    <div id="rider-tabs" ng-switch="tab" ng-animate="'fade'" class="box">
-
-        <ul class="rider-tabs-nav">
-          <li ng-class="{active: tab == 'gear'}"><a ng-touch="showTab('gear')" ><i class="icon-wrench"></i> Gear</a></li><li ng-class="{active: tab == 'sessions'}"><a ng-touch="showTab('sessions')" ><i class="icon-flag-checkered"></i> Sessions</a></li>
-        </ul>
 
 
         <ul id="items" ng-switch-when="gear" class="clearfix">
@@ -48,7 +42,7 @@
 
         <ul id="sessions" ng-switch-when="sessions">
 
-            <li class="session" ng-repeat="session in sessions">
+            <li class="" ng-repeat="session in sessions">
                 <img ng-src="images/flags/{{session.color}}_80.png" class="flag pull-left" />
                 {{session.action}} at {{session.spot}}
                 <span ng-show="session.others">with<span ng-repeat="rider in session.others"> {{{true: 'and ', false: ''}[$last]}}{{rider.name}}{{{true: '', false: ', '}[$last]}}</span>.</span>

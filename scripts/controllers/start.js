@@ -31,6 +31,7 @@ angular.module('App')
   })
 
   $scope.$on("rs_connected", function (event, args) {
+    $rootScope.user = User.get()
       User.me()
       Push.init()
   });
@@ -61,7 +62,7 @@ angular.module('App')
   Facebook.init()
 
   if(User.isLogged()) {
-     $scope.$broadcast('rs_connected', {response:User.getUser()});
+     $scope.$broadcast('rs_connected', {response:User.get()});
   }
   else{
     $scope.loading =false

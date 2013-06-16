@@ -35,7 +35,7 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
         token: function() {
             return token
         },
-        getUser: function() {
+        get: function() {
             return {id: id, token:token, lastCheckinAt:lastCheckinAt}
         },
         getFollowedRiders: function() {
@@ -49,9 +49,6 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
                 })
             }
         },
-        picture: function() {
-            return picture
-        },
         login:function (accessToken) {
             $rootScope.$apply($http.get(Settings.host+'login?facebook_token='+accessToken).success(function(response) {
                 id = response.id
@@ -64,7 +61,6 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
         },
         me:function () {
             $http.get(Settings.host+'me?token='+token).success(function(response){
-                picture = response.picture
                 $rootScope.$broadcast('gotMe', {response:response});
             }).error(function(response){
                 $rootScope.$broadcast('gotMe_failed', {response:response})
