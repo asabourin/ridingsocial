@@ -1,5 +1,5 @@
 <div class="navbar navbar-fixed-top">
-    <div class="navbar-blue navbar-inner">
+    <div class="blue navbar-inner">
           
       <img src="images/shaka.png" class="navbar-icon pull-left" />
 
@@ -7,9 +7,6 @@
         <i class="icon-refresh icon-large"  ng-hide="loading"></i>
         <span class="loader" ng-show="loading"></span>
       </a>
-
-       <button ng-touch="logout()">Logout</button>
-       <button ng-touch="checkin()">Checkin</button>
 
     </div>
 </div>
@@ -42,10 +39,8 @@
 
         <li class="box clearfix" ng-repeat="session in sessions">
 
-          <small class="distance muted">{{session.created_at | date:'MMM d h:mma'}}</small>
-
           <img ng-touch="navigate.go('/riders/'+session.author.id)" ng-src="{{session.author.picture}}" class="rider-small pull-left" />
-          <h4 ng-touch="navigate.go('/riders/'+session.author.id)" class="name"><a>{{session.author.name}}</a></h4>
+          <a ng-touch="navigate.go('/riders/'+session.author.id)" class="name">{{session.author.name}}</a>
           {{session.action}} at {{session.spot}}
           <span ng-show="session.others">with </span>
           <span ng-show="session.others.length == 1"><a ng-touch="navigate.go('/riders/'+session.others.first.id)">{{session.others.first.name}}</a>
@@ -59,6 +54,7 @@
           <p class="details">
             <img ng-src="images/flags/{{session.color}}_80.png" class="flag" />
             <i>&ldquo;{{session.comment}}&rdquo;</i>
+            <br /><small class="distance muted">{{session.created_at | date:'MMM d h:mma'}}</small>
           </p>
 
         </li>
@@ -69,10 +65,10 @@
 
 </div>
 
-<div class="navbar navbar-fixed-bottom navbar-inverse"> 
+<div class="navbar navbar-fixed-bottom"> 
     <div class="navbar-inner">
         <ul class="nav">
-          <li ng-class="{active: activeTab == 'sessions'}"><a ng-touch="goToTab('sessions')"><i class="nav-icon icon-user"></i><br> Followed</a></li><li ng-class="{active: activeTab == 'map'}"><a ng-touch="goToTab('map')" ><i class="nav-icon icon-globe"></i><br> Nearby</a></li><li ng-class="{active: activeTab == 'favorites'}"><a ng-touch="goToTab('favorites')" ><i class="nav-icon icon-map-marker"></i><br> Favorites</a></li>
+          <li ng-class="{active: activeTab == 'sessions'}"><a ng-touch="goToTab('sessions')"><i class="nav-icon icon-user"></i><br> Followed</a></li><li ng-class="{active: activeTab == 'map'}"><a ng-touch="goToTab('map')" ><i class="nav-icon icon-globe"></i><br> Map</a></li><li ng-class="{active: activeTab == 'favorites'}"><a ng-touch="goToTab('favorites')" ><i class="nav-icon icon-map-marker"></i><br> Favorites</a></li>
         </ul>
     </div>
 </div>

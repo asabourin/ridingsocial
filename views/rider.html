@@ -1,5 +1,5 @@
 <div class="navbar navbar-fixed-top" >
-  <div class="navbar-inner navbar-blue">
+  <div class="navbar-inner blue">
     <a class="navbar-button pull-left" ng-touch="navigate.back()"><i class="icon-chevron-left "></i></a>
     <span ng-hide="rider.id == user.id">
         <a class="navbar-button pull-right" ng-show="!rider.following" ng-touch="follow()"><i class="icon-check-empty "></i></a>
@@ -14,15 +14,13 @@
 
 <div id="rider" class="box clearfix" ng-show="rider">
 
-    <img ng-src="{{rider.picture}}" class="rider-profile pull-left" />
-
-    <div class="badges">
-        <span class="btn btn-primary">{{rider.score}} <img src="images/shaka.png" width="20" height="20"></span>
-        <br><br>
-        <i class="icon icon-user"></i> {{rider.nb_followers}} followers
-        <br>
-        <i class="icon icon-flag-checkered"></i> {{rider.nb_sessions}} sessions
-    </div>
+    <p class="rider-profile">
+        <img ng-src="{{rider.picture}}" class="rider-profile" />
+        <br/>
+        <span class="label blue"><img src="images/shaka.png" width="20" height="20"></span> {{rider.score}} shakas 
+        <i class="icon icon-user"></i> {{rider.nb_followers}} followers 
+        <i class="icon icon-flag-checkered"></i> {{rider.nb_sessions}} sessions 
+    </p>
 
     <div id="rider-tabs" ng-switch="tab" ng-animate="'fade'">
 
@@ -33,7 +31,7 @@
 
         <ul id="items" ng-switch-when="gear" class="clearfix">
 
-            <li class="item clearfix" ng-repeat="item in rider.items">
+            <li class="item" ng-repeat="item in rider.items">
                 <img ng-src="{{item.picture}}" class="item-small pull-left">
                 {{item.name}}
             </li>
@@ -42,13 +40,23 @@
 
         <ul id="sessions" ng-switch-when="sessions">
 
-            <li class="" ng-repeat="session in sessions">
-                <img ng-src="images/flags/{{session.color}}_80.png" class="flag pull-left" />
+            <li class="item" ng-repeat="session in sessions">
+                <div class="pull-left">
+                    <img ng-src="images/flags/{{session.color}}_80.png" class="flag" />
+                   
+                </div>
                 {{session.action}} at {{session.spot}}
-                <span ng-show="session.others">with<span ng-repeat="rider in session.others"> {{{true: 'and ', false: ''}[$last]}}{{rider.name}}{{{true: '', false: ', '}[$last]}}</span>.</span>
+               <span ng-show="session.others">with </span>
+              <span ng-show="session.others.length == 1"><a ng-touch="navigate.go('/riders/'+session.others.first.id)">{{session.others.first.name}}</a>
+              </span>
+              <span ng-show="session.others.length > 1" ng-repeat="rider in session.others">
+                  {{{true: '', false: 'and '}[$first]}}<a ng-touch="navigate.go('/riders/'+rider.id)">{{rider.name}}</a></span>.
+              </span>
                 <br>
                 <i>&ldquo;{{session.comment}}&rdquo;</i>
+                 <br/>
                 <small class="distance muted">{{session.created_at | date:'MMM d h:mma'}}</small>
+                
             </li>
             
         </ul>
