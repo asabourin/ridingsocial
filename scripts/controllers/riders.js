@@ -4,7 +4,6 @@ angular.module('App')
 
     $scope.loading = true
 
-
     Riders.show(User.token(), $routeParams.id, function(response) {
         $scope.rider = response;
         $scope.loading = false
@@ -32,12 +31,10 @@ angular.module('App')
 
     $scope.unfollow = function() {
         navigator.notification.confirm("Are you sure?", stopFollowing, "Stop following "+$scope.rider.name, ["Yes", "Cancel"]);
-        
     }
 
     function stopFollowing(index) {
         if(index == 1) {
-            
             $scope.loading = true
             Riders.unfollow(User.token(), $scope.rider.id, function(response) {
                 $scope.rider.following = false

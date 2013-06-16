@@ -70,8 +70,8 @@ angular.module('Services').factory('Spots', function ($rootScope, $http) {
             }
         },
 
-        show: function(id, successCallback, errorCallback) {
-            $http.get(Settings.host+'/spots/'+id).success(successCallback).error(errorCallback);
+        show: function(token, id, successCallback, errorCallback) {
+            $http.get(Settings.host+'spots/'+id+'?token='+token).success(successCallback).error(errorCallback);
         }
     };
 

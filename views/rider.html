@@ -14,8 +14,8 @@
 
 <div id="rider" class="box clearfix" ng-show="rider">
 
-    <p class="rider-profile">
-        <img ng-src="{{rider.picture}}" class="rider-profile" />
+    <p class="profile">
+        <img ng-src="{{rider.picture}}" class="profile" />
         <br/>
         <span class="label blue"><img src="images/shaka.png" width="20" height="20"></span> {{rider.score}} shakas 
         <i class="icon icon-user"></i> {{rider.nb_followers}} followers 
@@ -45,14 +45,14 @@
                     <img ng-src="images/flags/{{session.color}}_80.png" class="flag" />
                    
                 </div>
-                {{session.action}} at {{session.spot}}
+                {{session.action}} at <a ng-touch="navigate.go('/spots/'+session.spot.id)">{{session.spot.name}}</a>
                <span ng-show="session.others">with </span>
               <span ng-show="session.others.length == 1"><a ng-touch="navigate.go('/riders/'+session.others.first.id)">{{session.others.first.name}}</a>
               </span>
               <span ng-show="session.others.length > 1" ng-repeat="rider in session.others">
                   {{{true: '', false: 'and '}[$first]}}<a ng-touch="navigate.go('/riders/'+rider.id)">{{rider.name}}</a></span>.
               </span>
-                <br>
+                <img ng-src="{{session.photo}}" class="session-photo" />
                 <i>&ldquo;{{session.comment}}&rdquo;</i>
                  <br/>
                 <small class="distance muted">{{session.created_at | date:'MMM d h:mma'}}</small>

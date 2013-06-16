@@ -37,16 +37,8 @@ angular.module('App', ['Services', 'ui.bootstrap', 'google-maps', 'ajoslin.mobil
   .run(function($templateCache,$http){
       $http.get('views/main.html', {cache:$templateCache});
       $http.get('views/checkin.html', {cache:$templateCache});
+      $http.get('views/rider.html', {cache:$templateCache});
 });
-
-
-
-// Hiding splashscreen after Cordova fires deviceready. Timeout needed because of white flash
-document.addEventListener('deviceready', function () {
-  setTimeout(function() {
-        navigator.splashscreen.hide();
-    }, 500)
-}, false)
 
 //For external callbacks that need to access Angular app
 var injector;
