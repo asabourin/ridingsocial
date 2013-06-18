@@ -27,555 +27,602 @@
  * @author Nicolas Laplante https://plus.google.com/108189012221374960701
  */
 
-(function () {
-  
-  "use strict";
-  
-  /*
-   * Utility functions
-   */
-  
-  /**
-   * Check if 2 floating point numbers are equal
-   * 
-   * @see http://stackoverflow.com/a/588014
-   */
-  function floatEqual (f1, f2) {
-    return (Math.abs(f1 - f2) < 0.000001);
-  }
-  
-  /* 
-   * Create the model in a self-contained class where map-specific logic is 
-   * done. This model will be used in the directive.
-   */
-  
-  var MapModel = (function () {
-    
-    var _defaults = { 
-        zoom: 8,
-        draggable: false,
-        container: null,
-        bounds: {}
-      };
-    
-    /**
-     * 
-     */
-    function PrivateMapModel(opts) {
-      
-      var _instance = null,
-        _markers = [],  // caches the instances of google.maps.Marker
-        _handlers = [], // event handlers
-        _windows = [],  // InfoWindow objects
-        o = angular.extend({}, _defaults, opts),
-        that = this,
-        currentInfoWindow = null;
-      
-      this.center = opts.center;
-      this.zoom = o.zoom;
-      this.draggable = o.draggable;
-      this.dragging = false;
-      this.selector = o.container;
-      this.bounds = o.bounds;
-      this.markers = [];
-      this.options = o.options;
-      
-      this.draw = function () {
-        
-        if (that.center == null) {
-          // TODO log error
-          return;
-        }
-        
-        if (_instance == null) {
-          
-          // Create a new map instance
-          
-          _instance = new google.maps.Map(that.selector, angular.extend(that.options, {
-            center: that.center,
-            zoom: that.zoom,
-            draggable: that.draggable,
-            mapTypeId : google.maps.MapTypeId.ROADMAP
-          }));
-          
-          google.maps.event.addListener(_instance, "dragstart",
-              
-              function () {
-                that.dragging = true;
-              }
-          );
-          
-          google.maps.event.addListener(_instance, "idle",
-              
-              function () {
-                that.dragging = false;
-              }
-          );
-          
-          google.maps.event.addListener(_instance, "drag",
-              
-              function () {
-                that.dragging = true;   
-              }
-          );  
-          
-          google.maps.event.addListener(_instance, "zoom_changed",
-              
-              function () {
-                that.zoom = _instance.getZoom();
-                that.center = _instance.getCenter();
-              }
-          );
-          
-          google.maps.event.addListener(_instance, "center_changed",
-              
-              function () {
-                that.center = _instance.getCenter();
-              }
-          );
+angular.module('google-maps', []);;/**!
+ * The MIT License
+ *
+ * Copyright (c) 2010-2012 Google, Inc. http://angularjs.org
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * angular-google-maps
+ * https://github.com/nlaplante/angular-google-maps
+ *
+ * @author Nicolas Laplante https://plus.google.com/108189012221374960701
+ */
 
-          google.maps.event.addListener(_instance, "bounds_changed",
+angular.module('google-maps')
+    .directive('googleMap', ['$log', '$timeout', function ($log, $timeout) {
 
-              function () {
-                that.bounds = _instance.getBounds();
-              }
-          );
+        "use strict";
 
-          
-          // Attach additional event listeners if needed
-          if (_handlers.length) {
-            
-            angular.forEach(_handlers, function (h, i) {
-              
-              google.maps.event.addListener(_instance, 
-                  h.on, h.handler);
-            });
-          }
-        }
-        else {
-          
-          // Refresh the existing instance
-          google.maps.event.trigger(_instance, "resize");
-          
-          var instanceCenter = _instance.getCenter();
-          
-          if (!floatEqual(instanceCenter.lat(), that.center.lat())
-            || !floatEqual(instanceCenter.lng(), that.center.lng())) {
-              _instance.setCenter(that.center);
-          }
-        
-          if (_instance.getZoom() != that.zoom) {
-            _instance.setZoom(that.zoom);
-          }          
-        }
-      };
-      
-      this.fit = function () {
-        if (_instance && _markers.length) {
-          
-          var bounds = new google.maps.LatLngBounds();
-          
-          angular.forEach(_markers, function (m, i) {
-            bounds.extend(m.getPosition());
-          });
-          
-          _instance.fitBounds(bounds);
-        }
-      };
-      
-      this.on = function(event, handler) {
-        _handlers.push({
-          "on": event,
-          "handler": handler
-        });
-      };
-      
-      this.addMarker = function (lat, lng, icon, infoWindowContent, label, url,
-          thumbnail) {
-        
-        if (that.findMarker(lat, lng) != null) {
-          return;
-        }
-        
-        var marker = new google.maps.Marker({
-          position: new google.maps.LatLng(lat, lng),
-          map: _instance,
-          icon: icon
-        });
-        
-        if (label) {
-          
-        }
-        
-        if (url) {
-          
+        var DEFAULTS = {
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        /*
+         * Utility functions
+         */
+
+        /**
+         * Check if a value is true
+         */
+        function isTrue(val) {
+            return angular.isDefined(val) &&
+                val !== null &&
+                val === true ||
+                val === '1' ||
+                val === 'y' ||
+                val === 'true';
         }
 
-        if (infoWindowContent != null) {
-          var infoWindow = new google.maps.InfoWindow({
-            content: infoWindowContent
-          });
+        return {
+            /**
+             *
+             */
+            restrict: 'ECMA',
 
-          google.maps.event.addListener(marker, 'click', function() {
-            if (currentInfoWindow != null) {
-              currentInfoWindow.close();
-            }
-            infoWindow.open(_instance, marker);
-            currentInfoWindow = infoWindow;
-          });
-        }
-        
-        // Cache marker 
-        _markers.unshift(marker);
-        
-        // Cache instance of our marker for scope purposes
-        that.markers.unshift({
-          "lat": lat,
-          "lng": lng,
-          "draggable": false,
-          "icon": icon,
-          "infoWindowContent": infoWindowContent,
-          "label": label,
-          "url": url,
-          "thumbnail": thumbnail
-        });
-        
-        // Return marker instance
-        return marker;
-      };      
-      
-      this.findMarker = function (lat, lng) {
-        for (var i = 0; i < _markers.length; i++) {
-          var pos = _markers[i].getPosition();
-          
-          if (floatEqual(pos.lat(), lat) && floatEqual(pos.lng(), lng)) {
-            return _markers[i];
-          }
-        }
-        
-        return null;
-      };  
-      
-      this.findMarkerIndex = function (lat, lng) {
-        for (var i = 0; i < _markers.length; i++) {
-          var pos = _markers[i].getPosition();
-          
-          if (floatEqual(pos.lat(), lat) && floatEqual(pos.lng(), lng)) {
-            return i;
-          }
-        }
-        
-        return -1;
-      };
-      
-      this.addInfoWindow = function (lat, lng, html) {
-        var win = new google.maps.InfoWindow({
-          content: html,
-          position: new google.maps.LatLng(lat, lng)
-        });
-        
-        _windows.push(win);
-        
-        return win;
-      };
-      
-      this.hasMarker = function (lat, lng) {
-        return that.findMarker(lat, lng) !== null;
-      };  
-      
-      this.getMarkerInstances = function () {
-        return _markers;
-      };
-      
-      this.removeMarkers = function (markerInstances) {
-        
-        var s = this;
-        
-        angular.forEach(markerInstances, function (v, i) {
-          var pos = v.getPosition(),
-            lat = pos.lat(),
-            lng = pos.lng(),
-            index = s.findMarkerIndex(lat, lng);
-          
-          // Remove from local arrays
-          _markers.splice(index, 1);
-          s.markers.splice(index, 1);
-          
-          // Remove from map
-          v.setMap(null);
-        });
-      };
-    }
-    
-    // Done
-    return PrivateMapModel;
-  }());
-  
-  // End model
-  
-  // Start Angular directive
-  
-  var googleMapsModule = angular.module("google-maps", []);
+            /**
+             *
+             */
+            transclude: true,
 
-  /**
-   * Map directive
-   */
-  googleMapsModule.directive("googleMap", ["$log", "$timeout", "$filter", function ($log, $timeout, 
-      $filter) {
+            /**
+             *
+             */
+            replace: false,
 
-    var controller = function ($scope, $element) {
-      
-      var _m = $scope.map;
-      
-      self.addInfoWindow = function (lat, lng, content) {
-        _m.addInfoWindow(lat, lng, content);
-      };
-    };
+            /**
+             *
+             */
+            //priority: 100,
 
-    controller.$inject = ['$scope', '$element'];
-    
-    return {
-      restrict: "ECA",
-      priority: 100,
-      transclude: true,
-      template: "<div class='angular-google-map' ng-transclude></div>",
-      replace: false,
-      scope: {
-        center: "=center", // required
-        markers: "=markers", // optional
-        latitude: "=latitude", // required
-        longitude: "=longitude", // required
-        zoom: "=zoom", // required
-        refresh: "&refresh", // optional
-        windows: "=windows", // optional
-        events: "=events",
-        bounds: "=bounds"
-      },
-      controller: controller,      
-      link: function (scope, element, attrs, ctrl) {
-        
-        // Center property must be specified and provide lat & 
-        // lng properties
-        if (!angular.isDefined(scope.center) || 
-            (!angular.isDefined(scope.center.latitude) || 
-                !angular.isDefined(scope.center.longitude))) {
-        	
-          $log.error("angular-google-maps: could not find a valid center property");          
-          return;
-        }
-        
-        if (!angular.isDefined(scope.zoom)) {
-        	$log.error("angular-google-maps: map zoom property not set");
-        	return;
-        }
-        
-        angular.element(element).addClass("angular-google-map");
+            /**
+             *
+             */
+            template: '<div class="angular-google-map"><div class="angular-google-map-container"></div><div ng-transclude style="display: none"></div></div>',
 
-        // Parse options
-        var opts = {options: {}};
-        if (attrs.options) {
-          opts.options = angular.fromJson(attrs.options);
-        }
-        
-        // Create our model
-        var _m = new MapModel(angular.extend(opts, {
-          container: element[0],            
-          center: new google.maps.LatLng(scope.center.latitude, scope.center.longitude),              
-          draggable: attrs.draggable == "true",
-          zoom: scope.zoom
-        }));       
-      
-        _m.on("drag", function () {
-          
-          var c = _m.center;
-        
-          $timeout(function () {
-            
-            scope.$apply(function (s) {
-              scope.center.latitude = c.lat();
-              scope.center.longitude = c.lng();
-            });
-          });
-        });
-      
-        _m.on("zoom_changed", function () {
-          
-          if (scope.zoom != _m.zoom) {
-            
-            $timeout(function () {
-              
-              scope.$apply(function (s) {
-                scope.zoom = _m.zoom;
-              });
-            });
-          }
-        });
-      
-        _m.on("center_changed", function () {
-          var c = _m.center;
-        
-          $timeout(function () {
-            
-            scope.$apply(function (s) {
-              
-              if (!_m.dragging) {
-                scope.center.latitude = c.lat();
-                scope.center.longitude = c.lng();
-              }
-            });
-          });
-        });
+            /**
+             *
+             */
+            scope: {
+                center: '=center',          // required
+                zoom: '=zoom',              // required
+                markers: '=markers',        // optional
+                refresh: '&refresh',        // optional
+                windows: '=windows',        // optional
+                events: '=events' ,          // optional
+                bounds: '=bounds'
+            },
 
-        _m.on("bounds_changed", function () {
-          
-          if (angular.isDefined(scope.bounds)) {
-
-            var b = _m.bounds
-            var ne = b.getNorthEast()
-            var sw = b.getSouthWest()
-
-            $timeout(function () {
-
-              scope.$apply(function (s) {
-
-                scope.bounds.northeast = {latitude: ne.lat(), longitude: ne.lng()} ;
-                scope.bounds.southwest = {latitude: sw.lat(), longitude: sw.lng()} ;
-                
-              });
-            });
-          };
-        });
-
-        
-        if (angular.isDefined(scope.events)) {
-          for (var eventName in scope.events) {
-            if (scope.events.hasOwnProperty(eventName) && angular.isFunction(scope.events[eventName])) {
-              _m.on(eventName, function () {
-                scope.events[eventName].apply(scope, [_m, eventName, arguments]);
-              });
-            }
-          }
-        }
-        
-        if (attrs.markClick == "true") {
-          (function () {
-            var cm = null;
-            
-            _m.on("click", function (e) {                         
-              if (cm == null) {
-                
-                cm = {
-                  latitude: e.latLng.lat(),
-                  longitude: e.latLng.lng() 
+            /**
+             *
+             */
+            controller: ['$scope', function ($scope) {
+                /**
+                 * @return the map instance
+                 */
+                this.getMap = function () {
+                    return $scope.map;
                 };
-                
-                scope.markers.push(cm);
-              }
-              else {
-                cm.latitude = e.latLng.lat();
-                cm.longitude = e.latLng.lng();
-              }
-              
-              
-              $timeout(function () {
-                scope.latitude = cm.latitude;
-                scope.longitude = cm.longitude;
-                scope.$apply();
-              });
-            });
-          }());
-        }
-        
-        // Put the map into the scope
-        scope.map = _m;
-        
-        // Check if we need to refresh the map
-        if (angular.isUndefined(scope.refresh())) {
-          // No refresh property given; draw the map immediately
-          _m.draw();
-        }
-        else {
-          scope.$watch("refresh()", function (newValue, oldValue) {
-            if (newValue && !oldValue) {
-              _m.draw();
-            }
-          }); 
-        }
-        
-        // Markers
-        scope.$watch("markers", function (newValue, oldValue) {
-          
-          $timeout(function () {
-            
-            angular.forEach(newValue, function (v, i) {
-              if (!_m.hasMarker(v.latitude, v.longitude)) {
-                _m.addMarker(v.latitude, v.longitude, v.icon, v.infoWindow);
-              }
-            });
-            
-            // Clear orphaned markers
-            var orphaned = [];
-            
-            angular.forEach(_m.getMarkerInstances(), function (v, i) {
-              // Check our scope if a marker with equal latitude and longitude. 
-              // If not found, then that marker has been removed form the scope.
-              
-              var pos = v.getPosition(),
-                lat = pos.lat(),
-                lng = pos.lng(),
-                found = false;
-              
-              // Test against each marker in the scope
-              for (var si = 0; si < scope.markers.length; si++) {
-                
-                var sm = scope.markers[si];
-                
-                if (floatEqual(sm.latitude, lat) && floatEqual(sm.longitude, lng)) {
-                  // Map marker is present in scope too, don't remove
-                  found = true;
-                }
-              }
-              
-              // Marker in map has not been found in scope. Remove.
-              if (!found) {
-                orphaned.push(v);
-              }
-            });
+            }],
 
-            orphaned.length && _m.removeMarkers(orphaned);           
-            
-            // Fit map when there are more than one marker. 
-            // This will change the map center coordinates
-            if (attrs.fit == "true" && newValue && newValue.length > 1) {
-              _m.fit();
+            /**
+             *
+             * @param scope
+             * @param element
+             * @param attrs
+             */
+            link: function (scope, element, attrs) {
+
+                // Center property must be specified and provide lat &
+                // lng properties
+                if (!angular.isDefined(scope.center) ||
+                    (!angular.isDefined(scope.center.latitude) || !angular.isDefined(scope.center.longitude))) {
+
+                    $log.error("angular-google-maps: could not find a valid center property");
+                    return;
+                }
+
+                if (!angular.isDefined(scope.zoom)) {
+                    $log.error("angular-google-maps: map zoom property not set");
+                    return;
+                }
+
+                var el = angular.element(element);
+
+                el.addClass("angular-google-map");
+
+                // Parse options
+                var opts = {options: {}};
+                if (attrs.options) {
+                    opts.options = angular.fromJson(attrs.options);
+                }
+
+                if (attrs.type) {
+                    var type = attrs.type.toUpperCase();
+
+                    if (google.maps.MapTypeId.hasOwnProperty(type)) {
+                        opts.mapTypeId = google.maps.MapTypeId[attrs.type.toUpperCase()];
+                    }
+                    else {
+                        $log.error('angular-google-maps: invalid map type "' + attrs.type + '"');
+                    }
+                }
+
+                // Create the map
+                var _m = new google.maps.Map(el.find('div')[1], angular.extend({}, DEFAULTS, opts, {
+                    center: new google.maps.LatLng(scope.center.latitude, scope.center.longitude),
+                    draggable: isTrue(attrs.draggable),
+                    zoom: scope.zoom,
+                    bounds: scope.bounds
+                }));
+
+                var dragging = false;
+                google.maps.event.addListener(_m, 'dragstart', function () {
+                    dragging = true;
+                });
+
+                google.maps.event.addListener(_m, 'dragend', function () {
+                    dragging = false;
+                });
+
+                google.maps.event.addListener(_m, 'drag', function () {
+                    var c = _m.center;
+
+                    $timeout(function () {
+                        scope.$apply(function (s) {
+                            s.center.latitude = c.lat();
+                            s.center.longitude = c.lng();
+                        });
+                    });
+                });
+
+                google.maps.event.addListener(_m, 'zoom_changed', function () {
+                    if (scope.zoom != _m.zoom) {
+
+                        $timeout(function () {
+                            scope.$apply(function (s) {
+                                s.zoom = _m.zoom;
+                            });
+                        });
+                    }
+                });
+
+                google.maps.event.addListener(_m, 'center_changed', function () {
+                    var c = _m.center;
+
+                    $timeout(function () {
+                        scope.$apply(function (s) {
+                            if (!_m.dragging) {
+                                s.center.latitude = c.lat();
+                                s.center.longitude = c.lng();
+                            }
+                        });
+                    });
+                });
+
+                google.maps.event.addListener(_m, 'bounds_changed', function () {
+                    var b = _m.getBounds()
+                    var ne = b.getNorthEast()
+                    var sw = b.getSouthWest()
+
+                    $timeout(function () {
+
+                      scope.$apply(function (s) {
+
+                        s.bounds.northeast = {latitude: ne.lat(), longitude: ne.lng()} ;
+                        s.bounds.southwest = {latitude: sw.lat(), longitude: sw.lng()} ;
+                        
+                      });
+                    });
+                });
+
+                if (angular.isDefined(scope.events) &&
+                    scope.events !== null &&
+                    angular.isObject(scope.events)) {
+
+                    var getEventHandler = function (eventName) {
+                        return function () {
+                            scope.events[eventName].apply(scope, [_m, eventName, arguments ]);
+                        };
+                    };
+
+                    for (var eventName in scope.events) {
+
+                        if (scope.events.hasOwnProperty(eventName) && angular.isFunction(scope.events[eventName])) {
+                            google.maps.event.addListener(_m, eventName, getEventHandler(eventName));
+                        }
+                    }
+                }
+
+                // Put the map into the scope
+                scope.map = _m;
+
+                google.maps.event.trigger(_m, "resize");
+
+                // Check if we need to refresh the map
+                if (!angular.isUndefined(scope.refresh())) {
+                    scope.$watch("refresh()", function (newValue, oldValue) {
+                        if (newValue && !oldValue) {
+                            //  _m.draw();
+                            var coords = new google.maps.LatLng(newValue.latitude, newValue.longitude);
+
+                            if (isTrue(attrs.pan)) {
+                                _m.panTo(coords);
+                            }
+                            else {
+                                _m.setCenter(coords);
+                            }
+
+
+                        }
+                    });
+                }
+
+                // Update map when center coordinates change
+                scope.$watch('center', function (newValue, oldValue) {
+                    if (newValue === oldValue) {
+                        return;
+                    }
+
+                    if (!dragging) {
+
+                        var coords = new google.maps.LatLng(newValue.latitude, newValue.longitude);
+
+                        if (isTrue(attrs.pan)) {
+                            _m.panTo(coords);
+                        }
+                        else {
+                            _m.setCenter(coords);
+                        }
+
+                        //_m.draw();
+                    }
+                }, true);
+
+                scope.$watch('zoom', function (newValue, oldValue) {
+                    if (newValue === oldValue) {
+                        return;
+                    }
+
+                    _m.setZoom(newValue);
+
+                    //_m.draw();
+                });
             }
-          });
-          
-        }, true);
-        
-        
-        // Update map when center coordinates change
-        scope.$watch("center", function (newValue, oldValue) {
-          if (newValue === oldValue) {
-            return;
+        };
+    }]);
+;/**!
+ * The MIT License
+ *
+ * Copyright (c) 2010-2012 Google, Inc. http://angularjs.org
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * angular-google-maps
+ * https://github.com/nlaplante/angular-google-maps
+ *
+ * @author Nicolas Laplante https://plus.google.com/108189012221374960701
+ */
+
+/**
+ * Map marker directive
+ *
+ * This directive is used to create a marker on an existing map.
+ * This directive creates a new scope.
+ *
+ * {attribute coords required}  object containing latitude and longitude properties
+ * {attribute animate optional} if set to false, the marker won't be animated (on by default)
+ */
+
+angular.module('google-maps')
+    .directive('marker', ['$log', '$timeout', function ($log, $timeout) {
+
+        "use strict";
+
+        var DEFAULTS = {
+            // Animation is enabled by default
+            animation: null
+        };
+
+        /**
+         * Check if a value is literally false
+         * @param value the value to test
+         * @returns {boolean} true if value is literally false, false otherwise
+         */
+        function isFalse(value) {
+            return ['false', 'FALSE', 0, 'n', 'N', 'no', 'NO'].indexOf(value ) !== -1;
+        }
+        return {
+            restrict: 'ECMA',
+            require: '^googleMap',
+            priority: -1,
+            transclude: true,
+            template: '<span class="angular-google-map-marker" ng-transclude></span>',
+            replace: true,
+            scope: {
+                coords: '=coords',
+                click: '&click',
+                icon: '=icon'
+            },
+            controller: function ($scope, $element) {
+             this.getMarker = function () {
+                 return $element.data('instance');
+             };
+            },
+            link: function (scope, element, attrs, mapCtrl) {
+
+                // Validate required properties
+                if (angular.isUndefined(scope.coords) ||
+                    scope.coords === null ||
+                    angular.isUndefined(scope.coords.latitude) ||
+                    angular.isUndefined(scope.coords.longitude)) {
+
+                    $log.error("marker: no valid coords attribute found");
+                    return;
+                }
+
+                // Wrap marker initialization inside a $timeout() call to make sure the map is created already
+                $timeout(function () {
+                    var opts = angular.extend({}, DEFAULTS, {
+                        position: new google.maps.LatLng(scope.coords.latitude, scope.coords.longitude),
+                        map: mapCtrl.getMap(),
+                        icon: scope.icon,
+                        visible: scope.coords.latitude !== null && scope.coords.longitude !== null
+                    });
+
+                    // Disable animations
+                    if (angular.isDefined(attrs.animate) && isFalse(attrs.animate)) {
+                        delete opts.animation;
+                    }
+
+                    var marker = new google.maps.Marker(opts);
+                    element.data('instance', marker);
+
+                    scope.$watch('coords', function (newValue, oldValue) {
+                        if (newValue !== oldValue) {
+                            if (newValue) {
+                                marker.setMap(mapCtrl.getMap());
+                                marker.setPosition(new google.maps.LatLng(newValue.latitude, newValue.longitude));
+                                marker.setVisible(newValue.latitude !== null && newValue.longitude !== null);
+                            }
+                            else {
+                                // Remove marker
+                                marker.setMap(null);
+                            }
+                        }
+                    }, true);
+
+                    // remove marker on scope $destroy
+                    scope.$on("$destroy", function () {
+                        marker.setMap(null);
+                    });
+                });
+            }
+        };
+    }]);
+;/**!
+ * The MIT License
+ *
+ * Copyright (c) 2010-2012 Google, Inc. http://angularjs.org
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * angular-google-maps
+ * https://github.com/nlaplante/angular-google-maps
+ *
+ * @author Nicolas Laplante https://plus.google.com/108189012221374960701
+ */
+
+angular.module("google-maps")
+    .directive("polyline", ['$log', '$timeout', function ($log, $timeout) {
+
+        "use strict";
+
+        return {
+            restrict: 'ECA',
+            require: '^googleMap',
+            scope: {},
+            link: function (scope, element, attrs, mapCtrl) {
+                var map = mapCtrl.getMap();
+            }
+        };
+    }]);
+;/**!
+ * The MIT License
+ *
+ * Copyright (c) 2010-2012 Google, Inc. http://angularjs.org
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * angular-google-maps
+ * https://github.com/nlaplante/angular-google-maps
+ *
+ * @author Nicolas Laplante https://plus.google.com/108189012221374960701
+ */
+
+/**
+ * Map info window directive
+ *
+ * This directive is used to create an info window on an existing map.
+ * This directive creates a new scope.
+ *
+ * {attribute coords required}  object containing latitude and longitude properties
+ * {attribute show optional}    map will show when this expression returns true
+ */
+
+angular.module("google-maps").
+    directive("window", ['$log', '$timeout','$compile', '$http', '$templateCache', function ($log, $timeout, $compile, $http, $templateCache) {
+
+        "use strict";
+
+        var DEFAULTS = {
+
+        };
+
+        return {
+          restrict: 'ECMA',
+          template: '<span class="angular-google-maps-window" ng-transclude></span>',
+          transclude: true,
+          priority: -100,
+          require: ['^googleMap', '^?marker'],
+          scope: {
+            coords: '=coords',
+            show: '&show',
+            templateUrl: '=templateurl',
+            templateParameter: '=templateparameter',
+          },
+          link: function (scope, element, attrs, ctrls) {
+              $timeout(function () {
+
+                  var mapCtrl = ctrls[0],
+                      markerCtrl = ctrls.length > 1 ? ctrls[1] : null;
+
+                  var opts = angular.extend({}, DEFAULTS, {
+                      content: element.html(),
+                      position: angular.isDefined(markerCtrl) ? markerCtrl.getMarker().getPosition() :
+                          new google.maps.LatLng(scope.coords.latitude, scope.coords.longitude)
+                  });
+
+                  var win = new google.maps.InfoWindow(opts);
+
+                  if (angular.isDefined(markerCtrl)) {
+                      // Open window on click
+                      var markerInstance = markerCtrl.getMarker();
+
+                      markerInstance.setClickable(true);
+
+                      // Show the window and hide the marker on click
+                      var initialMarkerVisibility;
+                      google.maps.event.addListener(markerInstance, 'click', function () {
+                          win.setPosition(markerInstance.getPosition());
+                          win.open(mapCtrl.getMap());
+
+                          initialMarkerVisibility = markerInstance.getVisible();
+                          markerInstance.setVisible(false);
+                      });
+
+                      // Set visibility of marker back to what it was before opening the window
+                      google.maps.event.addListener(win, 'closeclick', function () {
+                        markerInstance.setVisible(initialMarkerVisibility);
+                      });
+                  }
+
+                   function showWindow() {
+                    if (scope.templateUrl) {
+                        $http.get(scope.templateUrl, { cache: $templateCache })
+                             .then(function (content) {
+                                    var templateScope = scope.$new();
+                                    if (angular.isDefined(scope.templateParameter)) {
+                                        templateScope.parameter = scope.templateParameter;
+                                    }
+                                    var compiled = $compile(content.data)(templateScope);
+                                    console.log(compiled)
+                                    win.setContent(compiled[0]);
+                                    win.open(mapCtrl.getMap());
+                              });
+                    } else {
+                        win.open(mapCtrl.getMap());
+                    }
+                  }
+
+                  function hideWindow() {
+                    win.close();
+                  }
+
+                  scope.$watch('show()', function (newValue, oldValue) {
+                    if (newValue !== oldValue) {
+                        if (newValue) {
+                            showWindow();
+                        }
+                        else {
+                            hideWindow();
+                        }
+                    } else if (newValue && !win.getMap()) {
+                        // If we're initially showing the marker and it's not yet visible, show it.
+                        showWindow();
+                    }
+                  });
+              }, 50);
           }
-          
-          if (!_m.dragging) {
-            _m.center = new google.maps.LatLng(newValue.latitude, 
-                newValue.longitude);          
-            _m.draw();
-          }
-        }, true);
-        
-        scope.$watch("zoom", function (newValue, oldValue) {
-          if (newValue === oldValue) {
-            return;
-          }
-          
-          _m.zoom = newValue;
-          _m.draw();
-        });
-      }
-    };
-  }]);  
-}());
+        };
+    }]);
+
+
+function InfoController($scope) {
+  $scope.templateValue = 'hello from the template itself';
+};
