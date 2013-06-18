@@ -1,12 +1,13 @@
 var Settings = {
 
-  //host: 'http://www.ridingsocial.net/api/',
-  host: 'http://192.168.1.2:3000/api/',
+  host: 'http://www.ridingsocial.net/api/',
+  //host: 'http://192.168.1.2:3000/api/',
   coeff: 0.01,
   radius: 15,
   checkin_distance: 1,
   android_gcm_senderID: "535845696743",
-  geoloc_timeout: 10000,
+  geoloc_timeout: 20000,
+  geoloc_maximum: 1000
 }
 
 var Lang = {

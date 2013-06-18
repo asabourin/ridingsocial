@@ -1,5 +1,5 @@
 angular.module('App')
-  .controller('MainController', function(User, Geolocation, Spots, Sessions, CordovaReady, $scope, $rootScope, $location, $navigate) {
+  .controller('MainController', function(User, Geolocation, Spots, Sessions, CordovaReady, $scope, $rootScope, $location, $navigate, $compile) {
 
     // Events
 
@@ -31,15 +31,14 @@ angular.module('App')
         Geolocation.stopWatching()
     });
 
-    $scope.$watch('bounds', function(oldVal, newVal){ 
-        if($scope.bounds.northeast != undefined) {
-            Spots.fetchWithinBounds(bufferBounds($scope.bounds))
+    $scope.$watch('map', function(oldVal, newVal){ 
+        if($scope.map.bounds.northeast != undefined) {
+            Spots.fetchWithinBounds(bufferBounds($scope.map.bounds))
         }
     }, true)
 
     $rootScope.$on("spotsWithinBoundsUpdated", function (event, args) {
-      $scope.markers = _.reject($scope.markers, function(m){ return m.id != 'me'; });
-      markers = buildSpotsMarkers(args.withinBounds.spots)
+      $scope.map.markers = buildSpotsMarkers(args.withinBounds.spots)
     });
 
     // Init
@@ -60,14 +59,16 @@ angular.module('App')
     google.maps.visualRefresh = true;
 
     angular.extend($scope, {
-      center: {
-        latitude: 0, // initial map center latitude
-        longitude: 0, // initial map center longitude
-      },
-      bounds: {},
-      markers: [], // an array of markers,
-      zoom: 12, // the zoom level
-    });
+      map: {
+        center: {
+          latitude: 0,
+          longitude: 0
+        },
+        bounds: {},
+        markers: [],
+        zoom: 12
+      }
+    })
 
     // Functions
 
@@ -90,31 +91,35 @@ angular.module('App')
     }
 
     function updateMap(position) {
-      $scope.markers = _.reject($scope.markers, function(m){ return m.id == 'me'; });
-      $scope.markers.push({
+      $scope.map.me = {
         id: 'me',
         latitude: parseFloat(position.latitude),
         longitude: parseFloat(position.longitude)
-      });
-      $scope.center.latitude = position.latitude
-      $scope.center.longitude = position.longitude
+      }
+      $scope.map.center.latitude = position.latitude
+      $scope.map.center.longitude = position.longitude
     }
 
     function buildSpotsMarkers(spots) {
-       markers = _.each(spots, function(spot) {
-        $scope.markers.push( {
+       var markers = []
+       _.each(spots, function(spot) {
+        markers.push( {
           id: spot.id,
+          name: spot.name,
+          checkins: spot.checkins,
           latitude: parseFloat(spot.lat),
           longitude: parseFloat(spot.lng),
           icon: 'images/flags/'+spot.color+'_32.png',
-          infoWindow: formatMarkerInfo(spot)
         })
       })
        return markers
     }
 
     function formatMarkerInfo(spot) {
-        return '<p><b>'+spot.name+'</b><br>'+spot.checkins+' recent checkins</p>'
+        content=  '<p><a ng-click="$navigate.go(\'/spots/'+spot.id+'\')">'+spot.name+'</a><br>'+spot.checkins+' recent checkins</p>'
+        var templateScope = $scope.$new();
+        var compiled = $compile(content.data)(templateScope);
+        return compiled
     }
 
     function bufferBounds(bounds) {
