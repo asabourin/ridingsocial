@@ -275,6 +275,20 @@ p.details {
 
 /* Map */
 
+.angular-google-map-container {
+    width: 100%;
+    height: 600px;
+  }
+
+  /* fix for Twitter Bootstrap handling of responsive images */
+  .angular-google-map img {
+   max-width: inherit;
+  }
+
+  .angular-google-map {
+    display: block;
+  }*/
+
 #map_canvas {
   height: 100%;
   padding: 48px 0;
@@ -387,6 +401,7 @@ span.spot-picture {
   border: solid 3px white;
   box-shadow: 1px 1px 5px #999;
   display: block;
+  margin: 0 auto;
 }
 
 #rider-tabs {
