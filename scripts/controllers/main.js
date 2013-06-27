@@ -14,6 +14,7 @@ angular.module('App')
     });
 
     $rootScope.$on("nearbySpotsUpdated", function(event, args) {
+      $scope.loading = false
       Spots.checkNearest()
     })
 
@@ -24,7 +25,6 @@ angular.module('App')
 
     $rootScope.$on("sessionsUpdated", function (event, args) {
         $rootScope.sessions = args.sessions
-        $scope.loading = false
     });
 
     $scope.$on('$destroy', function () {
