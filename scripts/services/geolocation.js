@@ -7,15 +7,15 @@ angular.module('Services').factory('Geolocation', function ($rootScope, $timeout
 
   //
 
-  var watchPosition = function() {
-    watcher = navigator.geolocation.watchPosition(
+  var getPosition = function() {
+    watcher = navigator.geolocation.getCurrentPosition(
       function(position) {
         onPositionReceived(position)
       }
       , function(error) {
         navigator.notification.alert(Lang.en.error_location, null, Lang.en.error)
       }
-      , {maximumAge: Settings.geoloc_maximum, timeout: 1000, enableHighAccuracy: true}
+      , {maximumAge: Settings.geoloc_timeout, timeout: Settings.geoloc_timeout, enableHighAccuracy: true}
     );
      
   }
@@ -48,7 +48,7 @@ angular.module('Services').factory('Geolocation', function ($rootScope, $timeout
     currentPosition: function() {
       return currentPosition
     },
-    watchPosition: watchPosition,
+    getPosition: getPosition,
     stopWatching: stopWatching,
     resetPosition: resetPosition
 

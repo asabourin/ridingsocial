@@ -6,8 +6,8 @@ var Settings = {
   radius: 15,
   checkin_distance: 1,
   android_gcm_senderID: "535845696743",
-  geoloc_timeout: 20000,
-  geoloc_maximum: 1000
+  geoloc_timeout: 30000,
+  facebook_app_ID: '290983157607960'
 }
 
 var Lang = {

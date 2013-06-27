@@ -32,7 +32,7 @@ angular.module('App')
     });
 
     $scope.$watch('map', function(oldVal, newVal){ 
-        if($scope.map.bounds.northeast != undefined) {
+        if($scope.map.bounds.northeast != undefined && oldVal.bounds != newVal.bounds) {
             Spots.fetchWithinBounds(bufferBounds($scope.map.bounds))
         }
     }, true)
@@ -48,7 +48,7 @@ angular.module('App')
     $navigate.eraseHistory()
 
     Geolocation.resetPosition()
-    CordovaReady(Geolocation.watchPosition())
+    CordovaReady(Geolocation.getPosition())
 
     Sessions.refreshFollowed(User.token())
     Spots.fetchFavorites(User.token())
@@ -80,8 +80,8 @@ angular.module('App')
       $scope.loading =true
       Spots.fetchFavorites(User.token())
       Sessions.refreshFollowed(User.token())
-      Spots.refreshNearby(Geolocation.currentPosition())
-      updateMap(Geolocation.currentPosition())
+      Geolocation.resetPosition()
+      CordovaReady(Geolocation.getPosition())
     }
 
     function wannaCheckin(index) {
