@@ -2,7 +2,7 @@ angular.module('Services').factory('Facebook', function ($rootScope, CordovaRead
     return {
 
         init: CordovaReady(function (onSuccess, onError, options) {
-            FB.init({ appId: "290983157607960", nativeInterface: CDV.FB, useCachedDialogs: false });
+            FB.init({ appId: Settings.facebook_app_ID, nativeInterface: CDV.FB, useCachedDialogs: false });
         }),
 
         getLoginStatus:function () {
