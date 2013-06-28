@@ -13,6 +13,17 @@ angular.module('Services').factory('Spots', function ($rootScope, $http) {
       return d.toFixed(1)
     }
 
+    function updateDistanceFavorites(position) {
+        if(position != undefined) {
+            var spots = _.map(favorites, function(spot) {
+                spot.distance = distance(spot, position);
+                return spot
+            })
+            favorites = _.sortBy(spots, function(spot){return spot.distance})
+            $rootScope.$broadcast('favoritesSpotsUpdated', {favorites:favorites})
+        }
+    }
+
     return {
 
         getNearby:function() {
@@ -27,13 +38,12 @@ angular.module('Services').factory('Spots', function ($rootScope, $http) {
             return favorites
         },
 
-        computeDistanceFavorites: function(location) {
-            spots = _.map(favorites, function(spot) {
-                spot.distance = distance(spot, location);
-                return spot
-            })
-            favorites = _.sortBy(spots, function(spot){spot.distance})
-            $rootScope.$broadcast('favoritesSpotsUpdated', {favorites:favorites})
+        distance: function(spot, location) {
+            return distance(spot, location)
+        },
+
+        updateDistanceFavorites: function(position) {
+            updateDistanceFavorites(position)
         },
 
         refreshNearby:function (position) {
@@ -57,6 +67,7 @@ angular.module('Services').factory('Spots', function ($rootScope, $http) {
         fetchFavorites: function(token) {
             $http.get(Settings.host+'spots/favorites?&token='+token).success(function(response){
                 favorites = response;
+                updateDistanceFavorites($rootScope.position)
                 $rootScope.$broadcast('favoritesSpotsUpdated', {favorites:favorites})
             }, function(error) {
 

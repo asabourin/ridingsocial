@@ -5,8 +5,9 @@ angular.module('App')
 
     $rootScope.$on("positionUpdated", function (event, args) {
         Spots.refreshNearby(args.position)
-        Spots.computeDistanceFavorites(args.position)
+        Spots.updateDistanceFavorites(args.position)
         updateMap(args.position)
+        $rootScope.position = args.position
     });
 
     $rootScope.$on("favoritesSpotsUpdated", function (event, args) {
@@ -106,6 +107,7 @@ angular.module('App')
         markers.push( {
           id: spot.id,
           name: spot.name,
+          distance: Spots.distance(spot, $rootScope.position),
           checkins: spot.checkins,
           latitude: parseFloat(spot.lat),
           longitude: parseFloat(spot.lng),
