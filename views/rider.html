@@ -52,10 +52,10 @@
               <span ng-show="session.others.length > 1" ng-repeat="rider in session.others">
                   {{{true: '', false: 'and '}[$first]}}<a ng-touch="navigate.go('/riders/'+rider.id)">{{rider.name}}</a></span>.
               </span>
-                <img ng-src="{{session.photo}}" class="session-photo" />
+                <img ng-show="session.photo" ng-src="{{session.photo}}" class="session-photo" />
                 <i>&ldquo;{{session.comment}}&rdquo;</i>
                  <br/>
-                <small class="distance muted">{{session.created_at | date:'MMM d h:mma'}}</small>
+                <small class="muted">{{session.created_at | date:'MMM d h:mma'}}</small>
                 
             </li>
             

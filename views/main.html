@@ -21,8 +21,8 @@
             
             <img ng-src="images/flags/{{spot.color}}_80.png" class="flag" />
             <small class="muted distance" ng-show="spot.distance">{{spot.distance}}km</small>
-           <a ng-touch="navigate.go('/spots/'+spot.id)">{{spot.name}}</a>
-            <p class="details">{{spot.checkins}} checkins</p>
+            <a ng-touch="navigate.go('/spots/'+spot.id)">{{spot.name}}</a>
+            <p>{{spot.checkins}} recent checkins</p>
             
           </li>
         </ul>
@@ -30,22 +30,15 @@
     </div>
 
     <div id="map_canvas" ng-switch-when="map" >
-      <google-map 
-          center="map.center"
-          zoom="map.zoom" 
-          draggable="true"
-          bounds="map.bounds"
-          >
+      <google-map center="map.center" zoom="map.zoom" draggable="true" bounds="map.bounds" >
 
-          <marker coords="map.me">
+          <marker coords="map.me"></me>
 
-          </me>
-
-          <!-- prefedined markers -->
           <marker ng-repeat="m in map.markers" coords="m" icon="m.icon">
                   <window>
                       <a>{{m.name}}</a>
-                      <p class="muted">{{m.checkins}} recent checkins</p>
+                      <span class="muted">{{m.distance}}km</span>
+                      <p> {{m.checkins}} recent checkins</p>
                   </window>
           </marker>
 
