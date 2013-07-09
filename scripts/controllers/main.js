@@ -34,7 +34,9 @@ angular.module('App')
 
     $scope.$watch('map', function(oldVal, newVal){ 
         if($scope.map.center != undefined && oldVal.center != newVal.center) {
-            Spots.fetchWithinBounds(bufferBounds($scope.map.bounds))
+            if($scope.map.bounds !=undefined) {
+              Spots.fetchWithinBounds(bufferBounds($scope.map.bounds))
+            }
         }
     }, true)
 
@@ -94,7 +96,7 @@ angular.module('App')
     }
 
     function updateMap(position) {
-      $scope.map.me = {
+      $rootScope.myPosition = {
         id: 'me',
         latitude: parseFloat(position.latitude),
         longitude: parseFloat(position.longitude)
