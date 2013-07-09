@@ -32,11 +32,11 @@
     <div id="map_canvas" ng-switch-when="map" >
       <google-map center="map.center" zoom="map.zoom" draggable="true" bounds="map.bounds" >
 
-          <marker coords="map.me"></me>
+          <marker ng-show="map.me" coords="map.me"></me>
 
           <marker ng-repeat="m in map.markers" coords="m" icon="m.icon">
                   <window>
-                      <a>{{m.name}}</a>
+                      <a href="#/spots/{{m.id}}">{{m.name}}</a>
                       <span class="muted">{{m.distance}}km</span>
                       <p> {{m.checkins}} recent checkins</p>
                   </window>

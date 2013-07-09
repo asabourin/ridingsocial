@@ -33,7 +33,7 @@ angular.module('App')
     });
 
     $scope.$watch('map', function(oldVal, newVal){ 
-        if($scope.map.bounds.northeast != undefined && oldVal.bounds != newVal.bounds) {
+        if($scope.map.center != undefined && oldVal.center != newVal.center) {
             Spots.fetchWithinBounds(bufferBounds($scope.map.bounds))
         }
     }, true)
@@ -83,12 +83,14 @@ angular.module('App')
       Sessions.refreshFollowed(User.token())
       Geolocation.resetPosition()
       CordovaReady(Geolocation.getPosition())
+      $scope.map.zoom = 12
     }
 
     function wannaCheckin(index) {
         if(index == 1) {
             $navigate.go('/checkin', 'pop')
         }
+        $scope.$apply()
     }
 
     function updateMap(position) {

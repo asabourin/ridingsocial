@@ -310,6 +310,10 @@ google-map > * {
   -webkit-transform: none !important;
 }
 
+.angular-google-maps-window > a {
+  font-size: 14px;
+}
+
 /* Checkin */
 #checkin {
   width: 100%;
