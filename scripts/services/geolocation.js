@@ -15,7 +15,7 @@ angular.module('Services').factory('Geolocation', function ($rootScope, $timeout
       , function(error) {
         navigator.notification.alert(Lang.en.error_location, null, Lang.en.error)
       }
-      , {maximumAge: Settings.geoloc_timeout, timeout: Settings.geoloc_timeout, enableHighAccuracy: true}
+      , {maximumAge: 1000, timeout: Settings.geoloc_timeout, enableHighAccuracy: true}
     );
      
   }
