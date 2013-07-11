@@ -2,7 +2,7 @@
 
 angular.module('Services', []);
 
-angular.module('App', ['Services', 'ui.bootstrap', 'google-maps', 'ajoslin.mobile-navigate'])
+angular.module('App', ['Services', 'ui.bootstrap', 'AngularGM', 'ajoslin.mobile-navigate'])
 
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider

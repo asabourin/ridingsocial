@@ -30,19 +30,22 @@
     </div>
 
     <div id="map_canvas" ng-switch-when="map" >
-      <google-map center="map.center" zoom="map.zoom" draggable="true" bounds="map.bounds" >
+     
+      <gm-map gm-map-id="'myMap'" gm-center="map.center" gm-zoom="map.zoom" gm-bounds="map.bounds">
 
-          <marker ng-show="myPosition" coords="myPosition"></me>
+      <gm-markers gm-objects="map.me"
+                            gm-get-lat-lng="{ lat: object.lat, lng: object.lng }"
+                            gm-get-marker-options=""
+                            gm-on-click="">
+                </gm-markers>
 
-          <marker ng-repeat="m in map.markers" coords="m" icon="m.icon">
-                  <window>
-                      <a href="#/spots/{{m.id}}">{{m.name}}</a>
-                      <span class="muted">{{m.distance}}km</span>
-                      <p> {{m.checkins}} recent checkins</p>
-                  </window>
-          </marker>
+        <gm-markers gm-objects="map.spots"
+                            gm-get-lat-lng="{ lat: object.lat, lng: object.lng }"
+                            gm-get-marker-options="getSpotOpts(object)"
+                            gm-on-click="navigate.go('/spots/'+object.id)">
+                </gm-markers>
 
-      </google-map>
+      </gm-map>
 
     </div>
 
