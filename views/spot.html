@@ -13,7 +13,7 @@
 <div id="spot" class="box clearfix" ng-show="spot">
 
     <p class="profile">
-        <span style="background-image: url('{{spot.picture}}')" class="spot-picture" >&nbsp;</span>
+        <span ng-style="{'background-image': 'url('+spot.picture+')'}" class="spot-picture" >&nbsp;</span>
         <br/>
         <i class="icon icon-flag-checkered"></i> {{spot.nb_sessions}} sessions 
         <i class="icon icon-user"></i> {{spot.nb_riders}} riders 
