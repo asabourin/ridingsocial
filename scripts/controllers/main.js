@@ -44,32 +44,27 @@ angular.module('App')
 
     // Init
 
-    $scope.loading = true
     $rootScope.activeTab = $rootScope.activeTab || 'sessions'
     $navigate.eraseHistory()
-
-    Geolocation.resetPosition()
-    CordovaReady(Geolocation.getPosition())
-
-    Sessions.refreshFollowed(User.token())
-    Spots.fetchWatched(User.token())
-
-    User.getFollowedRiders()
-
-    // New look for Google Maps
     google.maps.visualRefresh = true;
 
-    angular.extend($scope, {
-      map: {
-        center: {
-          latitude: 0,
-          longitude: 0
-        },
-        bounds: {},
-        markers: [],
-        zoom: 12
-      }
-    })
+    if($rootScope.position == undefined) {
+
+      angular.extend($rootScope, {
+        map: {
+          center: {
+            latitude: 0,
+            longitude: 0
+          },
+          bounds: {},
+          markers: [],
+          zoom: 12
+        }
+      })
+
+      refresh()
+
+    }
 
     // Functions
 
@@ -77,7 +72,9 @@ angular.module('App')
         $rootScope.activeTab = tab;
     }
 
-    $scope.refresh = function() {
+    $scope.refresh = function() { refresh() }
+
+    function refresh() {
       $scope.loading =true
       Spots.fetchWatched(User.token())
       Sessions.refreshFollowed(User.token())
@@ -146,8 +143,12 @@ angular.module('App')
 
     $scope.optsMenu = {
       backdropFade: true,
-      dialogFade:true
+      dialogFade:false
     };
+
+    $scope.goToDesktopSite = function () {
+      window.open('http://www.ridingsocial.net', '_system', 'location=yes');
+    }
 
     $scope.logout = function() {logout()}
     $scope.checkin = function() {

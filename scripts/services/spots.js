@@ -1,6 +1,6 @@
 angular.module('Services').factory('Spots', function ($rootScope, $http) {
 
-    var nearby, favorites, currentNearest, withinBounds;
+    var nearby, watched, currentNearest, withinBounds;
 
     function distance(spot, location) {
       var r = 6371 //km
@@ -15,7 +15,7 @@ angular.module('Services').factory('Spots', function ($rootScope, $http) {
 
     function updateDistanceWatched(position) {
         if(position != undefined) {
-            var spots = _.map(favorites, function(spot) {
+            var spots = _.map(watched, function(spot) {
                 spot.distance = distance(spot, position);
                 return spot
             })

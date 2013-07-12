@@ -14,16 +14,17 @@ angular.module('App')
     // Functions
 
     $scope.watch = function() {
-        navigator.notification.confirm("", unwatch, "Watch "+$scope.spot.name+"?", ["Yes", "Cancel"]);
+        navigator.notification.confirm("Watch "+$scope.spot.name+"?", watch, "", ["Yes", "Cancel"]);
     }
 
     function watch(index) {
         if(index == 1) {
             $scope.loading = true
             Riders.watch(User.token(), $scope.spot.id, function(response) {
-                $scope.spot.favorite = true
+                $scope.spot.watched = true
                 $scope.loading = false
             })
+            $scope.$apply()
         }
     }
 
@@ -35,7 +36,7 @@ angular.module('App')
         if(index == 1) {
             $scope.loading = true
             Riders.unwatch(User.token(), $scope.spot.id, function(response) {
-                $scope.spot.favorite = false
+                $scope.spot.watched = false
                 $scope.loading = false
             })
             $scope.$apply()
