@@ -406,18 +406,12 @@ img.score {
   vertical-align: bottom;
 }
 
-
-#stats li {
-  display: inline-block;
-  text-align: center;
-  margin-right: 15px;
-}
-
 .big-number {
   font-family: 'Handel', sans-serif;
   font-weight: bold;
   text-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
   font-size: 2em;
+  color: #555555
 }
 
 #rider-tabs {

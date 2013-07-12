@@ -13,9 +13,9 @@
 
 <div id="main" ng-switch="activeTab" ng-animate="'fade'">
 
-    <div id="favorites" ng-switch-when="favorites" >
+    <div id="watched" ng-switch-when="watched" >
 
-        <ul class="favorites">
+        <ul class="watched">
 
           <li class="box" ng-repeat="spot in spots" >
             
@@ -77,7 +77,7 @@
 <div class="navbar navbar-fixed-bottom"> 
     <div class="navbar-inner">
         <ul class="nav">
-          <li ng-class="{active: activeTab == 'sessions'}"><a ng-touch="goToTab('sessions')"><i class="nav-icon icon-user"></i><br> Following</a></li><li ng-class="{active: activeTab == 'map'}"><a ng-touch="goToTab('map')" ><i class="nav-icon icon-globe"></i><br> Map</a></li><li ng-class="{active: activeTab == 'favorites'}"><a ng-touch="goToTab('favorites')" ><i class="nav-icon icon-map-marker"></i><br> Favorites</a></li>
+          <li ng-class="{active: activeTab == 'sessions'}"><a ng-touch="goToTab('sessions')"><i class="nav-icon icon-user"></i><br> Sessions</a></li><li ng-class="{active: activeTab == 'map'}"><a ng-touch="goToTab('map')" ><i class="nav-icon icon-globe"></i><br> Map</a></li><li ng-class="{active: activeTab == 'spots'}"><a ng-touch="goToTab('spots')" ><i class="nav-icon icon-map-marker"></i><br> Spots</a></li>
         </ul>
     </div>
 </div>
