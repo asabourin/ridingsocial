@@ -191,14 +191,13 @@ div#logo h1 {
 /* Main */
 
 
-.navbar-icon {
+img.navbar-icon {
   width: 35;
   height: 35;
   margin: 4px 8px;
   }
 
-a.navbar-button {
-  border-top: 0;
+.navbar-button {
   height: 48px;
   width: 48px;
   margin: 0;

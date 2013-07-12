@@ -134,7 +134,20 @@ angular.module('App')
         return {min_lat: min_lat, max_lat: max_lat, min_lng: min_lng, max_lng: max_lng}
     }
 
-    // Debug
+    // Menu
+
+    $scope.openMenu = function () {
+      $scope.menuOpen = true;
+    };
+
+    $scope.closeMenu = function () {
+      $scope.menuOpen = false;
+    };
+
+    $scope.optsMenu = {
+      backdropFade: true,
+      dialogFade:true
+    };
 
     $scope.logout = function() {logout()}
     $scope.checkin = function() {

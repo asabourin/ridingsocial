@@ -1,7 +1,7 @@
 <div class="navbar navbar-fixed-top">
     <div class="blue navbar-inner">
           
-      <img src="images/shaka.png" class="navbar-icon pull-left" />
+      <a class="navbar-button pull-left" ><img src="images/shaka.png" class="navbar-icon" ng-touch="openMenu()" /></a>
 
       <a class="navbar-button pull-right" ng-touch="refresh()">
         <i class="icon-refresh icon-large"  ng-hide="loading"></i>
@@ -10,6 +10,22 @@
 
     </div>
 </div>
+
+<div modal="menuOpen" close="closeMenu()" options="optsMenu">
+        <div class="modal-header">
+            <button type="button" class="close" ng-touch="closeMenu()">&times;</button>
+            <h3><img id="shaka" src="images/logo.png" width="50" height="50" /> RidingSocial</h3>
+        </div>
+        <div class="modal-body">
+            <p style="text-align:center">
+              Version 1.0 Beta<br>
+              <a href="www.ridingsocial.net">www.ridingsocial.net</a>
+            </p>
+        </div>
+        <div class="modal-footer">
+            <a class="btn btn-block btn-danger" ng-touch="logout()"><i class="sign-out"></i>Logout</a>
+        </div>
+    </div>
 
 <div id="main" ng-switch="activeTab" ng-animate="'fade'">
 
