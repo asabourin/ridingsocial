@@ -12,54 +12,51 @@
 
 <div ng-show="loading" class="dim"><div class="centered"><span class="loader"></span></div></div>
 
-<div id="rider" class="box clearfix" ng-show="rider">
+<div id="profile" class="box clearfix" ng-show="rider">
 
-    <p class="profile">
-        <img ng-src="{{rider.picture}}" class="profile" />
-        <br/>
-        <span class="label blue"><img src="images/shaka.png" width="20" height="20"></span> {{rider.score}} shakas 
-        <i class="icon icon-user"></i> {{rider.nb_followers}} followers 
-        <i class="icon icon-flag-checkered"></i> {{rider.nb_sessions}} sessions 
-    </p>
+  <img ng-src="{{rider.picture}}" class="profile pull-left" />
 
-    <div id="rider-tabs" ng-switch="tab" ng-animate="'fade'">
+  <p><button class="btn btn-primary"><img class="score" src="images/shaka.png"> <span class="big-number">{{rider.score}}</span></button></p>
+  <p>Riding with<br>
+  <span ng-repeat="item in rider.items">
+          <img ng-src="{{item.picture}}" class="item-small pull-left">
+  </span>
 
-        <div class="btn-group">
-            <button type="button" class="btn btn-large fifty" ng-model="tab" btn-radio="'sessions'"><i class="icon-flag-checkered"></i> Sessions</button> <button type="button" class="btn btn-large fifty" ng-model="tab" btn-radio="'gear'"><i class="icon-wrench"></i> Gear</button>
-        </div>
+  <div id="rider-tabs" ng-switch="tab" ng-animate="'fade'">
 
+      <div class="btn-group">
+          <button class="btn btn-large half" ng-model="tab" btn-radio="'sessions'"><span class="big-number">{{rider.nb_sessions}}</span><br><i class="icon-flag-checkered"></i> Sessions</button>
+          <button class="btn btn-large half" ng-model="tab" btn-radio="'followers'"><span class="big-number">{{rider.nb_followers}}</span><br><i class="icon-user"></i> Followers</button>
+      </div>
 
-        <ul id="items" ng-switch-when="gear" class="clearfix">
+      <ul id="followers" ng-switch-when="followers">
+        <li class="item" ng-repeat="follower in followers">
+          <img ng-touch="navigate.go('/riders/'+follower.id)" ng-src="{{follower.picture}}" class="item-small pull-left"><a ng-touch="navigate.go('/riders/'+follower.id)">{{follower.name}}</a>
+        </li>
+      </ul>
 
-            <li class="item" ng-repeat="item in rider.items">
-                <img ng-src="{{item.picture}}" class="item-small pull-left">
-                {{item.name}}
-            </li>
-            
-        </ul>
+      <ul id="sessions" ng-switch-when="sessions">
 
-        <ul id="sessions" ng-switch-when="sessions">
-
-            <li class="item" ng-repeat="session in sessions">
-                <div class="pull-left">
-                    <img ng-src="images/flags/{{session.color}}_80.png" class="flag" />
-                   
-                </div>
-                {{session.action}} at <a ng-touch="navigate.go('/spots/'+session.spot.id)">{{session.spot.name}}</a>
-               <span ng-show="session.others">with </span>
-              <span ng-show="session.others.length == 1"><a ng-touch="navigate.go('/riders/'+session.others.first.id)">{{session.others.first.name}}</a>
-              </span>
-              <span ng-show="session.others.length > 1" ng-repeat="rider in session.others">
-                  {{{true: '', false: 'and '}[$first]}}<a ng-touch="navigate.go('/riders/'+rider.id)">{{rider.name}}</a></span>.
-              </span>
-                <img ng-show="session.photo" ng-src="{{session.photo}}" class="session-photo" />
-                <i>&ldquo;{{session.comment}}&rdquo;</i>
-                 <br/>
-                <small class="muted">{{session.created_at | date:'MMM d h:mma'}}</small>
-                
-            </li>
-            
-        </ul>
+          <li class="item" ng-repeat="session in sessions">
+              <div class="pull-left">
+                  <img ng-src="images/flags/{{session.color}}_80.png" class="flag" />
+                 
+              </div>
+              {{session.action}} at <a ng-touch="navigate.go('/spots/'+session.spot.id)">{{session.spot.name}}</a>
+             <span ng-show="session.others">with </span>
+            <span ng-show="session.others.length == 1"><a ng-touch="navigate.go('/riders/'+session.others.first.id)">{{session.others.first.name}}</a>
+            </span>
+            <span ng-show="session.others.length > 1" ng-repeat="rider in session.others">
+                {{{true: '', false: 'and '}[$first]}}<a ng-touch="navigate.go('/riders/'+rider.id)">{{rider.name}}</a></span>.
+            </span>
+              <img ng-show="session.photo" ng-src="{{session.photo}}" class="session-photo" />
+              <i>&ldquo;{{session.comment}}&rdquo;</i>
+               <br/>
+              <small class="muted"><i class="icon-time"></i> {{session.created_at | date:'MMM d h:mma'}}</small>
+              
+          </li>
+          
+      </ul>
 
     </div>
 

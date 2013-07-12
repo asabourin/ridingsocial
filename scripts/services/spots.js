@@ -13,14 +13,13 @@ angular.module('Services').factory('Spots', function ($rootScope, $http) {
       return d.toFixed(1)
     }
 
-    function updateDistanceFavorites(position) {
+    function updateDistanceWatched(position) {
         if(position != undefined) {
             var spots = _.map(favorites, function(spot) {
                 spot.distance = distance(spot, position);
                 return spot
             })
-            favorites = _.sortBy(spots, function(spot){return spot.distance})
-            $rootScope.$broadcast('favoritesSpotsUpdated', {favorites:favorites})
+            $rootScope.$broadcast('watchedSpotsUpdated', {watched:spots})
         }
     }
 
@@ -42,8 +41,8 @@ angular.module('Services').factory('Spots', function ($rootScope, $http) {
             return distance(spot, location)
         },
 
-        updateDistanceFavorites: function(position) {
-            updateDistanceFavorites(position)
+        updateDistanceWatched: function(position) {
+            updateDistanceWatched(position)
         },
 
         refreshNearby:function (position) {
@@ -64,11 +63,11 @@ angular.module('Services').factory('Spots', function ($rootScope, $http) {
             });
         },
 
-        fetchFavorites: function(token) {
-            $http.get(Settings.host+'spots/favorites?&token='+token).success(function(response){
-                favorites = response;
-                updateDistanceFavorites($rootScope.position)
-                $rootScope.$broadcast('favoritesSpotsUpdated', {favorites:favorites})
+        fetchWatched: function(token) {
+            $http.get(Settings.host+'spots/watched?&token='+token).success(function(response){
+                watched = response;
+                updateDistanceWatched($rootScope.position)
+                $rootScope.$broadcast('watchedSpotsUpdated', {watched:watched})
             }, function(error) {
 
             });

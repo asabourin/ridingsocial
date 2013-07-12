@@ -32,8 +32,8 @@ angular.module('App')
 
   $scope.$on("rs_connected", function (event, args) {
     $rootScope.user = User.get()
-      User.me()
-      Push.init()
+    User.me()
+    Push.init()
   });
 
   $scope.$on('gotMe', function(event, args) {
@@ -48,11 +48,8 @@ angular.module('App')
   });
 
   $scope.$on("pushRegistered", function (event, args) {
-
     User.registerDevice(args.settings, function(response){
-      
-    }, 
-      function(response) {
+    }, function(response) {
         console.log("Could not save Push Notification settings on backend: "+response, null, Lang.en.error)
       })
   })

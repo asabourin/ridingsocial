@@ -381,39 +381,55 @@ button.rating, button.activity {
 
 /* Rider n Spot */
 
-#rider, #spot {
-  padding: 53px 5px 5px 5px;
-}
-
-p.profile {
-  text-align: center
+#profile {
+  padding: 0;
+  padding-top: 48px;
+  text-align: center;
+  height: 100%;
 }
 
 img.profile {
-  width: 200px;
-  height: 200px;
+  width: 100px;
+  height: 100px;
   margin: 0 5px 5px 0;
-  border: solid 3px white;
-  box-shadow: 1px 1px 5px #999;
+}
+
+span.spot-picture {
+  width: 100%;
+  height: 200px;
+  display: block;
+}
+
+img.score {
+  width: 30px;
+  height: 30px;
+  vertical-align: bottom;
 }
 
 
-span.spot-picture {
-  width: 200px;
-  height: 200px;
-  margin: 0 5px 5px 0;
-  border: solid 3px white;
-  box-shadow: 1px 1px 5px #999;
-  display: block;
-  margin: 0 auto;
+#stats li {
+  display: inline-block;
+  text-align: center;
+  margin-right: 15px;
+}
+
+.big-number {
+  font-family: 'Handel', sans-serif;
+  font-weight: bold;
+  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
+  font-size: 2em;
 }
 
 #rider-tabs {
   margin-top: 5px
 }
 
-button.fifty {
+button.half {
   width: 50%;
+}
+
+button.third {
+  width: 33.3%;
 }
 
 ul.rider-tabs-nav {
@@ -461,6 +477,10 @@ img.item-small {
   width: 50px;
   max-height: 100px;
   margin: 5px
+}
+
+#sessions {
+  text-align: left
 }
 
 

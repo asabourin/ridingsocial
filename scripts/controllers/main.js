@@ -5,13 +5,13 @@ angular.module('App')
 
     $rootScope.$on("positionUpdated", function (event, args) {
         Spots.refreshNearby(args.position)
-        Spots.updateDistanceFavorites(args.position)
+        Spots.updateDistanceWatched(args.position)
         updateMap(args.position)
         $rootScope.position = args.position
     });
 
-    $rootScope.$on("favoritesSpotsUpdated", function (event, args) {
-        $rootScope.spots = args.favorites
+    $rootScope.$on("watchedSpotsUpdated", function (event, args) {
+        $rootScope.spots = args.watched
     });
 
     $rootScope.$on("nearbySpotsUpdated", function(event, args) {
@@ -52,7 +52,7 @@ angular.module('App')
     CordovaReady(Geolocation.getPosition())
 
     Sessions.refreshFollowed(User.token())
-    Spots.fetchFavorites(User.token())
+    Spots.fetchWatched(User.token())
 
     User.getFollowedRiders()
 
@@ -79,7 +79,7 @@ angular.module('App')
 
     $scope.refresh = function() {
       $scope.loading =true
-      Spots.fetchFavorites(User.token())
+      Spots.fetchWatched(User.token())
       Sessions.refreshFollowed(User.token())
       Geolocation.resetPosition()
       CordovaReady(Geolocation.getPosition())

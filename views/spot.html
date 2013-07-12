@@ -1,8 +1,8 @@
 <div class="navbar navbar-fixed-top" >
   <div class="navbar-inner blue">
     <a class="navbar-button pull-left" ng-touch="navigate.back()"><i class="icon-chevron-left "></i></a>
-      <a class="navbar-button pull-right" ng-show="!spot.favorite" ng-touch="favorite()"><i class="icon-heart-empty "></i></a>
-      <a class="navbar-button pull-right" ng-show="spot.favorite" ng-touch="unfavorite()"><i class="icon-heart"></i></a>
+      <a class="navbar-button pull-right" ng-show="!spot.watched" ng-touch="watch()"><i class="icon-eye-close "></i></a>
+      <a class="navbar-button pull-right" ng-show="spot.watched" ng-touch="unwatch()"><i class="icon-eye-open"></i></a>
     <h4>{{spot.name}}</h4>
 
   </div>
@@ -10,16 +10,18 @@
 
 <div ng-show="loading" class="dim"><div class="centered"><span class="loader"></span></div></div>
 
-<div id="spot" class="box clearfix" ng-show="spot">
+<div id="profile" class="box clearfix" ng-show="spot">
 
-    <p class="profile">
-        <span ng-style="{'background-image': 'url('+spot.picture+')'}" class="spot-picture" >&nbsp;</span>
-        <br/>
-        <i class="icon icon-flag-checkered"></i> {{spot.nb_sessions}} sessions 
-        <i class="icon icon-user"></i> {{spot.nb_riders}} riders 
-    </p>
+    <span ng-style="{'background-image': 'url('+spot.picture+')'}" class="spot-picture" >&nbsp;</span>
 
-    <ul id="sessions">
+    <div ng-switch="tab" ng-animate="'fade'">
+
+        <div class="btn-group">
+            <button class="btn btn-large half" ng-model="tab" btn-radio="'sessions'"><span class="big-number">{{spot.nb_sessions}}</span><br><i class="icon-flag-checkered"></i> Sessions</button>
+            <button class="btn btn-large half" ng-model="tab" btn-radio="'riders'"><span class="big-number">{{spot.nb_riders}}</span><br><i class="icon-user"></i> Riders</button>
+        </div>
+
+      <ul id="sessions" ng-switch-when="sessions">
 
           <li class="item" ng-repeat="session in spot.sessions">
               <div class="pull-left">
@@ -36,10 +38,18 @@
               <img ng-show="session.photo" ng-src="{{session.photo}}" class="session-photo" />
               <i>&ldquo;{{session.comment}}&rdquo;</i>
                <br/>
-              <small class="muted">{{session.created_at | date:'MMM d h:mma'}}</small>
+              <small class="muted"><i class="icon-time"></i> {{session.created_at | date:'MMM d h:mma'}}</small>
                 
           </li>
-          
-      </ul>
+            
+        </ul>
+
+        <ul id="riders" ng-switch-when="riders">
+          <li class="item" ng-repeat="rider in riders">
+            <img ng-touch="navigate.go('/riders/'+rider.id)" ng-src="{{rider.picture}}" class="item-small pull-left"><a ng-touch="navigate.go('/riders/'+rider.id)">{{rider.name}}</a>
+          </li>
+        </ul>
+
+      </div>
 
 </div>
