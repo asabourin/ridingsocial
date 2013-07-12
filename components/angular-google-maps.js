@@ -421,6 +421,14 @@ angular.module('google-maps')
                     var marker = new google.maps.Marker(opts);
                     element.data('instance', marker);
 
+                    if (angular.isDefined(attrs.click) && scope.click !== null) {
+                        google.maps.event.addListener(marker, 'click', function () {
+                            $timeout(function() {
+                                scope.click()
+                            })
+                        });
+                    }
+
                     scope.$watch('coords', function (newValue, oldValue) {
                         if (newValue !== oldValue) {
                             if (newValue) {

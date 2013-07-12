@@ -34,12 +34,8 @@
 
           <marker ng-show="myPosition" coords="myPosition"></me>
 
-          <marker ng-repeat="m in map.markers" coords="m" icon="m.icon">
-                  <window>
-                      <a href="#/spots/{{m.id}}">{{m.name}}</a>
-                      <span class="muted">{{m.distance}}km</span>
-                      <p> {{m.checkins}} recent checkins</p>
-                  </window>
+          <marker ng-repeat="m in map.markers" coords="m" icon="m.icon" click="navigate.go('/spots/'+m.id)">
+                  
           </marker>
 
       </google-map>

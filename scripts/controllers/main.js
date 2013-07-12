@@ -32,7 +32,7 @@ angular.module('App')
         Geolocation.stopWatching()
     });
 
-    $scope.$watch('map.center', function(oldVal, newVal){ 
+    $scope.$watch('map.bounds', function(oldVal, newVal){ 
         if($scope.map.bounds.northeast !=undefined) {
           Spots.fetchWithinBounds(bufferBounds($scope.map.bounds))
         }
