@@ -13,9 +13,9 @@
 
 <div id="main" ng-switch="activeTab" ng-animate="'fade'">
 
-    <div id="watched" ng-switch-when="watched" >
+    <div id="spots" ng-switch-when="spots" >
 
-        <ul class="watched">
+        <ul>
 
           <li class="box" ng-repeat="spot in spots" >
             
@@ -44,7 +44,7 @@
 
     <div id="sessions" ng-switch-when="sessions"  >
 
-      <ul class="sessions">
+      <ul>
 
         <li class="box clearfix" ng-repeat="session in sessions">
 
