@@ -11,7 +11,7 @@ angular.module('App')
     })
 
     Riders.sessions(User.token(), $routeParams.id, function(response) {
-        $scope.sessions = response;
+        $scope.rider_sessions = response;
     })
 
     Riders.followers(User.token(), $routeParams.id, function(response) {
