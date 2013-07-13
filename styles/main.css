@@ -275,43 +275,23 @@ p.details {
 /* Map */
 
 .angular-google-map-container {
-    width: 100%;
-    height: 600px;
-  }
+  width: 100%;
+  height: auto;
+  position: absolute;
+  top: 48px;
+  bottom: 20px;
+}
 
-  /* fix for Twitter Bootstrap handling of responsive images */
-  .angular-google-map img {
-   max-width: inherit;
-  }
-
-  .angular-google-map {
-    display: block;
-  }*/
-
-#map_canvas {
-  height: 100%;
-  padding: 48px 0;
-  box-sizing: border-box;
+/* fix for Twitter Bootstrap handling of responsive images */
+.angular-google-map img {
+  max-width: inherit;
 }
 
 img[src*="gstatic.com/"], img[src*="googleapis.com/"]  {
     max-width: 99999px;
 }
 
-google-map {
-  display: block;
-  height: 100%;
-  width: 100%;
-  margin: 0;
-}
 
-google-map > * {
-  -webkit-transform: none !important;
-}
-
-.angular-google-maps-window > a {
-  font-size: 14px;
-}
 
 /* Checkin */
 #checkin {

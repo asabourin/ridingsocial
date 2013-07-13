@@ -45,8 +45,7 @@
 
     </div>
 
-    <div id="map_canvas" ng-switch-when="map" >
-      <google-map center="map.center" zoom="map.zoom" draggable="true" bounds="map.bounds" >
+      <google-map center="map.center" zoom="map.zoom" draggable="true" bounds="map.bounds" ng-switch-when="map">
 
           <marker ng-show="myPosition" coords="myPosition"></me>
 
@@ -56,7 +55,7 @@
 
       </google-map>
 
-    </div>
+
 
     <div id="sessions" ng-switch-when="sessions"  >
 
