@@ -12,7 +12,7 @@ angular.module('App')
     })
 
     Spots.sessions(User.token(), $routeParams.id, function(response) {
-        $scope.sessions = response;
+        $scope.spot_sessions = response;
     })
 
     Spots.riders(User.token(), $routeParams.id, function(response) {
