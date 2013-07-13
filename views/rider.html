@@ -1,9 +1,9 @@
 <div class="navbar navbar-fixed-top" >
   <div class="navbar-inner blue">
-    <a class="navbar-button pull-left" ng-touch="navigate.back()"><i class="icon-chevron-left "></i></a>
+    <a class="navbar-button pull-left" hm-tap="navigate.back()"><i class="icon-chevron-left "></i></a>
     <span ng-hide="rider.id == user.id">
-        <a class="navbar-button pull-right" ng-show="!rider.following" ng-touch="follow()"><i class="icon-check-empty "></i></a>
-        <a class="navbar-button pull-right" ng-show="rider.following" ng-touch="unfollow()"><i class="icon-check"></i></a>
+        <a class="navbar-button pull-right" ng-show="!rider.following" hm-tap="follow()"><i class="icon-check-empty "></i></a>
+        <a class="navbar-button pull-right" ng-show="rider.following" hm-tap="unfollow()"><i class="icon-check"></i></a>
     </span>
     <h4>{{rider.name}}</h4>
 
@@ -28,7 +28,7 @@
 
       <ul id="followers" ng-switch-when="followers">
         <li class="item" ng-repeat="follower in followers">
-          <img ng-touch="navigate.go('/riders/'+follower.id)" ng-src="{{follower.picture}}" class="item-small pull-left"><a ng-touch="navigate.go('/riders/'+follower.id)">{{follower.name}}</a>
+          <img hm-tap="navigate.go('/riders/'+follower.id)" ng-src="{{follower.picture}}" class="item-small pull-left"><a hm-tap="navigate.go('/riders/'+follower.id)">{{follower.name}}</a>
         </li>
       </ul>
 

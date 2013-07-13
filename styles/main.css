@@ -16,7 +16,7 @@ body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;
-    background: #e6c195 url('../splash.png') fixed no-repeat;
+    background: #f0f6fa;
     -webkit-background-size: 100%;
 }
 
@@ -126,7 +126,7 @@ h1 {
   height: auto;
   padding: 0;
   position: absolute;
-  top: 0;
+  top: 48px;
   bottom: 0;
   width: 100%;
   z-index: 100;
@@ -167,6 +167,8 @@ span.loader
 
 #start {
   height: 100%;
+  background: #f0f6fa url('../splash.png') no-repeat;
+  background-size:cover;
 }
 
 div#logo {
@@ -223,7 +225,6 @@ img.navbar-icon {
   display: block;
   min-height: 64px;
   padding: 5px 0;
-  background: rgba(255,255,255,0.8);
   margin: 0;
   border-bottom: 1px solid rgba(0,0,0, 0.2);
 }
@@ -393,7 +394,7 @@ img.score {
   font-family: 'Handel', sans-serif;
   font-weight: bold;
   text-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
-  font-size: 2em;
+  font-size: 1.5em;
 }
 
 #rider-tabs {

@@ -1,0 +1,24 @@
+<span ng-show="session.author">
+  <img hm-tap="navigate.go('/riders/'+session.author.id)" ng-src="{{session.author.picture}}" class="rider-small pull-left" />
+</span>
+
+<a hm-tap="navigate.go('/riders/'+session.author.id)" class="name">{{session.author.name}}</a>
+{{session.action}}
+<span ng-show="session.spot">
+ at <a hm-tap="navigate.go('/spots/'+session.spot.id)">{{session.spot.name}}</a>
+</span>
+<span ng-show="session.others"> with </span>
+<span ng-show="session.others.length == 1"><a hm-tap="navigate.go('/riders/'+session.others.first.id)">{{session.others[0].name}}</a>
+</span>
+<span ng-show="session.others.length > 1" ng-repeat="rider in session.others">
+    {{{true: '', false: 'and '}[$first]}}<a hm-tap="navigate.go('/riders/'+rider.id)">{{rider.name}}</a></span>
+</span>
+
+<img ng-src="{{session.photo}}" class="session-photo" />
+
+<p class="details">
+  <img ng-src="images/flags/{{session.color}}_80.png" class="flag" />
+  <i>&ldquo;{{session.comment}}&rdquo;</i>
+  <br />
+<small class="muted"><i class="icon-time"></i> {{session.created_at | date:'MMM d h:mma'}}</small>
+</p>
