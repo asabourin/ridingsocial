@@ -374,7 +374,7 @@ button.rating, button.activity {
 img.profile {
   width: 100px;
   height: 100px;
-  margin: 0 5px 5px 0;
+  margin: 0 5px 0 0;
 }
 
 span.spot-picture {
