@@ -19,7 +19,7 @@
 
         <ul>
 
-          <li class="box" ng-repeat="spot in spots" >
+          <li class="card" ng-repeat="spot in spots" >
             
             <img ng-src="images/flags/{{spot.color}}_80.png" class="flag" />
             <small class="muted distance" ng-show="spot.distance">{{spot.distance}}km</small>
@@ -47,7 +47,7 @@
 
       <ul>
 
-        <li class="box clearfix" ng-repeat="session in sessions" ng-include="'views/_session.html'">
+        <li class="card clearfix" ng-repeat="session in sessions" ng-include="'views/_session.html'">
         </li>
 
       </ul>

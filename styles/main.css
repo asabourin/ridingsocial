@@ -215,21 +215,30 @@ img.navbar-icon {
   line-height: 48px;
 }
 
+#spots, #sessions, #profile {
+  padding: 0 5px;
+}
+
 /* Spots n Sessions */
 
 #main ul {
   padding: 48px 0;
 }
 
-.box {
+.card {
   display: block;
   min-height: 64px;
   padding: 5px 0;
-  margin: 0;
-  border-bottom: 1px solid rgba(0,0,0, 0.2);
+  margin: 5px 0;
+  box-shadow: 0px 0px 1px rgba(0,0,0, 0.25);
+  background-color: white;
 }
 
-.box > .distance {
+.info {
+  padding: 0 5px;
+}
+
+.card > .distance {
   position: absolute;
   right: 10px;
 }
@@ -259,7 +268,7 @@ img.session-photo {
 img.rider-small {
   width: 50px;
   height: 50px;
-  margin:0 3px 3px 3px;
+  margin:0 3px 3px 0px;
   border-radius: 500px;
 }
 
@@ -295,8 +304,6 @@ p.details {
 img[src*="gstatic.com/"], img[src*="googleapis.com/"]  {
     max-width: 99999px;
 }
-
-
 
 /* Checkin */
 #checkin {
@@ -366,22 +373,26 @@ button.rating, button.activity {
 /* Rider n Spot */
 
 #profile {
-  padding: 0;
   padding-top: 48px;
-  text-align: center;
   height: auto;
 }
 
 img.profile {
   width: 100px;
   height: 100px;
-  margin: 0 5px 0 0;
+  margin: 5px 5px 5px 0;
+  border: solid 3px white;
+  box-shadow: 1px 1px 5px #999;
 }
 
 span.spot-picture {
   width: 100%;
   height: 200px;
   display: block;
+}
+
+.infos {
+  text-align: center;
 }
 
 img.score {
@@ -395,10 +406,6 @@ img.score {
   font-weight: bold;
   text-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
   font-size: 1.5em;
-}
-
-#rider-tabs {
-  margin-top: 5px
 }
 
 button.half {
@@ -453,7 +460,7 @@ li.item:last-child {
 img.item-small {
   width: 50px;
   max-height: 100px;
-  margin: 5px
+  margin: 0 5px 5px 5px
 }
 
 #sessions, #riders {

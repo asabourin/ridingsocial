@@ -14,24 +14,26 @@
 
     <span ng-style="{'background-image': 'url('+spot.picture+')'}" class="spot-picture" >&nbsp;</span>
 
-    <div ng-switch="tab" ng-animate="'fade'">
+    <div id="tabs" ng-switch="tab" ng-animate="'fade'">
 
         <div class="btn-group">
             <button class="btn btn-large half" ng-model="tab" btn-radio="'sessions'"><span class="big-number">{{spot.nb_sessions}}</span><br><i class="icon-flag-checkered"></i> Sessions</button>
             <button class="btn btn-large half" ng-model="tab" btn-radio="'riders'"><span class="big-number">{{spot.nb_riders}}</span><br><i class="icon-user"></i> Riders</button>
         </div>
 
-      <ul id="sessions" ng-switch-when="sessions">
+      <ul ng-switch-when="sessions">
 
-          <li class="box clearfix" ng-repeat="session in sessions" ng-include="'views/_session.html'">
+          <li class="card clearfix" ng-repeat="session in sessions" ng-include="'views/_session.html'">
         </li>
             
         </ul>
 
-        <ul id="riders" ng-switch-when="riders">
-          <li class="item" ng-repeat="rider in riders">
-            <img hm-tap="navigate.go('/riders/'+rider.id)" ng-src="{{rider.picture}}" class="rider-small pull-left"><a hm-tap="navigate.go('/riders/'+rider.id)">{{rider.name}}</a>
-            <p>{{rider.nb_sessions}} sessions</p>
+        <ul ng-switch-when="riders">
+          <li class="card" ng-repeat="rider in riders">
+            <div class="info">
+              <img hm-tap="navigate.go('/riders/'+rider.id)" ng-src="{{rider.picture}}" class="rider-small pull-left"><a hm-tap="navigate.go('/riders/'+rider.id)">{{rider.name}}</a>
+              <p>{{rider.nb_sessions}} sessions</p>
+            <div class="info">
           </li>
         </ul>
 
