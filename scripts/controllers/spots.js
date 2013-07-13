@@ -7,7 +7,7 @@ angular.module('App')
 
     Spots.show(User.token(), $routeParams.id, function(response) {
         $scope.spot = response;
-        $scope.spot.picture = "http://maps.googleapis.com/maps/api/staticmap?center="+$scope.spot.lat+"+"+$scope.spot.lng+"&zoom=16&size="+$window.innerWidth+"x220&maptype=satellite&sensor=false"
+        $scope.spot.picture = "http://maps.googleapis.com/maps/api/staticmap?center="+$scope.spot.lat+","+$scope.spot.lng+"&zoom=16&size="+$window.innerWidth+"x220&maptype=satellite&sensor=true&markers=icon:http://ridingsocial.net/images/flags/"+$scope.spot.color+"_48.png%7C"+$scope.spot.lat+","+$scope.spot.lng+""
         $scope.loading = false
     })
 
