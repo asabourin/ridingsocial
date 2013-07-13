@@ -14,6 +14,10 @@ angular.module('App')
         $scope.sessions = response;
     })
 
+    Riders.followers(User.token(), $routeParams.id, function(response) {
+        $scope.followers = response;
+    })
+
     // Functions
 
     $scope.showTab = function(tab) {
