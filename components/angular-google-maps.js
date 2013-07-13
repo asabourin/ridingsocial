@@ -62,7 +62,7 @@ angular.module('google-maps')
         "use strict";
 
         var DEFAULTS = {
-          mapTypeId: google.maps.MapTypeId.ROADMAP
+          mapTypeId: google.maps.MapTypeId.TERRAIN
         };
 
         /*
