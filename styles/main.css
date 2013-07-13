@@ -222,7 +222,7 @@ img.navbar-icon {
 .box {
   display: block;
   min-height: 64px;
-  padding: 5px;
+  padding: 5px 0;
   background: rgba(255,255,255,0.8);
   margin: 0;
   border-bottom: 1px solid rgba(0,0,0, 0.2);
@@ -269,8 +269,12 @@ span.time {
 
 p.details {
   clear: both;
-  margin: 5px 0 0 0;
+  padding: 0 0 0 50px ;
 }
+
+.details > img.flag {
+    margin-left: -50px;
+  }
 
 /* Map */
 
@@ -323,6 +327,7 @@ img[src*="gstatic.com/"], img[src*="googleapis.com/"]  {
   font-size: 110%;
   height: auto;
   padding: 8px;
+  margin: 10px 0;
 }
 
 #checkin-form ul.typeahead {
@@ -348,8 +353,7 @@ img[src*="gstatic.com/"], img[src*="googleapis.com/"]  {
 
 .btn-group {
   width: 100%;
-  margin: 0 0 10px 0;
-  margin-left: 0 !important;
+  margin: 0 !important;
 }
 
 button.rating, button.activity {
@@ -451,7 +455,7 @@ img.item-small {
   margin: 5px
 }
 
-#sessions {
+#sessions, #riders {
   text-align: left
 }
 

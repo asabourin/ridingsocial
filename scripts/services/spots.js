@@ -82,6 +82,12 @@ angular.module('Services').factory('Spots', function ($rootScope, $http) {
 
         show: function(token, id, successCallback, errorCallback) {
             $http.get(Settings.host+'spots/'+id+'?token='+token).success(successCallback).error(errorCallback);
+        },
+        sessions: function(token, id, successCallback, errorCallback) {
+            $http.get(Settings.host+'spots/'+id+'/sessions?token='+token).success(successCallback).error(errorCallback);
+        },
+        riders: function(token, id, successCallback, errorCallback) {
+            $http.get(Settings.host+'spots/'+id+'/riders?token='+token).success(successCallback).error(errorCallback);
         }
     };
 

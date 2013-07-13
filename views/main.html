@@ -49,7 +49,7 @@
 
           <marker ng-show="myPosition" coords="myPosition"></me>
 
-          <marker ng-repeat="m in map.markers" coords="m" icon="m.icon" click="navigate.go('/spots/'+m.id)">
+          <marker ng-repeat="m in map.markers" coords="m" icon="m.icon" click="navigate.go('/spots/'+m.id, 'fade')">
                   
           </marker>
 
@@ -61,26 +61,7 @@
 
       <ul>
 
-        <li class="box clearfix" ng-repeat="session in sessions">
-
-          <img ng-touch="navigate.go('/riders/'+session.author.id)" ng-src="{{session.author.picture}}" class="rider-small pull-left" />
-          <a ng-touch="navigate.go('/riders/'+session.author.id)" class="name">{{session.author.name}}</a>
-          {{session.action}} at <a ng-touch="navigate.go('/spots/'+session.spot.id)">{{session.spot.name}}</a>
-          <span ng-show="session.others">with </span>
-          <span ng-show="session.others.length == 1"><a ng-touch="navigate.go('/riders/'+session.others.first.id)">{{session.others.first.name}}</a>
-          </span>
-          <span ng-show="session.others.length > 1" ng-repeat="rider in session.others">
-              {{{true: '', false: 'and '}[$first]}}<a ng-touch="navigate.go('/riders/'+rider.id)">{{rider.name}}</a></span>.
-          </span>
-          
-          <img ng-src="{{session.photo}}" class="session-photo" />
-
-          <p class="details">
-            <img ng-src="images/flags/{{session.color}}_80.png" class="flag" />
-            <i>&ldquo;{{session.comment}}&rdquo;</i>
-            <br /><small class="distance muted"><i class="icon-time"></i> {{session.created_at | date:'MMM d h:mma'}}</small>
-          </p>
-
+        <li class="box clearfix" ng-repeat="session in sessions" ng-include="'views/_session.html'">
         </li>
 
       </ul>

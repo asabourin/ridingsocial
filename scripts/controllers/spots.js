@@ -11,6 +11,14 @@ angular.module('App')
         $scope.loading = false
     })
 
+    Spots.sessions(User.token(), $routeParams.id, function(response) {
+        $scope.sessions = response;
+    })
+
+    Spots.riders(User.token(), $routeParams.id, function(response) {
+        $scope.riders = response;
+    })
+
     // Functions
 
     $scope.watch = function() {

@@ -105,9 +105,6 @@ angular.module('App')
        _.each(spots, function(spot) {
         markers.push( {
           id: spot.id,
-          name: spot.name,
-          distance: Spots.distance(spot, $rootScope.position),
-          checkins: spot.checkins,
           latitude: parseFloat(spot.lat),
           longitude: parseFloat(spot.lng),
           icon: 'images/flags/'+spot.color+'_32.png',
@@ -115,14 +112,7 @@ angular.module('App')
       })
        return markers
     }
-
-    function formatMarkerInfo(spot) {
-        content=  '<p><a ng-click="$navigate.go(\'/spots/'+spot.id+'\')">'+spot.name+'</a><br>'+spot.checkins+' recent checkins</p>'
-        var templateScope = $scope.$new();
-        var compiled = $compile(content.data)(templateScope);
-        return compiled
-    }
-
+    
     function bufferBounds(bounds) {
         var min_lat = ( bounds.southwest.latitude-Math.abs(bounds.southwest.latitude)*0.01 ).toFixed(6)
         var min_lng = ( bounds.southwest.longitude-Math.abs(bounds.southwest.longitude)*0.01 ).toFixed(6)
