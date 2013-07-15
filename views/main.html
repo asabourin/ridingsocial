@@ -1,13 +1,10 @@
 <div class="navbar navbar-fixed-top">
     <div class="blue navbar-inner">
-          
       <a class="navbar-button pull-left" ><img src="images/shaka.png" class="navbar-icon" hm-tap="openMenu()" /></a>
-
       <a class="navbar-button pull-right" hm-tap="refresh()">
-        <i class="icon-refresh icon-large"  ng-hide="loading"></i>
-        <span class="loader" ng-show="loading"></span>
+      <i class="icon-refresh icon-large"  ng-hide="loading"></i>
+      <span class="loader" ng-show="loading"></span>
       </a>
-
     </div>
 </div>
 
@@ -16,51 +13,32 @@
 <div id="main" ng-switch="activeTab" ng-animate="'fade'">
 
     <div id="spots" ng-switch-when="spots" >
-
         <ul>
-
           <li class="card {{spot.color}}" ng-repeat="spot in spots" >
-            
-            <img ng-src="images/flags/{{spot.color}}_80.png" class="flag" />
+            <img ng-src="images/flags/{{spot.color}}_80.png" class="flag" hm-tap="navigate.go('/spots/'+spot.id)" />
             <small class="muted distance" ng-show="spot.distance">{{spot.distance}}km</small>
             <a hm-tap="navigate.go('/spots/'+spot.id)">{{spot.name}}</a>
             <p>{{spot.checkins}} recent checkins</p>
-            
           </li>
         </ul>
-
     </div>
+
     <div id="map_canvas" ng-switch-when="map">
       <google-map center="map.center" zoom="map.zoom" draggable="true" bounds="map.bounds" type="terrain">
-
           <marker ng-show="myPosition" coords="myPosition"></me>
-
-          <marker ng-repeat="m in map.markers" coords="m" icon="m.icon" click="navigate.go('/spots/'+m.id, 'none')">
-                  
-          </marker>
-
+          <marker ng-repeat="m in map.markers" coords="m" icon="m.icon" click="navigate.go('/spots/'+m.id, 'none')"></marker>
       </google-map>
     </div>
 
 
-
-    <div id="sessions" ng-switch-when="sessions"  >
-
+    <div id="sessions" ng-switch-when="sessions">
       <ul>
-
-        <li class="card {{session.color}} clearfix" ng-repeat="session in sessions" ng-include="'views/_session.html'">
-        </li>
-
+        <li class="card {{session.color}} clearfix" ng-repeat="session in sessions" ng-include="'views/_session.html'"></li>
       </ul>
-
     </div>
 
 </div>
 
-<div class="navbar navbar-fixed-bottom"> 
-    <div class="navbar-inner">
-        <ul class="nav">
-          <li ng-class="{active: activeTab == 'sessions'}"><a hm-tap="goToTab('sessions')"><i class="nav-icon icon-user"></i><br> Sessions</a></li><li ng-class="{active: activeTab == 'map'}"><a hm-tap="goToTab('map')" ><i class="nav-icon icon-globe"></i><br> Map</a></li><li ng-class="{active: activeTab == 'spots'}"><a hm-tap="goToTab('spots')" ><i class="nav-icon icon-map-marker"></i><br> Spots</a></li>
-        </ul>
-    </div>
+<div class="navbar navbar-fixed-bottom"  ng-include="'views/_nav.html'"> 
+    
 </div>

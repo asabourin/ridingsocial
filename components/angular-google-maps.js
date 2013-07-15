@@ -150,7 +150,6 @@ angular.module('google-maps')
                 }
 
                 // Create the map
-                console.log(opts)
                 var _m = new google.maps.Map(el.find('div')[1], angular.extend({}, DEFAULTS, opts, {
                     center: new google.maps.LatLng(scope.center.latitude, scope.center.longitude),
                     draggable: isTrue(attrs.draggable),

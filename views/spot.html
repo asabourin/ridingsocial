@@ -1,8 +1,10 @@
 <div class="navbar navbar-fixed-top" >
   <div class="navbar-inner blue">
     <a class="navbar-button pull-left" hm-tap="navigate.back()"><i class="icon-chevron-left "></i></a>
+    <span ng-show="spot">
       <a class="navbar-button pull-right" ng-show="!spot.watched" hm-tap="watch()"><i class="icon-eye-close "></i></a>
       <a class="navbar-button pull-right" ng-show="spot.watched" hm-tap="unwatch()"><i class="icon-eye-open"></i></a>
+    </span>
     <h4>{{spot.name}}</h4>
 
   </div>
