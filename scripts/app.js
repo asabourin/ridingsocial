@@ -2,7 +2,7 @@
 
 angular.module('Services', []);
 
-angular.module('App', ['Services', 'ui.bootstrap', 'google-maps', 'ajoslin.mobile-navigate', 'hmTouchevents'])
+angular.module('App', ['Services', 'ui.bootstrap', 'google-maps', 'ajoslin.mobile-navigate'])
 
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider
@@ -45,6 +45,25 @@ var injector;
 angular.element(document).ready(function() {
   injector = angular.bootstrap(document, ['App']);
 });
+
+//Fastclick
+angular.module('App').directive("ngTap", function() {
+  return function($scope, $element, $attributes) {
+    var tapped = false;
+    $element.bind("touchstart", function(event) {
+      return tapped = true;
+    });
+    $element.bind("touchmove", function(event) {
+      tapped = false;
+      return event.stopImmediatePropagation();
+    });
+    return $element.bind("touchend", function() {
+      if (tapped) {
+        return $scope.$apply($attributes["ngTap"]);
+      }
+    })
+  }
+})
 
 // Timeago filter using Moment.js
 angular.module('App').filter('fromNow', function() {

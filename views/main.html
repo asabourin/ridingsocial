@@ -1,7 +1,7 @@
 <div class="navbar navbar-fixed-top">
     <div class="blue navbar-inner">
-      <a class="navbar-button pull-left" ><img src="images/shaka.png" class="navbar-icon" hm-tap="openMenu()" /></a>
-      <a class="navbar-button pull-right" hm-tap="refresh()">
+      <a class="navbar-button pull-left" ><img src="images/shaka.png" class="navbar-icon" ng-tap="openMenu()" /></a>
+      <a class="navbar-button pull-right" ng-tap="refresh()">
       <i class="icon-refresh icon-large"  ng-hide="loading"></i>
       <span class="loader" ng-show="loading"></span>
       </a>
@@ -15,9 +15,9 @@
     <div id="spots" ng-switch-when="spots" >
         <ul>
           <li class="card {{spot.color}}" ng-repeat="spot in spots" >
-            <img ng-src="images/flags/{{spot.color}}_80.png" class="flag" hm-tap="navigate.go('/spots/'+spot.id)" />
+            <img ng-src="images/flags/{{spot.color}}_80.png" class="flag" ng-tap="navigate.go('/spots/'+spot.id, 'none')" />
             <small class="muted distance" ng-show="spot.distance">{{spot.distance}}km</small>
-            <a hm-tap="navigate.go('/spots/'+spot.id)">{{spot.name}}</a>
+            <a ng-tap="navigate.go('/spots/'+spot.id)">{{spot.name}}</a>
             <p>{{spot.checkins}} recent checkins</p>
           </li>
         </ul>

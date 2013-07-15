@@ -1,9 +1,9 @@
 <div class="navbar navbar-fixed-top" >
   <div class="navbar-inner blue">
-    <a class="navbar-button pull-left" hm-tap="navigate.back()"><i class="icon-chevron-left "></i></a>
+    <a class="navbar-button pull-left" ng-tap="navigate.back()"><i class="icon-chevron-left "></i></a>
     <span ng-show="spot">
-      <a class="navbar-button pull-right" ng-show="!spot.watched" hm-tap="watch()"><i class="icon-eye-close "></i></a>
-      <a class="navbar-button pull-right" ng-show="spot.watched" hm-tap="unwatch()"><i class="icon-eye-open"></i></a>
+      <a class="navbar-button pull-right" ng-show="!spot.watched" ng-tap="watch()"><i class="icon-eye-close "></i></a>
+      <a class="navbar-button pull-right" ng-show="spot.watched" ng-tap="unwatch()"><i class="icon-eye-open"></i></a>
     </span>
     <h4>{{spot.name}}</h4>
 
@@ -35,7 +35,7 @@
         <ul ng-switch-when="riders">
           <li class="card">
             <div class="info" ng-repeat="rider in riders">
-              <img hm-tap="navigate.go('/riders/'+rider.id)" ng-src="{{rider.picture}}" class="rider-small pull-left"><a hm-tap="navigate.go('/riders/'+rider.id)">{{rider.name}}</a>
+              <img ng-tap="navigate.go('/riders/'+rider.id)" ng-src="{{rider.picture}}" class="rider-small pull-left"><a ng-tap="navigate.go('/riders/'+rider.id)">{{rider.name}}</a>
               <p>{{rider.nb_sessions}} sessions</p>
             </div>
           </li>

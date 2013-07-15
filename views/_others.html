@@ -1,8 +1,8 @@
 <div modal="othersOpen" close="hideOthers()" options="optsMenu">
     <div class="modal-body">
-      <button type="button" class="close" hm-tap="hideOthers()">&times;</button>
+      <button type="button" class="close" ng-tap="hideOthers()">&times;</button>
         <div class="clearfix" ng-repeat="rider in this_session.others">
-          <img hm-tap="navigate.go('/riders/'+rider.id)" ng-src="{{rider.picture}}" class="rider-small pull-left"><a hm-tap="navigate.go('/riders/'+rider.id)">{{rider.name}}</a>
+          <img ng-tap="navigate.go('/riders/'+rider.id)" ng-src="{{rider.picture}}" class="rider-small pull-left"><a ng-tap="navigate.go('/riders/'+rider.id)">{{rider.name}}</a>
           <br>
           <img src="images/icon-shaka.png" class="icon-shaka"> {{rider.score}}
         </div>
