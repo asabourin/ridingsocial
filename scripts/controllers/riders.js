@@ -2,11 +2,8 @@ angular.module('App')
   
   .controller('Riders.show', function(User, Riders, $scope, $routeParams) {
 
-    $scope.loading = true
-
     Riders.show(User.token(), $routeParams.id, function(response) {
         $scope.rider = response;
-        $scope.loading = false
         $scope.tab = 'sessions'
     })
 
@@ -25,11 +22,9 @@ angular.module('App')
     }
 
     $scope.follow = function() {
-        $scope.loading = true
         Riders.follow(User.token(), $scope.rider.id, function(response) {
             $scope.rider.following = true
             $scope.rider.nb_followers += 1
-            $scope.loading = false
         })
     }
 
@@ -39,11 +34,9 @@ angular.module('App')
 
     function stopFollowing(index) {
         if(index == 1) {
-            $scope.loading = true
             Riders.unfollow(User.token(), $scope.rider.id, function(response) {
                 $scope.rider.following = false
                 $scope.rider.nb_followers -= 1
-                $scope.loading = false
             })
             $scope.$apply()
         }
