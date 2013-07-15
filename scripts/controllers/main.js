@@ -121,6 +121,15 @@ angular.module('App')
         return {min_lat: min_lat, max_lat: max_lat, min_lng: min_lng, max_lng: max_lng}
     }
 
+    // Modal for session others
+    $scope.showOthers = function (session_id) {
+      $scope.this_session = _.find($rootScope.sessions, function(s) {return s.id == session_id})
+      $scope.othersOpen = true;
+    };
+    $scope.hideOthers = function () {
+      $scope.othersOpen = false;
+    };
+
     // Menu
 
     $scope.openMenu = function () {
@@ -146,6 +155,7 @@ angular.module('App')
     }
 
     function logout() {
+        $scope.menuOpen = false;
         User.logout()
         $navigate.go('/', 'fade')
     }

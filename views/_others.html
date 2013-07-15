@@ -1,0 +1,10 @@
+<div modal="othersOpen" close="hideOthers()" options="optsMenu">
+    <div class="modal-body">
+      <button type="button" class="close" hm-tap="hideOthers()">&times;</button>
+        <div class="info" ng-repeat="rider in this_session.others">
+          <img hm-tap="navigate.go('/riders/'+rider.id)" ng-src="{{rider.picture}}" class="rider-small pull-left"><a hm-tap="navigate.go('/riders/'+rider.id)">{{rider.name}}</a>
+          <br>
+          <img src="images/shaka-invert.png" width="20"> {{follower.score}}
+        </div>
+    </div>
+</div>

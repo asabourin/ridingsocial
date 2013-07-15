@@ -17,9 +17,13 @@ angular.module('App')
 
     // Functions
 
-    $scope.showTab = function(tab) {
-        $scope.tab = tab;
-    }
+    $scope.showOthers = function (session_id) {
+      $scope.this_session = _.find($scope.rider_sessions, function(s) {return s.id == session_id})
+      $scope.othersOpen = true;
+    };
+    $scope.hideOthers = function () {
+      $scope.othersOpen = false;
+    };
 
     $scope.follow = function() {
         Riders.follow(User.token(), $scope.rider.id, function(response) {

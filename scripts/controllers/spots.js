@@ -19,6 +19,14 @@ angular.module('App')
 
     // Functions
 
+    $scope.showOthers = function (session_id) {
+      $scope.this_session = _.find($scope.spot_sessions, function(s) {return s.id == session_id})
+      $scope.othersOpen = true;
+    };
+    $scope.hideOthers = function () {
+      $scope.othersOpen = false;
+    };
+
     $scope.watch = function() {
         navigator.notification.confirm("Watch "+$scope.spot.name+"?", watch, "", ["Yes", "Cancel"]);
     }
