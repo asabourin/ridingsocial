@@ -29,11 +29,11 @@
         </ul>
 
         <ul ng-switch-when="riders">
-          <li class="card" ng-repeat="rider in riders">
-            <div class="info">
+          <li class="card">
+            <div class="info" ng-repeat="rider in riders">
               <img hm-tap="navigate.go('/riders/'+rider.id)" ng-src="{{rider.picture}}" class="rider-small pull-left"><a hm-tap="navigate.go('/riders/'+rider.id)">{{rider.name}}</a>
               <p>{{rider.nb_sessions}} sessions</p>
-            <div class="info">
+            </div>
           </li>
         </ul>
 

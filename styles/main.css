@@ -252,6 +252,7 @@ img.navbar-icon {
 
 .info {
   padding: 0 5px;
+  clear: both;
 }
 
 .card > .distance {
