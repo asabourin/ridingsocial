@@ -45,3 +45,10 @@ var injector;
 angular.element(document).ready(function() {
   injector = angular.bootstrap(document, ['App']);
 });
+
+// Timeago filter using Moment.js
+angular.module('App').filter('fromNow', function() {
+  return function(date) {
+    return moment(date).fromNow();
+  }
+});

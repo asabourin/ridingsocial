@@ -16,7 +16,7 @@
       {{{true: '', false: 'and '}[$first]}}<a ng-touch="navigate.go('/riders/'+rider.id)">{{rider.name}}</a></span>
   </span>
   <br />
-  <small class="muted"><i class="icon-time"></i> {{session.created_at | date:'MMM d h:mma'}}</small>
+  <small class="muted"><i class="icon-time"></i> {{session.created_at | fromNow}}</small>
 
 </div>
 
