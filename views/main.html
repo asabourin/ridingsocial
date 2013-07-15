@@ -30,8 +30,8 @@
         </ul>
 
     </div>
-
-      <google-map center="map.center" zoom="map.zoom" draggable="true" bounds="map.bounds" ng-switch-when="map">
+    <div id="map_canvas" ng-switch-when="map">
+      <google-map center="map.center" zoom="map.zoom" draggable="true" bounds="map.bounds" >
 
           <marker ng-show="myPosition" coords="myPosition"></me>
 
@@ -40,6 +40,7 @@
           </marker>
 
       </google-map>
+    </div>
 
 
 
