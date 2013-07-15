@@ -159,6 +159,10 @@ span.loader
     to   { -webkit-transform: rotate(360deg); opacity: 0.4; }
 }
 
+.close {
+  font-size: 26px
+}
+
 /* Start */
 
 #start {
