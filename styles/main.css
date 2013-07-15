@@ -288,6 +288,11 @@ img.rider-small {
   margin:0 3px 3px 0px;
 }
 
+img.icon-shaka {
+  width: 20px;
+  height: 20px;
+}
+
 span.time {
   color: #aaa;
   font-size: 85%;
