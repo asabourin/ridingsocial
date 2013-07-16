@@ -10,6 +10,9 @@ angular.module('Services').factory('Riders', function ($rootScope, $http) {
         followers: function(token, id, successCallback, errorCallback) {
             $http.get(Settings.host+'riders/'+id+'/followers?token='+token).success(successCallback).error(errorCallback);
         },
+        spots: function(token, id, successCallback, errorCallback) {
+            $http.get(Settings.host+'riders/'+id+'/spots?token='+token).success(successCallback).error(errorCallback);
+        },
         follow: function(token, id, successCallback, errorCallback) {
             $http.get(Settings.host+'riders/'+id+'/follow?token='+token).success(successCallback).error(errorCallback);
         },

@@ -1,10 +1,10 @@
 <div class="info">
 
   <span ng-show="session.author">
-    <img ng-touch="navigate.go('/riders/'+session.author.id, 'none')" ng-src="{{session.author.picture}}" class="rider-small pull-left" />
+    <img ng-touch="navigate.go('/riders/'+session.author.id)" ng-src="{{session.author.picture}}" class="rider-small pull-left" />
   </span>
 
-  <a ng-touch="navigate.go('/riders/'+session.author.id, 'none')" class="name">{{session.author.name}}</a>
+  <a ng-touch="navigate.go('/riders/'+session.author.id)" class="name">{{session.author.name}}</a>
   {{session.action}}
   <span ng-show="session.spot">
    at <a ng-touch="navigate.go('/spots/'+session.spot.id)">{{session.spot.name}}</a>

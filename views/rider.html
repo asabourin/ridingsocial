@@ -10,9 +10,7 @@
   </div>
 </div>
 
-<div ng-show="!rider" class="centered"><span class="loader"></span></div>
-
-<div id="profile" class="clearfix" ng-show="rider">
+<div id="profile">
 
   <div class="infos">
     <img ng-src="{{rider.picture}}" class="profile pull-left" />
@@ -24,19 +22,33 @@
   <div id="tabs" ng-switch="tab" ng-animate="'fade'">
 
       <div class="btn-group">
-          <button class="btn btn-large third" ng-model="tab" btn-radio="'sessions'"><span class="big-number">{{rider.nb_sessions}}</span><br><i class="icon-flag-checkered"></i> Sessions</button>
-          <button class="btn btn-large third" ng-model="tab" btn-radio="'followers'"><span class="big-number">{{rider.nb_followers}}</span><br><i class="icon-user"></i> Followers</button>
-          <button class="btn btn-large third" ng-model="tab" btn-radio="'gear'"><span class="big-number">&nbsp;</span><br><i class="icon-wrench"></i> Gear</button>
+          <button class="btn quarter" ng-model="tab" btn-radio="'sessions'"><span class="big-number"><i class="icon-flag-checkered"></i> {{rider.nb_sessions}}</span><br> Sessions</button>
+          <button class="btn quarter" ng-model="tab" btn-radio="'spots'"><span class="big-number"><i class="icon-map-marker"></i> {{rider_spots.length}}</span><br>Spots</button>
+          <button class="btn quarter" ng-model="tab" btn-radio="'followers'"><span class="big-number"><i class="icon-user"></i> {{rider.nb_followers}}</span><br>Followers</button>
+          <button class="btn quarter" ng-model="tab" btn-radio="'gear'"><span class="big-number"><i class="icon-wrench"></i> {{rider.items.length}}</span><br>Items</button>
       </div>
 
       <ul ng-switch-when="followers">
-        <li class="card" ng-repeat="follower in followers">
-          <div class="info">
+        <li class="card">
+          <div class="info" ng-repeat="follower in followers">
             <img ng-tap="navigate.go('/riders/'+follower.id)" ng-src="{{follower.picture}}" class="rider-small pull-left"><a ng-tap="navigate.go('/riders/'+follower.id)">{{follower.name}}</a>
             <br>
             <img src="images/icon-shaka.png" class="icon-shaka"> {{follower.score}}
           </div>
         </li>
+      </ul>
+
+      <ul ng-switch-when="spots">
+
+          <li class="card">
+            <div class="info" ng-repeat="spot in rider_spots">
+              <img ng-src="images/flags/{{spot.color}}_80.png" class="flag" ng-tap="navigate.go('/spots/'+spot.id)" />
+              <small class="muted distance" ng-show="spot.distance">{{spot.distance}}km</small>
+              <a ng-tap="navigate.go('/spots/'+spot.id)">{{spot.name}}</a>
+              <p>{{spot.nb_sessions}} sessions</p>
+            </div>
+        </li>
+          
       </ul>
 
       <ul ng-switch-when="sessions">
@@ -46,10 +58,12 @@
 
        <ul ng-switch-when="gear">
 
-          <li class="card clearfix" ng-repeat="item in rider.items">
-            <img ng-src="{{item.picture}}" class="item-small pull-left"> {{item.name}}
-            <br>
-            <span class="muted">{{item.nb_riders}} riders</span>
+          <li class="card">
+            <div class="info" ng-repeat="item in rider.items">
+              <img ng-src="{{item.picture}}" class="item-small pull-left"> {{item.name}}
+              <br>
+              <span class="muted">{{item.nb_riders}} riders</span>
+            </div>
         </li>
           
       </ul>

@@ -11,6 +11,10 @@ angular.module('App')
         $scope.rider_sessions = response;
     })
 
+    Riders.spots(User.token(), $routeParams.id, function(response) {
+        $scope.rider_spots = _.sortBy(response, function(s){return -s.nb_sessions});
+    })
+
     Riders.followers(User.token(), $routeParams.id, function(response) {
         $scope.followers = response;
     })

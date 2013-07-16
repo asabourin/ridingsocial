@@ -213,6 +213,8 @@ img.navbar-icon {
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
+.navbar-button:active{background-image:none;outline:0;-webkit-box-shadow:inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05);box-shadow:inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05);}
+
 .navbar-button i, span.loader {
   line-height: 48px;
 }
@@ -431,12 +433,20 @@ img.score {
   font-size: 1.5em;
 }
 
-button.half {
+button.btn {
+  padding: 4px;
+}
+
+.half {
   width: 50%;
 }
 
-button.third {
+.third {
   width: 33.3%;
+}
+
+.quarter {
+  width: 25%;
 }
 
 img.item-small {

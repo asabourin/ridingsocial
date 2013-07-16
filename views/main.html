@@ -15,7 +15,7 @@
     <div id="spots" ng-switch-when="spots" >
         <ul>
           <li class="card {{spot.color}}" ng-repeat="spot in spots" >
-            <img ng-src="images/flags/{{spot.color}}_80.png" class="flag" ng-tap="navigate.go('/spots/'+spot.id, 'none')" />
+            <img ng-src="images/flags/{{spot.color}}_80.png" class="flag" ng-tap="navigate.go('/spots/'+spot.id)" />
             <small class="muted distance" ng-show="spot.distance">{{spot.distance}}km</small>
             <a ng-tap="navigate.go('/spots/'+spot.id)">{{spot.name}}</a>
             <p>{{spot.checkins}} recent checkins</p>
