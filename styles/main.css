@@ -161,7 +161,10 @@ span.loader
 }
 
 .close {
-  font-size: 26px
+  font-size: 30px;
+  display: block;
+  height: 30px;
+  width: 30px;
 }
 
 /* Start */

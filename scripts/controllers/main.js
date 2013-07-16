@@ -140,9 +140,10 @@ angular.module('App')
       $scope.menuOpen = false;
     };
 
-    $scope.optsMenu = {
-      backdropFade: true,
-      dialogFade:false
+    $rootScope.optsMenu = {
+      backdropFade: false,
+      dialogFade:false,
+      backdropClick: false
     };
 
     $scope.goToDesktopSite = function () {
