@@ -1,13 +1,14 @@
 var Settings = {
 
   host: 'http://www.ridingsocial.net/api/',
-  //host: 'http://192.168.1.2:3000/api/',
+  //host: 'http://freesab.local:3000/api/',
   coeff: 0.01,
-  radius: 15,
+  radius: 2,
   checkin_distance: 1,
   android_gcm_senderID: "535845696743",
   geoloc_timeout: 30000,
-  facebook_app_ID: '290983157607960'
+  facebook_app_ID: '290983157607960',
+  facebook_permissions: 'email, publish_actions'
 }
 
 var Lang = {

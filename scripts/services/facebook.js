@@ -28,7 +28,7 @@ angular.module('Services').factory('Facebook', function ($rootScope, CordovaRead
                             } else {
                                 $rootScope.$broadcast('fb_login_failed');
                             }
-                        }, {scope:'email'});
+                        }, {scope: Settings.facebook_permissions});
                         break;
                     default:
                         FB.login(function (response) {
@@ -38,7 +38,7 @@ angular.module('Services').factory('Facebook', function ($rootScope, CordovaRead
                             } else {
                                 $rootScope.$broadcast('fb_login_failed');
                             }
-                        }, {scope:'email'});
+                        }, {scope: Settings.facebook_permissions});
                         break;
                 }
             }, true);
