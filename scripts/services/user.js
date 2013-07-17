@@ -1,15 +1,13 @@
 angular.module('Services').factory('User', function ($rootScope, $http) {
 
     // Init
-    var id, token, followedRiders, lastCheckinAt;
+    var id, token, lastCheckinAt;
     var persistedUser = JSON.parse(localStorage.getItem('user'));
 
     if(persistedUser != undefined) {
         id = persistedUser.id
         token = persistedUser.token
     }
-
-    var picture;
 
     //
 
@@ -22,12 +20,6 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
         return (token != undefined && token != null)
     }
 
-    fetchFollowed = function (successCallback) {
-            $http.get(Settings.host+'riders/followed?token='+token).success(successCallback).error(function(response) {
-                console.log(response)
-            })
-    }
-
     //
 
     return {
@@ -38,16 +30,10 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
         get: function() {
             return {id: id, token:token, lastCheckinAt:lastCheckinAt}
         },
-        getFollowedRiders: function() {
-            if(followedRiders != undefined) {
-                return followedRiders
-            }
-            else {
-                fetchFollowed(function(response){
-                    followedRiders = response
-                    return followedRiders
-                })
-            }
+        fetchFollowed: function(successCallback) {
+        $http.get(Settings.host+'riders/followed?token='+token).success(successCallback).error(function(response) {
+            console.log(response)
+            })
         },
         login:function (accessToken) {
             $http.get(Settings.host+'login?facebook_token='+accessToken).success(function(response) {

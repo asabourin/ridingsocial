@@ -8,7 +8,7 @@ var Settings = {
   android_gcm_senderID: "535845696743",
   geoloc_timeout: 30000,
   facebook_app_ID: '290983157607960',
-  facebook_permissions: 'email'
+  facebook_permissions: 'email, user_location'
 }
 
 var Lang = {

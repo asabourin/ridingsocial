@@ -24,11 +24,9 @@
 
       <input id="search-rider-input" type="text" class="input-block-level" ng-model="selected" typeahead-min-length="2" typeahead="rider.name for rider in followed | filter:$viewValue" placeholder="Anyone with you?" ng-change="addRider()">
 
-      <ul class="selected-riders">
-        <li class="rider" ng-repeat="rider in selectedRiders">
-          <a ng-click="removeRider(rider.id)"><img class="rider-small" ng-src="{{rider.picture}}" /></a>
-        </li>
-      </ul>
+      <span ng-repeat="rider in selectedRiders">
+          <span class="thumb" ng-tap="removeRider(rider.id)" ng-style="{'background-image':'url('+rider.picture+')'}" /></span>
+      </span>
 
       <div class="action">
         <button class="btn btn-block btn-large btn-success submit" ng-class="{pulse: submitEnabled}" ng-click="submit()" ng-disabled="!submitEnabled"><i class="icon-ok icon-white"></i> Check-in!</button>
