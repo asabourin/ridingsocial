@@ -17,25 +17,12 @@ angular.module('Services').factory('Facebook', function ($rootScope, CordovaRead
                         
                         $rootScope.$broadcast('fb_connected', {response:response});
                         break;
-                    case 'not_authorized' || 'unknown':
-                        // 'not_authorized' || 'unknown': doesn't seem to work
-                        FB.login(function (response) {
-                            if (response.authResponse) {
-                                $rootScope.$broadcast('fb_connected', {
-                                    response:response,
-                                    userNotAuthorized:true
-                                });
-                            } else {
-                                $rootScope.$broadcast('fb_login_failed');
-                            }
-                        }, {scope: Settings.facebook_permissions});
-                        break;
                     default:
                         FB.login(function (response) {
                             if (response.authResponse) {
                                 $rootScope.$broadcast('fb_connected', {response:response});
-                                $rootScope.$broadcast('fb_get_login_status');
                             } else {
+                                console.log('login failed 1')
                                 $rootScope.$broadcast('fb_login_failed');
                             }
                         }, {scope: Settings.facebook_permissions});

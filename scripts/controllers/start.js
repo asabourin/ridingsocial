@@ -6,6 +6,9 @@ angular.module('App')
 
   $scope.$on("fb_connected", function (event, args) {
 
+    $scope.loading =true
+    $scope.showFacebook = false
+
     User.login(args.response.authResponse.accessToken, function(response) {
       $scope.$broadcast('rs_connected', {response:response});
     }),
@@ -69,8 +72,6 @@ angular.module('App')
   // Button functions
 
   $scope.login = function () {
-      $scope.showFacebook = false
-      $scope.loading = true
       Facebook.login();
   };
 
