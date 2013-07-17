@@ -1,32 +1,37 @@
-<div class="info">
+<div ng-controller="SessionController">
 
-  <span ng-show="session.author">
-    <img ng-touch="navigate.go('/riders/'+session.author.id)" ng-src="{{session.author.picture}}" class="rider-small pull-left" />
-  </span>
+  <div class="info">
 
-  <a ng-touch="navigate.go('/riders/'+session.author.id)" class="name">{{session.author.name}}</a>
-  {{session.action}}
-  <span ng-show="session.spot">
-   at <a ng-touch="navigate.go('/spots/'+session.spot.id)">{{session.spot.name}}</a>
-  </span>
-  <span ng-show="session.others"> with </span>
-  <span ng-show="session.others.length == 1"><a ng-tap="navigate.go('/riders/'+session.others.first.id)">{{session.others[0].name}}</a>
-  </span>
-  <span ng-show="session.others.length > 1">
-      <a ng-tap="showOthers(session.id)">{{session.others.length}} others</a>
-  </span>
-  <br />
-  <small class="muted"><i class="icon-time"></i> {{session.created_at | fromNow}}</small>
+    <span ng-show="session.author">
+      <img ng-touch="navigate.go('/riders/'+session.author.id)" ng-src="{{session.author.picture}}" class="rider-small pull-left" />
+    </span>
+
+    <a ng-touch="navigate.go('/riders/'+session.author.id)" class="name">{{session.author.name}}</a>
+    {{session.action}}
+    <span ng-show="session.spot">
+     at <a ng-touch="navigate.go('/spots/'+session.spot.id)">{{session.spot.name}}</a>
+    </span>
+    <span ng-show="session.others"> with </span>
+    <span ng-show="session.others.length == 1"><a ng-tap="navigate.go('/riders/'+session.others.first.id)">{{session.others[0].name}}</a>
+    </span>
+    <span ng-show="session.others.length > 1">
+        <a ng-tap="showOthers(session.id)">{{session.others.length}} others</a>
+    </span>
+    <br />
+    <small class="muted"><i class="icon-time"></i> {{session.created_at | fromNow}}</small>
+
+  </div>
+
+  <p class="comment">{{session.comment}}</p>
+
+  <img ng-src="{{session.photo}}" class="session-photo" fullscreen="session.photo" />
+
+  <div class="btn-group session-buttons">
+    <button class="btn half" ng-tap="toggleLikeSession()">
+      <i class="icon-thumbs-up" ng-show="session.liked" ></i> 
+      <i class="icon-thumbs-up-alt" ng-show="!session.liked" ></i> 
+      <ng-pluralize count="session.nb_likes" when="{'0': 'Like', 'one': '1 like', 'other': '{} likes'}"></ng-pluralize></button>
+    <button class="btn half" ng-tap="showComments()"><i class="icon-comment-alt"></i> <ng-pluralize count="session.nb_comments" when="{'0': 'Comment', 'one': ' 1 comment', 'other': ' {} comments'}"></ng-pluralize></button>
+  </div>
 
 </div>
-
-<p class="comment">{{session.comment}}</p>
-
-<img ng-src="{{session.photo}}" class="session-photo" fullscreen="session.photo" />
-
-<div class="btn-group session-buttons">
-  <button class="btn half" ><i class="icon-thumbs-up"></i> <ng-pluralize count="session.nb_likes" when="{'0': 'Like', 'one': '1 like', 'other': '{} likes'}"></ng-pluralize></button>
-  <button class="btn half" ng-tap="showComments(session.id)"><i class="icon-comment"></i> <ng-pluralize count="session.nb_comments" when="{'0': 'Comment', 'one': ' 1 comment', 'other': ' {} comments'}"></ng-pluralize></button>
-</div>
-
-

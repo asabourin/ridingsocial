@@ -33,7 +33,7 @@
 
     <div id="sessions" ng-switch-when="sessions">
       <ul>
-        <li class="card {{session.color}} clearfix" ng-repeat="session in sessions" ng-include="'views/_session.html'"></li>
+        <li class="card {{session.color}} clearfix" ng-repeat="session in sessions" ng-include="'views/_session.html'" ng-controller="SessionController"></li>
       </ul>
       <div ng-include="'views/_others.html'"></div>
       <div ng-include="'views/_comments.html'"></div>
