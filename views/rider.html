@@ -64,7 +64,7 @@
             <div class="info" ng-repeat="item in rider.items">
               <img ng-src="{{item.picture}}" class="item-small pull-left"> {{item.name}}
               <br>
-              <span class="muted">{{item.nb_riders}} riders</span>
+              <span class="muted"><ng-pluralize count="item.nb_riders" when="{'0': '', 'one': '1 rider', 'other': '{} riders'}"></ng-pluralize></span>
             </div>
         </li>
           

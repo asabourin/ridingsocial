@@ -9,6 +9,7 @@ html {
 }
 
 body {
+    font-size: 14px;
     margin: 0;
     padding: 0;
     height: 100%;
@@ -239,7 +240,7 @@ img.navbar-icon {
   line-height: 48px;
 }
 
-#spots, #sessions, #profile {
+#spots, #sessions {
   padding: 0 5px;
 }
 
@@ -444,7 +445,7 @@ button.rating, button.activity {
 /* Rider n Spot */
 
 #profile {
-  padding: 48px 0 5px 0;
+  padding: 48px 5px 5px 5px;
 }
 
 img.profile {
@@ -496,7 +497,7 @@ button.btn-small {
 
 img.item-small {
   width: 50px;
-  max-height: 100px;
+  height: 50px;
   margin: 0 5px 5px 5px
 }
 

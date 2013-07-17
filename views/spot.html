@@ -15,8 +15,6 @@
 
     <span ng-style="{'background-image': 'url('+spot.picture+')'}" class="spot-picture" >&nbsp;</span>
 
-    <br>
-
     <div class="infos">{{spot.state}}, {{spot.country}}</div>
 
     <div id="tabs" ng-switch="tab" ng-animate="'fade'">
@@ -36,7 +34,7 @@
           <li class="card">
             <div class="info" ng-repeat="rider in riders">
               <img ng-tap="navigate.go('/riders/'+rider.id)" ng-src="{{rider.picture}}" class="rider-small pull-left"><a ng-tap="navigate.go('/riders/'+rider.id)">{{rider.name}}</a>
-              <p>{{rider.nb_sessions}} sessions</p>
+              <p><ng-pluralize count="rider.nb_sessions" when="{'0': '', 'one': '1 session', 'other': '{} sessions'}"></ng-pluralize></p>
             </div>
           </li>
         </ul>
