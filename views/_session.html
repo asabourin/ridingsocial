@@ -24,14 +24,9 @@
 
 <img ng-src="{{session.photo}}" class="session-photo" fullscreen="session.photo" />
 
-<small class="muted">
-  <ng-pluralize count="session.nb_likes" when="{'0': '', 'one': '1 like', 'other': '{} likes'}"></ng-pluralize>
-  <ng-pluralize count="session.nb_comments" when="{'0': '', 'one': ' 1 comment', 'other': ' {} comments'}"></ng-pluralize>
-</small>
-
 <div class="btn-group session-buttons">
-  <button class="btn half" ><i class="icon-thumbs-up"></i> Like</button>
-  <button class="btn half" ><i class="icon-comment"></i> Comment</button>
+  <button class="btn half" ><i class="icon-thumbs-up"></i> <ng-pluralize count="session.nb_likes" when="{'0': 'Like', 'one': '1 like', 'other': '{} likes'}"></ng-pluralize></button>
+  <button class="btn half" ng-tap="showComments(session.id)"><i class="icon-comment"></i> <ng-pluralize count="session.nb_comments" when="{'0': 'Comment', 'one': ' 1 comment', 'other': ' {} comments'}"></ng-pluralize></button>
 </div>
 
 

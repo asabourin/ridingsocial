@@ -164,6 +164,19 @@ span.loader
     to   { -webkit-transform: rotate(360deg); opacity: 0.4; }
 }
 
+.modal {
+  position:fixed;
+  top: 48px;
+  left: 10px;
+  right: 10px;
+  width:auto;
+  margin:0;
+}
+
+.modal-body {
+  padding: 5px;
+}
+
 .close {
   font-size: 30px;
   display: block;
@@ -332,7 +345,7 @@ p.details {
 }
 
 div.session-buttons {
-  margin: 5px 0 -5px 0 !important;
+  margin: 10px 0 -5px 0 !important;
 }
 
 /* Map */
