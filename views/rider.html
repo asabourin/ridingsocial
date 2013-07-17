@@ -46,7 +46,7 @@
               <img ng-src="images/flags/{{spot.color}}_80.png" class="flag" ng-tap="navigate.go('/spots/'+spot.id)" />
               <small class="muted distance" ng-show="spot.distance">{{spot.distance}}km</small>
               <a ng-tap="navigate.go('/spots/'+spot.id)">{{spot.name}}</a>
-              <p>{{spot.nb_sessions}} sessions</p>
+              <p><ng-pluralize count="spot.nb_sessions" when="{'0': '', 'one': '1 session', 'other': '{} sessions'}"></p>
             </div>
         </li>
           
