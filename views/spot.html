@@ -1,6 +1,7 @@
 <div class="navbar navbar-fixed-top" >
   <div class="navbar-inner blue">
     <a class="navbar-button pull-left" ng-tap="navigate.back()"><i class="icon-chevron-left "></i></a>
+    <a class="navbar-button pull-right" ng-show="!spot"><span class="loader"></span></a>
     <span ng-show="spot">
       <a class="navbar-button pull-right" ng-show="!spot.watched" ng-tap="watch()"><i class="icon-eye-close "></i></a>
       <a class="navbar-button pull-right" ng-show="spot.watched" ng-tap="unwatch()"><i class="icon-eye-open"></i></a>
@@ -16,7 +17,7 @@
 
     <br>
 
-    {{spot.state}}, {{spot.country}}
+    <div class="infos">{{spot.state}}, {{spot.country}}</div>
 
     <div id="tabs" ng-switch="tab" ng-animate="'fade'">
 

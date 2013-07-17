@@ -246,19 +246,19 @@ img.navbar-icon {
 }
 
 .card.green {
-  border-top: 3px solid #109814;
+  border-top: 4px solid #109814;
 }
 
 .card.red {
-  border-top: 3px solid #d11d1d;
+  border-top: 4px solid #d11d1d;
 }
 
 .card.yellow {
-  border-top: 3px solid #f9ea3f;
+  border-top: 4px solid #f9ea3f;
 }
 
 .card.grey {
-  border-top: 3px solid #407fff;
+  border-top: 4px solid #407fff;
 }
 
 .info {
@@ -317,8 +317,9 @@ span.time {
   font-size: 85%;
 }
 
-i.comment {
+p.comment {
   margin: 5px;
+  clear: both;
 }
 
 p.details {
@@ -328,6 +329,10 @@ p.details {
 
 .details > img.flag {
   margin-left: -50px;
+}
+
+div.session-buttons {
+  margin: 5px 0 -5px 0 !important;
 }
 
 /* Map */
@@ -426,8 +431,7 @@ button.rating, button.activity {
 /* Rider n Spot */
 
 #profile {
-  padding-top: 48px;
-  height: auto;
+  padding: 48px 0 5px 0;
 }
 
 img.profile {

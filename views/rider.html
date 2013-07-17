@@ -1,7 +1,8 @@
 <div class="navbar navbar-fixed-top" >
   <div class="navbar-inner blue">
     <a class="navbar-button pull-left" ng-tap="navigate.back()"><i class="icon-chevron-left "></i></a>
-    <span ng-hide="rider.id == user.id">
+    <a class="navbar-button pull-right" ng-show="!rider"><span class="loader" ></span></a>
+    <span ng-hide="rider.id == user.id || !rider">
         <a class="navbar-button pull-right" ng-show="!rider.following" ng-tap="follow()"><i class="icon-check-empty "></i></a>
         <a class="navbar-button pull-right" ng-show="rider.following" ng-tap="unfollow()"><i class="icon-check"></i></a>
     </span>
@@ -25,7 +26,7 @@
           <button class="btn btn-small quarter" ng-model="tab" btn-radio="'sessions'"><span class="big-number"><i class="icon-flag-checkered"></i> {{rider.nb_sessions}}</span><br> Sessions</button>
           <button class="btn btn-small quarter" ng-model="tab" btn-radio="'spots'"><span class="big-number"><i class="icon-map-marker"></i> {{rider_spots.length}}</span><br>Spots</button>
           <button class="btn btn-small quarter" ng-model="tab" btn-radio="'followers'"><span class="big-number"><i class="icon-user"></i> {{rider.nb_followers}}</span><br>Followers</button>
-          <button class="btn btn-small quarter" ng-model="tab" btn-radio="'gear'"><span class="big-number"><i class="icon-wrench"></i></span><br>Gear</button>
+          <button class="btn btn-small quarter" ng-model="tab" btn-radio="'gear'"><span class="big-number"><i class="icon-wrench"></i>&nbsp;</span><br>Gear</button>
       </div>
 
       <ul ng-switch-when="followers">
