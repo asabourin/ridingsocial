@@ -130,36 +130,5 @@ angular.module('App')
       $scope.othersOpen = false;
     };
 
-    // Menu
-
-    $scope.openMenu = function () {
-      $scope.menuOpen = true;
-    };
-
-    $scope.closeMenu = function () {
-      $scope.menuOpen = false;
-    };
-
-    $rootScope.optsMenu = {
-      backdropFade: false,
-      dialogFade:false,
-      backdropClick: false
-    };
-
-    $scope.goToDesktopSite = function () {
-      window.open('http://www.ridingsocial.net', '_system', 'location=yes');
-    }
-
-    $scope.logout = function() {logout()}
-    $scope.checkin = function() {
-      $navigate.go('/checkin', 'pop')
-    }
-
-    function logout() {
-        $scope.menuOpen = false;
-        User.logout()
-        $navigate.go('/', 'fade')
-    }
-
     
 })

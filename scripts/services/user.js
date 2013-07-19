@@ -1,7 +1,8 @@
 angular.module('Services').factory('User', function ($rootScope, $http) {
 
     // Init
-    var id, token, lastCheckinAt;
+    var id, token, lastCheckinAt, preferences;
+    
     var persistedUser = JSON.parse(localStorage.getItem('user'));
 
     if(persistedUser != undefined) {
@@ -9,7 +10,19 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
         token = persistedUser.token
     }
 
+    var savedPreferences = JSON.parse(localStorage.getItem('preferences'));
+    if(savedPreferences != undefined) {
+        preferences = savedPreferences
+    }
+    else {preferences = new Object({notify: true})}
+
     //
+
+    function savePreferences() {
+        localStorage.setItem('preferences', JSON.stringify(preferences)) 
+        var payload = "notify="+preferences.notify
+        $http.post(Settings.host+'preferences?token='+token, payload, {headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}})
+    }
 
     function persistUser() {
         var user = {id: id, token:token, lastCheckinAt:lastCheckinAt}
@@ -69,6 +82,13 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
         },
         setLastCheckinAt: function(time) {
             lastCheckinAt = time
+        },
+        updatePreferences: function(prefs) {
+            preferences = prefs
+            savePreferences()
+        },
+        getPreferences: function() {
+            return preferences
         },
         logout: function() {
             token = null;
