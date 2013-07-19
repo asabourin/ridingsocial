@@ -1,15 +1,15 @@
 <div modal="menuOpen" close="closeMenu()" options="optsMenu">
     <div class="modal-header">
         <button type="button" class="close" ng-tap="closeMenu()">&times;</button>
-        <h3><img id="shaka" src="images/logo.png" width="50" height="50" /> RidingSocial</h3>
+        <img id="shaka" src="images/logo.png"class="logo-menu pull-left" />
+        <h3> RidingSocial<small> 1.0 Beta<br><a ng-tap="goToDesktopSite()">www.ridingsocial.net</a></small></h3>
     </div>
     <div class="modal-body">
-        <p style="text-align:center">
-          Version 1.0 Beta<br>
-          <a ng-tap="goToDesktopSite()">www.ridingsocial.net</a>
+        <p class="text-center">
+          <a class="btn" ng-tap="closeMenu();navigate.go('riders/'+user.id)"><i class="icon-user"></i> My profile</a>
         </p>
     </div>
     <div class="modal-footer">
-        <a class="btn btn-block btn-large btn-danger" ng-tap="logout()"><i class="icon-signout"></i>Logout</a>
+        <a class="btn btn-danger" ng-tap="logout()"><i class="icon-signout"></i>Logout</a>
     </div>
 </div>
