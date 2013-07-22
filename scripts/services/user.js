@@ -58,14 +58,13 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
                 id = response.id
                 token = response.token
                 persistUser()
-                $rootScope.$broadcast('rs_connected', {response:response})
+                $rootScope.$broadcast('rs_connected')
             }).error(function(response){
                 $rootScope.$broadcast('rs_login_failed', {response:response})
             })
             var phase = $rootScope.$$phase;
               if(phase == '$apply' || phase == '$digest'){}
-              else {$rootScope.$apply()}
-            
+              else {$rootScope.$apply()}  
         },
         
         registerDevice:function (settings, successCallback, errorCallback) {

@@ -10,7 +10,7 @@ angular.module('App')
     $scope.showFacebook = false
 
     User.login(args.response.authResponse.accessToken, function(response) {
-      $scope.$broadcast('rs_connected', {response:response});
+      $scope.$broadcast('rs_connected');
     }),
     function(response) {
       console.log(response)
@@ -48,12 +48,12 @@ angular.module('App')
 
   // Init
 
-  Facebook.init()
-
   if(User.isLogged()) {
-     $scope.$broadcast('rs_connected', {response:User.get()});
+    $scope.$broadcast('rs_connected');
   }
   else{
+    $navigate.go('/start')
+    Facebook.init()
     $scope.loading =false
     $scope.showFacebook = true
   }

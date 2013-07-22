@@ -29,7 +29,7 @@
     function logout() {
         $scope.menuOpen = false;
         User.logout()
-        $navigate.go('/', 'fade')
+        $navigate.go('/start', 'fade')
     }
 
 })

@@ -12,15 +12,12 @@
 
 <div id="main" ng-switch="activeTab" ng-animate="'fade'">
 
-    <div id="spots" ng-switch-when="spots" >
-        <ul>
-          <li class="card {{spot.color}}" ng-repeat="spot in spots" >
-            <img ng-src="images/flags/{{spot.color}}_80.png" class="flag" ng-tap="navigate.go('/spots/'+spot.id)" />
-            <small class="muted distance" ng-show="spot.distance">{{spot.distance}}km</small>
-            <a ng-tap="navigate.go('/spots/'+spot.id)">{{spot.name}}</a>
-            <p>{{spot.checkins}} recent checkins</p>
-          </li>
-        </ul>
+    <div id="sessions" ng-switch-when="sessions">
+      <ul>
+        <li class="card {{session.color}} clearfix" ng-repeat="session in sessions" ng-include="'views/_session.html'" ng-controller="SessionController"></li>
+      </ul>
+      <div ng-include="'views/_others.html'"></div>
+      <div ng-include="'views/_comments.html'"></div>
     </div>
 
     <div id="map_canvas" ng-switch-when="map">
@@ -30,13 +27,17 @@
       </google-map>
     </div>
 
-
-    <div id="sessions" ng-switch-when="sessions">
-      <ul>
-        <li class="card {{session.color}} clearfix" ng-repeat="session in sessions" ng-include="'views/_session.html'" ng-controller="SessionController"></li>
-      </ul>
-      <div ng-include="'views/_others.html'"></div>
-      <div ng-include="'views/_comments.html'"></div>
+    <div id="spots" ng-switch-when="spots" >
+        <ul>
+          <li class="card">
+            <div class="clearfix" ng-repeat="spot in spots" >
+              <img ng-src="images/flags/{{spot.color}}_80.png" class="flag" ng-tap="navigate.go('/spots/'+spot.id)" />
+              <small class="muted distance" ng-show="spot.distance">{{spot.distance}}km</small>
+              <a ng-tap="navigate.go('/spots/'+spot.id)">{{spot.name}}</a>
+              <p>{{spot.checkins}} recent checkins</p>
+            </div>
+          </li>
+        </ul>
     </div>
 
 </div>

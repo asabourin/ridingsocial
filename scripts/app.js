@@ -7,6 +7,9 @@ angular.module('App', ['Services', 'ui.bootstrap', 'google-maps', 'ajoslin.mobil
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider
       .when('/', {
+        controller: 'StartController'
+      })
+      .when('/start', {
         templateUrl: 'views/start.html',
         controller: 'StartController'
       })
