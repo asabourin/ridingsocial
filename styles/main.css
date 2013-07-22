@@ -445,12 +445,6 @@ button.pulse {
   margin: 0 !important;
 }
 
-button.rating, button.activity {
-  width: 33.3%;
-  margin: 0;
-  float: left;
-}
-
 /* Rider n Spot */
 
 #profile {
