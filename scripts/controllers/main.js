@@ -120,15 +120,5 @@ angular.module('App')
         var max_lng = ( bounds.northeast.longitude+Math.abs(bounds.northeast.longitude)*0.01 ).toFixed(6)
         return {min_lat: min_lat, max_lat: max_lat, min_lng: min_lng, max_lng: max_lng}
     }
-
-    // Modal for session others
-    $scope.showOthers = function (session_id) {
-      $scope.this_session = _.find($rootScope.sessions, function(s) {return s.id == session_id})
-      $scope.othersOpen = true;
-    };
-    $scope.hideOthers = function () {
-      $scope.othersOpen = false;
-    };
-
     
 })

@@ -2,6 +2,7 @@ angular.module('App')
   
   .controller('Spots.show', function(User, Spots, Riders, $scope, $rootScope, $routeParams, $navigate) {
 
+    $scope.tab = 'sessions'
     $scope.checkinAllowed = false
 
     Spots.show(User.token(), $routeParams.id, function(response) {
@@ -12,7 +13,7 @@ angular.module('App')
     })
 
     Spots.sessions(User.token(), $routeParams.id, function(response) {
-        $scope.spot_sessions = response;
+        $scope.sessions = response;
     })
 
     Spots.riders(User.token(), $routeParams.id, function(response) {
@@ -33,14 +34,6 @@ angular.module('App')
         Spots.setCheckinAt($scope.spot)
         $navigate.go('/checkin', 'pop')
     }
-
-    $scope.showOthers = function (session_id) {
-      $scope.this_session = _.find($scope.spot_sessions, function(s) {return s.id == session_id})
-      $scope.othersOpen = true;
-    };
-    $scope.hideOthers = function () {
-      $scope.othersOpen = false;
-    };
 
     $scope.watch = function() {
         navigator.notification.confirm("Watch "+$scope.spot.name+"?", watch, "", ["Yes", "Cancel"]);

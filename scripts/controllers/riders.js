@@ -8,7 +8,7 @@ angular.module('App')
     })
 
     Riders.sessions(User.token(), $routeParams.id, function(response) {
-        $scope.rider_sessions = response;
+        $scope.sessions = response;
     })
 
     Riders.spots(User.token(), $routeParams.id, function(response) {
@@ -20,14 +20,6 @@ angular.module('App')
     })
 
     // Functions
-
-    $scope.showOthers = function (session_id) {
-      $scope.this_session = _.find($scope.rider_sessions, function(s) {return s.id == session_id})
-      $scope.othersOpen = true;
-    };
-    $scope.hideOthers = function () {
-      $scope.othersOpen = false;
-    };
 
     $scope.follow = function() {
         Riders.follow(User.token(), $scope.rider.id, function(response) {

@@ -15,6 +15,14 @@ angular.module('App')
 })
   .controller('SessionController', function(Sessions, User, $scope, $rootScope) {
 
+    $scope.showOthers = function (session_id) {
+      $rootScope.this_session = _.find($scope.sessions, function(s) {return s.id == session_id})
+      $rootScope.othersOpen = true;
+    };
+    $rootScope.hideOthers = function () {
+      $rootScope.othersOpen = false;
+    };
+
     $scope.showComments = function () {
       Sessions.comments($scope.session.id, function(response) {
         $rootScope.comments = response
