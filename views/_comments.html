@@ -1,7 +1,6 @@
 <div modal="commentsOpen" close="hideComments()" options="optsMenu" ng-controller="SessionController">
     <div class="modal-body">
       <button type="button" class="close" ng-tap="hideComments()">&times;</button>
-        <div ng-show="comments.length == 0" class="text-center"><span class="loader dark"></span></div>
         <div class="clearfix" ng-repeat="comment in comments">
           <img ng-tap="hideComments();navigate.go('/riders/'+comment.author.id)" ng-src="{{comment.author.picture}}" class="rider-small pull-left"><a ng-tap="hideComments();navigate.go('/riders/'+comment.author.id)">{{comment.author.name}}</a>
           <small class="muted">{{comment.created_at | fromNow}}</small>

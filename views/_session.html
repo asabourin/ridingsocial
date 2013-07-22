@@ -12,7 +12,7 @@
      at <a ng-touch="navigate.go('/spots/'+session.spot.id)">{{session.spot.name}}</a>
     </span>
     <span ng-show="session.others"> with </span>
-    <span ng-show="session.others.length == 1"><a ng-tap="navigate.go('/riders/'+session.others.first.id)">{{session.others[0].name}}</a>
+    <span ng-show="session.others.length == 1"><a ng-tap="navigate.go('/riders/'+session.others[0].id)">{{session.others[0].name}}</a>
     </span>
     <span ng-show="session.others.length > 1">
         <a ng-tap="showOthers(session.id)">{{session.others.length}} others</a>

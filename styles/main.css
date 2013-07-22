@@ -17,7 +17,7 @@ body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;
-    background: #f0f6fa;
+    background-color: #f0f6fa;
     -webkit-background-size: 100%;
 }
 
@@ -46,6 +46,7 @@ a.btn {
   right:0;
   width: 100%;
   padding: 0;
+  background-color: #f0f6fa;
 }
 
 .navbar {
@@ -156,9 +157,6 @@ span.loader
     border-radius: 50%;
     box-shadow: 0 0 25px 2px #eee;
     -webkit-animation: spin 1s linear infinite;
-    &.dark {
-      box-shadow: 0 0 25px 2px #006dcc;
-    }
 }
 
 @-webkit-keyframes spin
@@ -289,7 +287,7 @@ img.navbar-icon {
   clear: both;
 }
 
-.card > .distance {
+.distance {
   position: absolute;
   right: 10px;
 }
@@ -445,12 +443,6 @@ button.pulse {
   margin: 0 !important;
 }
 
-button.rating, button.activity {
-  width: 33.3%;
-  margin: 0;
-  float: left;
-}
-
 /* Rider n Spot */
 
 #profile {
@@ -466,8 +458,8 @@ img.profile {
 }
 
 span.spot-picture {
-  width: 100%;
-  height: 200px;
+  width: 100px;
+  height: 100px;
   display: block;
   margin: 5px 0;
 }

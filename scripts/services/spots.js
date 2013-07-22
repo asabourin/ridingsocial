@@ -1,6 +1,6 @@
 angular.module('Services').factory('Spots', function ($rootScope, $http) {
 
-    var nearby, watched, currentNearest, withinBounds;
+    var nearby, watched, checkinAt, withinBounds;
 
     function distance(spot, location) {
       var r = 6371 //km
@@ -29,8 +29,12 @@ angular.module('Services').factory('Spots', function ($rootScope, $http) {
             return nearby;
         },
 
-        getNearest: function() {
-            return currentNearest
+        checkinAt: function() {
+            return checkinAt
+        },
+
+        setCheckinAt: function(spot) {
+            checkinAt = spot
         },
 
         favorites: function() {
@@ -75,8 +79,8 @@ angular.module('Services').factory('Spots', function ($rootScope, $http) {
 
         checkNearest: function() {
             if(nearby[0] != undefined && nearby[0]['distance'] <= Settings.checkin_distance && (currentNearest == undefined || currentNearest.id != nearby[0]['id'])) {
-                currentNearest = nearby[0];
-                $rootScope.$broadcast('newNearestSpot', {spot:currentNearest})
+                checkinAt = nearby[0];
+                $rootScope.$broadcast('newNearestSpot', {spot:checkinAt})
             }
         },
 

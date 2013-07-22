@@ -13,9 +13,13 @@
 
 <div id="profile">
 
-    <span ng-style="{'background-image': 'url('+spot.picture+')'}" class="spot-picture" >&nbsp;</span>
-
-    <div class="infos">{{spot.state}}, {{spot.country}}</div>
+    <div class="infos">
+      <span ng-style="{'background-image': 'url('+spot.picture+')'}" class="spot-picture pull-left" ng-tap="showSpotOnMap()">&nbsp;</span>
+      <br>
+      <a ng-class="{true:'btn-success',false:'disabled'}[checkinAllowed]" class="btn btn-large" ng-tap="checkinHere()"><i class="icon-pushpin"></i> Check-in</a>
+      <br>
+      <p>{{spot.state}}, {{spot.country}}<br> {{spot.distance}}km</p>
+    </div>
 
     <div id="tabs" ng-switch="tab" ng-animate="'fade'">
 
@@ -25,7 +29,7 @@
         </div>
 
       <ul ng-switch-when="sessions">
-          <li class="card {{session.color}} clearfix" ng-repeat="session in spot_sessions" ng-include="'views/_session.html'"></li>
+          <li class="card {{session.color}} clearfix" ng-repeat="session in sessions" ng-include="'views/_session.html'"></li>
           <div ng-include="'views/_others.html'"></div>
           <div ng-include="'views/_comments.html'"></div>
         </ul>

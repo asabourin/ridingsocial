@@ -10,7 +10,7 @@ angular.module('App')
     $scope.showFacebook = false
 
     User.login(args.response.authResponse.accessToken, function(response) {
-      $scope.$broadcast('rs_connected', {response:response});
+      $scope.$broadcast('rs_connected');
     }),
     function(response) {
       console.log(response)
@@ -35,19 +35,8 @@ angular.module('App')
 
   $scope.$on("rs_connected", function (event, args) {
     $rootScope.user = User.get()
-    User.me()
     Push.init()
-  });
-
-  $scope.$on('gotMe', function(event, args) {
     $navigate.go('/main', 'fade')
-  });
-
-  $scope.$on('gotMe_failed', function(event, args) {
-    console.log(args.response.error)
-    User.logout(null)
-    $scope.loading =false
-    $scope.showFacebook = true
   });
 
   $scope.$on("pushRegistered", function (event, args) {
@@ -59,12 +48,12 @@ angular.module('App')
 
   // Init
 
-  Facebook.init()
-
   if(User.isLogged()) {
-     $scope.$broadcast('rs_connected', {response:User.get()});
+    $scope.$broadcast('rs_connected');
   }
   else{
+    $navigate.go('/start')
+    Facebook.init()
     $scope.loading =false
     $scope.showFacebook = true
   }

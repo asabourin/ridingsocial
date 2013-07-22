@@ -58,7 +58,7 @@ angular.module('App')
           },
           bounds: {},
           markers: [],
-          zoom: 12
+          zoom: 13
         }
       })
 
@@ -80,7 +80,7 @@ angular.module('App')
       Sessions.refreshFollowed(User.token())
       Geolocation.resetPosition()
       CordovaReady(Geolocation.getPosition())
-      $scope.map.zoom = 12
+      $rootScope.map.zoom = 13
     }
 
     function wannaCheckin(index) {
@@ -96,8 +96,8 @@ angular.module('App')
         latitude: parseFloat(position.latitude),
         longitude: parseFloat(position.longitude)
       }
-      $scope.map.center.latitude = position.latitude
-      $scope.map.center.longitude = position.longitude
+      $rootScope.map.center.latitude = position.latitude
+      $rootScope.map.center.longitude = position.longitude
     }
 
     function buildSpotsMarkers(spots) {
@@ -120,46 +120,5 @@ angular.module('App')
         var max_lng = ( bounds.northeast.longitude+Math.abs(bounds.northeast.longitude)*0.01 ).toFixed(6)
         return {min_lat: min_lat, max_lat: max_lat, min_lng: min_lng, max_lng: max_lng}
     }
-
-    // Modal for session others
-    $scope.showOthers = function (session_id) {
-      $scope.this_session = _.find($rootScope.sessions, function(s) {return s.id == session_id})
-      $scope.othersOpen = true;
-    };
-    $scope.hideOthers = function () {
-      $scope.othersOpen = false;
-    };
-
-    // Menu
-
-    $scope.openMenu = function () {
-      $scope.menuOpen = true;
-    };
-
-    $scope.closeMenu = function () {
-      $scope.menuOpen = false;
-    };
-
-    $rootScope.optsMenu = {
-      backdropFade: false,
-      dialogFade:false,
-      backdropClick: false
-    };
-
-    $scope.goToDesktopSite = function () {
-      window.open('http://www.ridingsocial.net', '_system', 'location=yes');
-    }
-
-    $scope.logout = function() {logout()}
-    $scope.checkin = function() {
-      $navigate.go('/checkin', 'pop')
-    }
-
-    function logout() {
-        $scope.menuOpen = false;
-        User.logout()
-        $navigate.go('/', 'fade')
-    }
-
     
 })

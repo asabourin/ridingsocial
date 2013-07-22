@@ -9,7 +9,7 @@ angular.module('App')
   $scope.checkin = new Object();
   $scope.selectedRiders = new Array();
 
-  $scope.spot = Spots.getNearest()
+  $scope.spot = Spots.checkinAt()
 
   User.fetchFollowed(function(response){
     $scope.followed = response
