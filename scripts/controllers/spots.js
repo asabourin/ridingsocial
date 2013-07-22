@@ -1,12 +1,14 @@
 angular.module('App')
   
-  .controller('Spots.show', function(User, Spots, Riders, $scope, $routeParams, $window) {
+  .controller('Spots.show', function(User, Spots, Riders, $scope, $rootScope, $routeParams, $navigate) {
 
-    $scope.tab = 'sessions'
+    $scope.checkinAllowed = false
 
     Spots.show(User.token(), $routeParams.id, function(response) {
         $scope.spot = response;
-        $scope.spot.picture = "http://maps.googleapis.com/maps/api/staticmap?center="+$scope.spot.lat+","+$scope.spot.lng+"&zoom=16&size="+$window.innerWidth+"x220&maptype=satellite&sensor=true&markers=icon:http://ridingsocial.net/images/flags/"+$scope.spot.color+"_48.png%7C"+$scope.spot.lat+","+$scope.spot.lng+""
+        $scope.spot.distance = Spots.distance(response, $rootScope.position)
+        $scope.checkinAllowed = $scope.spot.distance <= Settings.radius
+        $scope.spot.picture = "http://maps.googleapis.com/maps/api/staticmap?center="+$scope.spot.lat+","+$scope.spot.lng+"&zoom=16&size=100x120&maptype=satellite&sensor=true&markers=icon:http://ridingsocial.net/images/flags/"+$scope.spot.color+"_32.png%7C"+$scope.spot.lat+","+$scope.spot.lng+""
     })
 
     Spots.sessions(User.token(), $routeParams.id, function(response) {
@@ -18,6 +20,11 @@ angular.module('App')
     })
 
     // Functions
+
+    $scope.checkinHere = function() {
+        Spots.setCheckinAt($scope.spot)
+        $navigate.go('/checkin', 'pop')
+    }
 
     $scope.showOthers = function (session_id) {
       $scope.this_session = _.find($scope.spot_sessions, function(s) {return s.id == session_id})

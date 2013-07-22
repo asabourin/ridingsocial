@@ -13,9 +13,13 @@
 
 <div id="profile">
 
-    <span ng-style="{'background-image': 'url('+spot.picture+')'}" class="spot-picture" >&nbsp;</span>
-
-    <div class="infos">{{spot.state}}, {{spot.country}}</div>
+    <div class="infos">
+      <span ng-style="{'background-image': 'url('+spot.picture+')'}" class="spot-picture pull-left" >&nbsp;</span>
+      <br>
+      <a ng-class="{true:'btn-success',false:'disabled'}[checkinAllowed]" class="btn btn-large" ng-tap="checkinHere()"><i class="icon-pushpin"></i> Check-in</a>
+      <br>
+      <p>{{spot.state}}, {{spot.country}}<br> {{spot.distance}}km</p>
+    </div>
 
     <div id="tabs" ng-switch="tab" ng-animate="'fade'">
 
