@@ -14,7 +14,7 @@
 <div id="profile">
 
     <div class="infos">
-      <span ng-style="{'background-image': 'url('+spot.picture+')'}" class="spot-picture pull-left" >&nbsp;</span>
+      <span ng-style="{'background-image': 'url('+spot.picture+')'}" class="spot-picture pull-left" ng-tap="showSpotOnMap()">&nbsp;</span>
       <br>
       <a ng-class="{true:'btn-success',false:'disabled'}[checkinAllowed]" class="btn btn-large" ng-tap="checkinHere()"><i class="icon-pushpin"></i> Check-in</a>
       <br>

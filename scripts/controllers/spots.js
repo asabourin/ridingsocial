@@ -21,6 +21,14 @@ angular.module('App')
 
     // Functions
 
+    $scope.showSpotOnMap = function() {
+        $rootScope.map.center.latitude = $scope.spot.lat
+        $rootScope.map.center.longitude = $scope.spot.lng
+        $rootScope.activeTab = 'map'
+        $rootScope.map.zoom = 17
+        $navigate.go('/main')
+    }
+
     $scope.checkinHere = function() {
         Spots.setCheckinAt($scope.spot)
         $navigate.go('/checkin', 'pop')
