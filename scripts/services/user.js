@@ -36,18 +36,23 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
     //
 
     return {
+
         isLogged: isLogged,
+
         token: function() {
             return token
         },
+
         get: function() {
             return {id: id, token:token, lastCheckinAt:lastCheckinAt}
         },
+
         fetchFollowed: function(successCallback) {
         $http.get(Settings.host+'riders/followed?token='+token).success(successCallback).error(function(response) {
             console.log(response)
             })
         },
+
         login:function (accessToken) {
             $http.get(Settings.host+'login?facebook_token='+accessToken).success(function(response) {
                 id = response.id
@@ -62,13 +67,6 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
               else {$rootScope.$apply()}
             
         },
-        me:function () {
-            $http.get(Settings.host+'me?token='+token).success(function(response){
-                $rootScope.$broadcast('gotMe', {response:response});
-            }).error(function(response){
-                $rootScope.$broadcast('gotMe_failed', {response:response})
-            })
-        },
         
         registerDevice:function (settings, successCallback, errorCallback) {
             
@@ -80,19 +78,24 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
                 errorCallback('No user token')
             }
         },
+
         setLastCheckinAt: function(time) {
             lastCheckinAt = time
         },
+
         updatePreferences: function(prefs) {
             preferences = prefs
             savePreferences()
         },
+
         getPreferences: function() {
             return preferences
         },
+
         logout: function() {
             token = null;
             id = null;
+            $rootScope.user = null;
             localStorage.clear()
         }
 

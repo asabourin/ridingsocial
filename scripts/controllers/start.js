@@ -35,19 +35,8 @@ angular.module('App')
 
   $scope.$on("rs_connected", function (event, args) {
     $rootScope.user = User.get()
-    User.me()
     Push.init()
-  });
-
-  $scope.$on('gotMe', function(event, args) {
     $navigate.go('/main', 'fade')
-  });
-
-  $scope.$on('gotMe_failed', function(event, args) {
-    console.log(args.response.error)
-    User.logout(null)
-    $scope.loading =false
-    $scope.showFacebook = true
   });
 
   $scope.$on("pushRegistered", function (event, args) {

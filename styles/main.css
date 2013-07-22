@@ -17,7 +17,7 @@ body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;
-    background: #f0f6fa;
+    background-color: #f0f6fa;
     -webkit-background-size: 100%;
 }
 
@@ -46,6 +46,7 @@ a.btn {
   right:0;
   width: 100%;
   padding: 0;
+  background-color: #f0f6fa;
 }
 
 .navbar {
