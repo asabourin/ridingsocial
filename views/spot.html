@@ -24,8 +24,8 @@
     <div id="tabs" ng-switch="tab" ng-animate="'fade'">
 
         <div class="btn-group">
-            <button class="btn half" ng-model="tab" btn-radio="'sessions'"><span class="big-number"><i class="icon-flag-checkered"></i> {{spot.nb_sessions}}</span><br>Sessions</button>
-            <button class="btn half" ng-model="tab" btn-radio="'riders'"><span class="big-number"><i class="icon-user"></i> {{spot.nb_riders}}</span><br>Riders</button>
+            <button class="btn btn-small half" ng-model="tab" btn-radio="'sessions'"><span class="big-number"><i class="icon-flag-checkered"></i> {{spot.nb_sessions}}</span><br>Sessions</button>
+            <button class="btn btn-small half" ng-model="tab" btn-radio="'riders'"><span class="big-number"><i class="icon-user"></i> {{spot.nb_riders}}</span><br>Riders</button>
         </div>
 
       <ul ng-switch-when="sessions">

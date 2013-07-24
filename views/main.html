@@ -21,7 +21,7 @@
     </div>
 
     <div id="map_canvas" ng-switch-when="map">
-      <google-map center="map.center" zoom="map.zoom" draggable="true" bounds="map.bounds" type="terrain">
+      <google-map center="map.center" zoom="map.zoom" draggable="true" bounds="map.bounds" type="roadmap">
           <marker ng-show="myPosition" coords="myPosition"></me>
           <marker ng-repeat="m in map.markers" coords="m" icon="m.icon" click="navigate.go('/spots/'+m.id, 'none')"></marker>
       </google-map>
