@@ -3,8 +3,8 @@
     <a class="navbar-button pull-left" ng-tap="navigate.back()"><i class="icon-chevron-left "></i></a>
     <a class="navbar-button pull-right" ng-show="!rider"><span class="loader" ></span></a>
     <span ng-hide="rider.id == user.id || !rider">
-        <a class="navbar-button pull-right" ng-show="!rider.following" ng-tap="follow()"><i class="icon-check-empty "></i></a>
-        <a class="navbar-button pull-right" ng-show="rider.following" ng-tap="unfollow()"><i class="icon-check"></i></a>
+        <a class="navbar-button pull-right dimmed" ng-show="!rider.following" ng-tap="follow()"><i class="icon-sort-by-attributes "></i></a>
+        <a class="navbar-button pull-right" ng-show="rider.following" ng-tap="unfollow()"><i class="icon-sort-by-attributes"></i></a>
     </span>
     <h4>{{rider.name}}</h4>
 

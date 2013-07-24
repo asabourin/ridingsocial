@@ -22,10 +22,17 @@ angular.module('App')
     // Functions
 
     $scope.follow = function() {
-        Riders.follow(User.token(), $scope.rider.id, function(response) {
-            $scope.rider.following = true
+        navigator.notification.confirm("Follow "+$scope.rider.name+"?", follow, "", ["Yes", "Cancel"]);
+    }
+
+    function follow(index) {
+        if(index == 1) {
+            Riders.follow(User.token(), $scope.rider.id, function(response) {
+                $scope.rider.following = true
             $scope.rider.nb_followers += 1
-        })
+            })
+            $scope.$apply()
+        }
     }
 
     $scope.unfollow = function() {

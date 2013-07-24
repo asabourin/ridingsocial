@@ -3,7 +3,7 @@
     <a class="navbar-button pull-left" ng-tap="navigate.back()"><i class="icon-chevron-left "></i></a>
     <a class="navbar-button pull-right" ng-show="!spot"><span class="loader"></span></a>
     <span ng-show="spot">
-      <a class="navbar-button pull-right" ng-show="!spot.watched" ng-tap="watch()"><i class="icon-eye-close "></i></a>
+      <a class="navbar-button pull-right dimmed" ng-show="!spot.watched" ng-tap="watch()"><i class="icon-eye-open "></i></a>
       <a class="navbar-button pull-right" ng-show="spot.watched" ng-tap="unwatch()"><i class="icon-eye-open"></i></a>
     </span>
     <h4>{{spot.name}}</h4>
