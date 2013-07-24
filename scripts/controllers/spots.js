@@ -31,8 +31,10 @@ angular.module('App')
     }
 
     $scope.checkinHere = function() {
-        Spots.setCheckinAt($scope.spot)
-        $navigate.go('/checkin', 'pop')
+        if($scope.spot.distance < Setting.checkin_distance) {
+            Spots.setCheckinAt($scope.spot)
+            $navigate.go('/checkin', 'pop')
+        }
     }
 
     $scope.watch = function() {

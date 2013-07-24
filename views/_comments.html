@@ -1,11 +1,24 @@
 <div modal="commentsOpen" close="hideComments()" options="optsMenu" ng-controller="SessionController">
+    <div class="modal-header">
+        <button type="button" class="close" ng-tap="hideComments()">&times;</button>
+        <p ng-show="likes.length>0">
+        	<span ng-repeat="like in likes"><a ng-tap="hideComments();navigate.go('/riders/'+like.author.id)">{{like.author.name}}</a> {{{true: '', false: ', '}[$last]}}
+        	</span>
+        	<ng-pluralize count="likes.length" when="{'0': '', 'one': ' likes this', 'other': 'like this'}"></ng-pluralize>
+        </p>
+    </div>
     <div class="modal-body">
-      <button type="button" class="close" ng-tap="hideComments()">&times;</button>
+      
         <div class="clearfix" ng-repeat="comment in comments">
           <img ng-tap="hideComments();navigate.go('/riders/'+comment.author.id)" ng-src="{{comment.author.picture}}" class="rider-small pull-left"><a ng-tap="hideComments();navigate.go('/riders/'+comment.author.id)">{{comment.author.name}}</a>
           <small class="muted">{{comment.created_at | fromNow}}</small>
           <br />
           <p ng-bind-html-unsafe="comment.text"></p>
         </div>
+    </div>
+
+    <div class="modal-footer">
+    	<form ng-submit="postComment(session.id)" ><textarea type="text" ng-model="reply" class="text-comment pull-left" placeholder="Post a comment"></textarea>
+		<a class="btn btn-large pull-left" ng-class="{'disabled': posting_comment}" ng-tap="postComment(session.id)"><i class="icon-reply"></i></a></span></form>
     </div>
 </div>

@@ -168,14 +168,14 @@ span.loader
 
 .modal {
   position:fixed;
-  top: 48px;
+  top: 10px;
   left: 10px;
   right: 10px;
   width:auto;
   margin:0;
 }
 
-.modal-body {
+.modal-body, .modal-header, .modal-footer {
   padding: 5px;
 }
 
@@ -341,6 +341,10 @@ span.time {
 p.comment {
   margin: 5px;
   clear: both;
+}
+
+textarea.text-comment {
+  height: 42px;
 }
 
 p.details {

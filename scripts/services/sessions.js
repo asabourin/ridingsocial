@@ -27,8 +27,11 @@ angular.module('Services').factory('Sessions', function ($rootScope, $http) {
         comments: function(id, successCallback, errorCallback) {
             $http.get(Settings.host+'/checkins/'+id+'/comments').success(successCallback).error(errorCallback);
         },
-        postComment: function(token, id, comment, successCallback, errorCallback) {
-            $http.post(Settings.host+'checkins/'+id+'/comments?token='+token, "body="+comment.body).success(successCallback).error(errorCallback);
+        likes: function(id, successCallback, errorCallback) {
+            $http.get(Settings.host+'/checkins/'+id+'/likes').success(successCallback).error(errorCallback);
+        },
+        postComment: function(token, id, text, successCallback, errorCallback) {
+            $http.post(Settings.host+'checkins/'+id+'/comments?token='+token, "text="+text, {headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}}).success(successCallback).error(errorCallback);
         }
     }
 
