@@ -26,11 +26,11 @@ angular.module('App')
     };
 
     $scope.postComment = function(session_id) {
-    	if($scope.reply && !$scope.post_comment_loading) {
+    	if($scope.reply && !$scope.posting_comment) {
     		$scope.post_comment_loading = true
     		Sessions.postComment(User.token(), session_id, $scope.reply, function(response){
     			$rootScope.comments.push(response)
-    			$scope.post_comment_loading = false
+    			$scope.posting_comment = false
     			$scope.reply = ''
     		})
     	}
