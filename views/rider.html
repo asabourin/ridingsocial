@@ -22,26 +22,17 @@
     <br ><button class="btn btn-primary"><img class="score" src="images/shaka.png"> <span class="big-number">{{rider.score}}</span></button>
     <br>
     Lives in {{rider.location}}
+    <br>
+    <ng-pluralize count="rider.nb_followers" when="{'0': 'No follower', 'one': '1 follower', 'other': '{} followers'}"></ng-pluralize>
   </div>
 
   <div id="tabs" ng-switch="tab" ng-animate="'fade'">
 
       <div class="btn-group">
-          <button class="btn btn-small quarter" ng-model="tab" btn-radio="'sessions'"><span class="big-number"><i class="icon-flag-checkered"></i> {{rider.nb_sessions}}</span><br> Sessions</button>
-          <button class="btn btn-small quarter" ng-model="tab" btn-radio="'spots'"><span class="big-number"><i class="icon-map-marker"></i> {{rider_spots.length}}</span><br>Spots</button>
-          <button class="btn btn-small quarter" ng-model="tab" btn-radio="'followers'"><span class="big-number"><i class="icon-user"></i> {{rider.nb_followers}}</span><br>Followers</button>
-          <button class="btn btn-small quarter" ng-model="tab" btn-radio="'gear'"><span class="big-number"><i class="icon-wrench"></i>&nbsp;</span><br>Gear</button>
+          <button class="btn btn-small third" ng-model="tab" btn-radio="'sessions'"><span class="big-number"><i class="icon-flag-checkered"></i> {{rider.nb_sessions}}</span><br> Sessions</button>
+          <button class="btn btn-small third" ng-model="tab" btn-radio="'spots'"><span class="big-number"><i class="icon-map-marker"></i> {{rider_spots.length}}</span><br>Spots</button>
+          <button class="btn btn-small third" ng-model="tab" btn-radio="'gear'"><span class="big-number"><i class="icon-wrench"></i>&nbsp;</span><br>Gear</button>
       </div>
-
-      <ul ng-switch-when="followers">
-        <li class="card">
-          <div class="info" ng-repeat="follower in followers">
-            <img ng-tap="navigate.go('/riders/'+follower.id)" ng-src="{{follower.picture}}" class="rider-small pull-left"><a ng-tap="navigate.go('/riders/'+follower.id)">{{follower.name}}</a>
-            <br>
-            <img src="images/icon-shaka.png" class="icon-shaka"> {{follower.score}}
-          </div>
-        </li>
-      </ul>
 
       <ul ng-switch-when="spots">
 
