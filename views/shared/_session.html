@@ -18,7 +18,10 @@
         <a ng-tap="showOthers(session.id)">{{session.others.length}} others</a>
     </span>
     <br />
-    <small class="muted"><i class="icon-time"></i> {{session.created_at | fromNow}}</small>
+    <small class="muted">
+      <i class="icon-time"></i> {{session.created_at | fromNow}}
+      <i class="icon-location-arrow"></i> {{session.distance}}km
+    </small>
 
   </div>
 

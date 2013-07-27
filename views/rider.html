@@ -57,9 +57,9 @@
       </ul>
 
       <ul ng-switch-when="sessions">
-          <li class="card {{session.color}} clearfix" ng-repeat="session in sessions" ng-include="'views/_session.html'" ></li>
-          <div ng-include="'views/_others.html'"></div>
-          <div ng-include="'views/_comments.html'"></div>
+          <li class="card {{session.color}} clearfix" ng-repeat="session in sessions" ng-include="'views/shared/_session.html'" ></li>
+          <div ng-include="'views/shared/_others.html'"></div>
+          <div ng-include="'views/shared/_comments.html'"></div>
       </ul>
 
        <ul ng-switch-when="gear">
