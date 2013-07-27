@@ -29,7 +29,8 @@ body {
 }
 
 a {
-    -webkit-tap-highlight-color: #d9edf7
+    -webkit-tap-highlight-color: #d9edf7;
+    font-weight: bold;
 }
 
 a.btn {

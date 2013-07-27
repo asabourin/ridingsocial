@@ -5,7 +5,7 @@ angular.module('App')
     //
 
     $scope.showOthers = function (session_id) {
-      $rootScope.this_session = _.find($scope.sessions, function(s) {return s.id == session_id})
+      $rootScope.this_session = $scope.session
       $rootScope.othersOpen = true;
     };
     $rootScope.hideOthers = function () {
