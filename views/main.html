@@ -1,18 +1,13 @@
-<div class="navbar navbar-fixed-top">
-    <div class="blue navbar-inner">
-      <a class="navbar-button pull-left" ><img src="images/shaka.png" class="navbar-icon" ng-tap="openMenu()" /></a>
-      <a class="navbar-button pull-right" ng-tap="refresh()">
-      <i class="icon-refresh icon-large"  ng-hide="loading"></i>
-      <span class="loader" ng-show="loading"></span>
-      </a>
-    </div>
+
+<div class="navbar navbar-fixed-top"  ng-include="'views/_nav.html'"> 
+    
 </div>
 
 <div ng-include="'views/_menu.html'" ng-controller="MenuController"></div>
 
 <div id="main" ng-switch="activeTab" ng-animate="'fade'">
 
-    <div id="sessions" ng-switch-when="sessions">
+    <div id="sessions" ng-switch-when="riders">
       <ul>
         <li class="card {{session.color}} clearfix" ng-repeat="session in sessions" ng-include="'views/_session.html'" ng-controller="SessionController"></li>
       </ul>
@@ -40,8 +35,4 @@
         </ul>
     </div>
 
-</div>
-
-<div class="navbar navbar-fixed-bottom navbar-inverse"  ng-include="'views/_nav.html'"> 
-    
 </div>

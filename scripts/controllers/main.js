@@ -44,7 +44,7 @@ angular.module('App')
 
     // Init
 
-    $rootScope.activeTab = $rootScope.activeTab || 'sessions'
+    $rootScope.activeTab = $rootScope.activeTab || 'map'
     $navigate.eraseHistory()
     google.maps.visualRefresh = true;
 
@@ -68,8 +68,13 @@ angular.module('App')
 
     // Functions
 
-    $scope.goToTab = function(tab) {
-        $rootScope.activeTab = tab;
+    $scope.toggleTab = function(tab) {
+        if($rootScope.activeTab == tab) {
+          $rootScope.activeTab = 'map'
+        }
+        else {
+          $rootScope.activeTab = tab
+        }
     }
 
     $scope.refresh = function() { refresh() }

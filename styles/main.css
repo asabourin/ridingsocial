@@ -146,6 +146,10 @@ h1 {
   width: 40px;
 }
 
+.no-border {
+  border: 0 !important;
+}
+
 span.loader
 {   
     display: inline-block;
@@ -216,33 +220,42 @@ div#logo h1 {
 /* Main */
 
 
-img.navbar-icon {
-  width: 35;
-  height: 35;
+.menu-icon {
+  width: 35px;
+  height: 35px;
   margin: 4px 8px;
   }
 
-.navbar-button {
+.navbar-icon {
   height: 48px;
   width: 48px;
   margin: 0;
   padding: 0;
-  font-size: 20px;
   color: white;
-  border: 1px solid rgba(0,0,0, 0.2);
-  border-top: 0;
-  border-bottom: 0;
+  font-size: 20px;
+  display: inline-block;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
-.navbar-button:active{background-image:none;outline:0;-webkit-box-shadow:inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05);box-shadow:inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05);}
-
-.navbar-button i, span.loader {
+.navbar-icon > i {
   line-height: 48px;
 }
 
-.navbar-button.dimmed {
+.navbar-icon.dimmed {
   color: #0055a0;
+}
+
+.navbar-icon.navbar-button {
+  border: 1px solid rgba(0,0,0, 0.2);
+  border-top: 0;
+  border-bottom: 0;
+}
+
+.navbar-button:active{
+  background-image:none;
+  outline:0;
+  -webkit-box-shadow:inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05);
+  box-shadow:inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05);
 }
 
 .logo-menu {
@@ -251,14 +264,14 @@ img.navbar-icon {
   margin: 0 5px 0 0;
 }
 
-#spots, #sessions {
-  padding: 0 5px;
-}
-
 /* Spots n Sessions */
 
 #main ul {
   padding: 48px 0;
+}
+
+#spots, #sessions {
+  padding: 0 5px;
 }
 
 .card {
@@ -371,7 +384,7 @@ div.session-buttons {
   height: auto;
   position: absolute;
   top: 48px;
-  bottom: 20px;
+  bottom: 0px;
 }
 
 /* fix for Twitter Bootstrap handling of responsive images */
@@ -384,6 +397,7 @@ img[src*="gstatic.com/"], img[src*="googleapis.com/"]  {
 }
 
 /* Checkin */
+
 #checkin {
   width: 100%;
   margin: 0;
