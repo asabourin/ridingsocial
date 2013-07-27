@@ -8,10 +8,13 @@ angular.module('App')
         Spots.updateDistanceWatched(args.position)
         updateMap(args.position)
         $rootScope.position = args.position
+        if($rootScope.followed_sessions != undefined) {
+          computeSessionsDistances($rootScope.followed_sessions)
+        }
     });
 
     $rootScope.$on("watchedSpotsUpdated", function (event, args) {
-        $rootScope.spots = args.watched
+        $rootScope.watched_spots = args.watched
     });
 
     $rootScope.$on("nearbySpotsUpdated", function(event, args) {
@@ -25,7 +28,10 @@ angular.module('App')
     })
 
     $rootScope.$on("sessionsUpdated", function (event, args) {
-        $rootScope.sessions = args.sessions
+        $rootScope.followed_sessions = args.sessions
+        if($rootScope.position != undefined) {
+          computeSessionsDistances($rootScope.followed_sessions)
+        }
     });
 
     $scope.$on('$destroy', function () {
@@ -49,7 +55,6 @@ angular.module('App')
     google.maps.visualRefresh = true;
 
     if($rootScope.position == undefined) {
-
       angular.extend($rootScope, {
         map: {
           center: {
@@ -61,9 +66,7 @@ angular.module('App')
           zoom: 13
         }
       })
-
       refresh()
-
     }
 
     // Functions
@@ -86,6 +89,12 @@ angular.module('App')
       Geolocation.resetPosition()
       CordovaReady(Geolocation.getPosition())
       $rootScope.map.zoom = 13
+    }
+
+    function computeSessionsDistances(sessions) {
+      _.each(sessions, function(s) {
+            s.distance = Spots.distance(s.spot, $rootScope.position)
+        })
     }
 
     function wannaCheckin(index) {

@@ -20,7 +20,7 @@
     <br />
     <small class="muted">
       <i class="icon-time"></i> {{session.created_at | fromNow}}
-      <i class="icon-location-arrow"></i> {{session.distance}}km
+      <span ng-show="session.spot"><i class="icon-location-arrow"></i> {{session.distance}}km</span>
     </small>
 
   </div>

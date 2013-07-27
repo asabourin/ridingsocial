@@ -1,6 +1,6 @@
 angular.module('App')
   
-  .controller('Riders.show', function(User, Riders, $scope, $routeParams) {
+  .controller('Riders.show', function(User, Riders, Spots, $scope, $rootScope, $routeParams) {
 
     Riders.show(User.token(), $routeParams.id, function(response) {
         $scope.rider = response;
@@ -9,6 +9,9 @@ angular.module('App')
 
     Riders.sessions(User.token(), $routeParams.id, function(response) {
         $scope.sessions = response;
+        _.each($scope.sessions, function(s) {
+            s.distance = Spots.distance(s.spot, $rootScope.position)
+        })
     })
 
     Riders.spots(User.token(), $routeParams.id, function(response) {

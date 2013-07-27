@@ -1,11 +1,6 @@
 angular.module('App')
   .controller('SessionController', function(Sessions, User, Spots, $scope, $rootScope) {
 
-  	//
-
-  	if($scope.session != undefined) {
-	    $scope.session.distance = Spots.distance($scope.session.spot, $rootScope.position)
-	}
 
     //
 

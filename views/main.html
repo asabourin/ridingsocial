@@ -6,7 +6,7 @@
 
     <div id="riders" ng-switch-when="riders">
       <ul>
-        <li class="card {{session.color}} clearfix" ng-repeat="session in sessions" ng-include="'views/shared/_session.html'" ng-controller="SessionController"></li>
+        <li class="card {{session.color}} clearfix" ng-repeat="session in followed_sessions" ng-include="'views/shared/_session.html'" ng-controller="SessionController"></li>
       </ul>
       <div ng-include="'views/shared/_others.html'"></div>
       <div ng-include="'views/shared/_comments.html'"></div>
@@ -22,7 +22,7 @@
     <div id="spots" ng-switch-when="spots" >
         <ul>
           <li class="card">
-            <div class="clearfix" ng-repeat="spot in spots" >
+            <div class="clearfix" ng-repeat="spot in watched_spots" >
               <img ng-src="images/flags/{{spot.color}}_80.png" class="flag" ng-tap="navigate.go('/spots/'+spot.id)" />
               <small class="muted distance" ng-show="spot.distance">{{spot.distance}}km</small>
               <a ng-tap="navigate.go('/spots/'+spot.id)">{{spot.name}}</a>

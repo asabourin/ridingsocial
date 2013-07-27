@@ -14,6 +14,9 @@ angular.module('App')
 
     Spots.sessions(User.token(), $routeParams.id, function(response) {
         $scope.sessions = response;
+        _.each($scope.sessions, function(s) {
+            s.distance = Spots.distance(s.spot, $rootScope.position)
+        })
     })
 
     Spots.riders(User.token(), $routeParams.id, function(response) {
