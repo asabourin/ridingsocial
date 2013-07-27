@@ -13,7 +13,7 @@ angular.module('Services').factory('Geolocation', function ($rootScope, $timeout
         onPositionReceived(position)
       }
       , function(error) {
-        navigator.notification.alert(Lang.en.error_location, null, Lang.en.error)
+        $rootScope.$broadcast('locationTimeout');
       }
       , {maximumAge: 1000, timeout: Settings.geoloc_timeout, enableHighAccuracy: true}
     );

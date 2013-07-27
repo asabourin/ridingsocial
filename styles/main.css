@@ -137,13 +137,12 @@ h1 {
 
 .centered {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-  height: 40px;
-  width: 40px;
+  top: 50%;
+  left: 50%;
+  margin: -100px 0 0 -100px;
+  height: 200px;
+  width: 200px;
+  text-align:center;
 }
 
 .no-border {
@@ -264,13 +263,18 @@ div#logo h1 {
   margin: 0 5px 0 0;
 }
 
+.loading-globe {
+  font-size: 10em;
+  color: #ccc;
+}
+
 /* Spots n Sessions */
 
 #main ul {
   padding: 48px 0;
 }
 
-#spots, #sessions {
+#spots, #riders {
   padding: 0 5px;
 }
 

@@ -14,9 +14,6 @@ angular.module('App')
 
     Spots.sessions(User.token(), $routeParams.id, function(response) {
         $scope.sessions = response;
-        _.each($scope.sessions, function(s) {
-            s.distance = Spots.distance(s.spot, $rootScope.position)
-        })
     })
 
     Spots.riders(User.token(), $routeParams.id, function(response) {
@@ -34,7 +31,7 @@ angular.module('App')
     }
 
     $scope.checkinHere = function() {
-        if($scope.spot.distance < Setting.checkin_distance) {
+        if($scope.spot.distance < Settings.radius) {
             Spots.setCheckinAt($scope.spot)
             $navigate.go('/checkin', 'pop')
         }

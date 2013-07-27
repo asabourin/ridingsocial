@@ -8,10 +8,19 @@ angular.module('App')
         Spots.updateDistanceWatched(args.position)
         updateMap(args.position)
         $rootScope.position = args.position
+        
         if($rootScope.followed_sessions != undefined) {
           computeSessionsDistances($rootScope.followed_sessions)
         }
+        if($rootScope.activeTab == 'loading') {
+          $rootScope.activeTab = 'map'
+        }
     });
+
+    $rootScope.$on("locationTimeout", function (event, args) {
+      navigator.notification.alert(Lang.en.error_location, null, Lang.en.error)
+      $scope.loading = false
+    })
 
     $rootScope.$on("watchedSpotsUpdated", function (event, args) {
         $rootScope.watched_spots = args.watched
@@ -50,7 +59,7 @@ angular.module('App')
 
     // Init
 
-    $rootScope.activeTab = $rootScope.activeTab || 'map'
+    $rootScope.activeTab = $rootScope.activeTab || 'loading'
     $navigate.eraseHistory()
     google.maps.visualRefresh = true;
 
