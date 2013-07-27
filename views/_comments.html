@@ -2,6 +2,7 @@
     <div class="modal-header">
         <button type="button" class="close" ng-tap="hideComments()">&times;</button>
         <p ng-show="likes.length>0">
+        	<i class="icon-thumbs-up-alt"></i>
         	<span ng-repeat="like in likes"><a ng-tap="hideComments();navigate.go('/riders/'+like.author.id)">{{like.author.name}}</a> {{{true: '', false: ', '}[$last]}}
         	</span>
         	<ng-pluralize count="likes.length" when="{'0': '', 'one': ' likes this', 'other': 'like this'}"></ng-pluralize>
@@ -18,7 +19,7 @@
     </div>
 
     <div class="modal-footer">
-    	<form ng-submit="postComment(session.id)" ><textarea type="text" ng-model="reply" class="text-comment pull-left" placeholder="Post a comment"></textarea>
+    	<form ng-submit="postComment(session.id)" ><textarea type="text" ng-model="reply" class="text-comment pull-left" placeholder="Comment..."></textarea>
 		<a class="btn btn-large pull-left" ng-class="{'disabled': posting_comment}" ng-tap="postComment(session.id)"><i class="icon-reply"></i></a></span></form>
     </div>
 </div>
