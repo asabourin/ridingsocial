@@ -2,9 +2,9 @@
   
   <a class="navbar-icon navbar-button pull-left" ><img src="images/shaka.png" class="menu-icon" ng-tap="openMenu()" /></a>
   
-  <a class="navbar-icon" ng-class="{'dimmed': activeTab != 'riders'}" ng-tap="toggleTab('riders')"><i class="icon-user icon-large"></i></a>
-  <a class="navbar-icon" ng-class="{'dimmed': activeTab != 'spots'}" ng-tap="toggleTab('spots')"><i class="icon-map-marker icon-large"></i></a>
-  <a class="navbar-icon" ng-class="{'dimmed': activeTab != 'notifications'}" ng-tap="toggleTab('notifications')"><i class="icon-bell-alt icon-large"></i></a>
+  <a class="navbar-icon" ng-class="{'tab-active arrow_box': activeTab == 'riders'}" ng-tap="toggleTab('riders')"><i class="icon-user icon-large"></i></a>
+  <a class="navbar-icon" ng-class="{'tab-active arrow_box': activeTab == 'spots'}" ng-tap="toggleTab('spots')"><i class="icon-map-marker icon-large"></i></a>
+  <a class="navbar-icon" ng-class="{'tab-active arrow_box': activeTab == 'notifications'}" ng-tap="toggleTab('notifications')"><i class="icon-bell-alt icon-large"></i></a>
   
   <a class="navbar-icon navbar-button pull-right" ng-tap="refresh()">
 	  <i class="icon-refresh icon-large" ng-hide="loading"></i>

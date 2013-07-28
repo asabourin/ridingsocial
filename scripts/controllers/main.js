@@ -13,6 +13,7 @@ angular.module('App')
         if($rootScope.activeTab == 'loading') {
           $rootScope.activeTab = 'map'
         }
+        $scope.loading = false
     });
 
     $rootScope.$on("locationTimeout", function (event, args) {
@@ -128,47 +129,56 @@ angular.module('App')
 //
 .controller('FollowedRiders', function(User, Sessions, Spots, $scope, $rootScope, $navigate) {
 
-    Sessions.followed(User.token(), function(response) {
-        $rootScope.followed_sessions =  response
-        if($rootScope.position != undefined) {
-          computeSessionsDistances($rootScope.followed_sessions)
-        }
-    })
+  $scope.loading = true
 
-    //
+  Sessions.followed(User.token(), function(response) {
+      $rootScope.followed_sessions = response
+      if($rootScope.position != undefined) {
+        computeSessionsDistances($rootScope.followed_sessions)
+      }
+      $scope.loading = false
+  })
 
-    function computeSessionsDistances(sessions) {
-      _.each(sessions, function(s) {
-            s.distance = Spots.distance(s.spot, $rootScope.position)
-        })
-    }
+  //
+
+  function computeSessionsDistances(sessions) {
+    _.each(sessions, function(s) {
+          s.distance = Spots.distance(s.spot, $rootScope.position)
+      })
+  }
 
 })
 
 //
 .controller('WatchedSpots', function(User, Sessions, Spots, $scope, $rootScope, $navigate) {
 
-    Spots.watched(User.token(), function(response) {
-        $rootScope.watched_spots = response
-        if($rootScope.position != undefined) {
-          computeWatchedDistances($rootScope.watched_spots)
-        }
-    })
+  $scope.loading = true
+  
+  Spots.watched(User.token(), function(response) {
+      $rootScope.watched_spots = response
+      if($rootScope.position != undefined) {
+        computeWatchedDistances($rootScope.watched_spots)
+      }
+      $scope.loading = false
+  })
 
 
-    function computeWatchedDistances(spots) {
-      _.each(spots, function(s) {
-            s.distance = Spots.distance(s, $rootScope.position)
-        })
-    }
+  function computeWatchedDistances(spots) {
+    _.each(spots, function(s) {
+          s.distance = Spots.distance(s, $rootScope.position)
+      })
+  }
     
 })
 
 //
 .controller('Notifications', function(User, $scope, $rootScope, $navigate) {
 
+  $scope.loading = true
+
   User.notifications(function(response) {
         $rootScope.notifications = response
+        $scope.loading = false
     })
 
 })

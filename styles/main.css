@@ -231,7 +231,7 @@ div#logo h1 {
   width: 48px;
   margin: 0;
   padding: 0;
-  color: white;
+  color: #0055a0;
   font-size: 20px;
   display: inline-block;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
@@ -241,14 +241,15 @@ div#logo h1 {
   line-height: 48px;
 }
 
-.navbar-icon.dimmed {
-  color: #0055a0;
+.tab-active {
+  color: white !important;
 }
 
 .navbar-icon.navbar-button {
   border: 1px solid rgba(0,0,0, 0.2);
   border-top: 0;
   border-bottom: 0;
+  color: white;
 }
 
 .navbar-button:active{
@@ -269,10 +270,33 @@ div#logo h1 {
   color: #ccc;
 }
 
+.arrow_box {
+  position: relative;
+  background: transparent;
+}
+.arrow_box:after {
+  top: 28px;
+  border: solid #f0f6fa;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.arrow_box:after {
+  border-color: rgba(240, 246, 250, 0);
+  border-bottom-color: #f0f6fa;
+  border-width: 10px;
+  left: 50%;
+  margin-left: -10px;
+}
+
 /* Spots n Sessions */
 
 #main ul {
-  padding: 48px 5px;
+  margin-top: 48px;
+  padding: 5px;
 }
 
 .card {
