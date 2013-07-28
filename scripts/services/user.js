@@ -20,7 +20,7 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
     if(savedLastCheckAt != undefined) {
         lastCheckAt = savedLastCheckAt
     }
-    else {lastCheckAt = new Object({'followed_riders': 0, 'watched_spots': 0, 'notifications': 0})}
+    else {lastCheckAt = new Object({'followed_riders': timestamp(), 'watched_spots': timestamp(), 'notifications': timestamp()})}
 
     //
 
@@ -41,6 +41,10 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
 
     var isLogged = function() {
         return (token != undefined && token != null)
+    }
+
+    function timestamp() {
+        return Math.round(new Date().getTime() / 1000)
     }
 
     //
@@ -93,7 +97,7 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
         },
 
         updateLastCheckAt: function(what) {
-            lastCheckAt[what] = Math.round(new Date().getTime() / 1000)
+            lastCheckAt[what] = timestamp()
             saveLastCheckAt()
         },
 
