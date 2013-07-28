@@ -12,9 +12,7 @@ angular.module('Services').factory('Push', function ($rootScope, User, CordovaRe
 
         onNotificationIOS: function(event) {
             if (event.alert) {
-                navigator.notification.vibrate(300);
-                navigator.notification.alert(event.alert);
-                navigator.notification.beep(1);
+                $rootScope.$broadcast('receivedPushNotification', {message:event.alert})
             }
             if (event.sound) {
             }
@@ -37,9 +35,8 @@ angular.module('Services').factory('Push', function ($rootScope, User, CordovaRe
                 case 'message':
                     if (e.foreground)
                     {
-                        navigator.notification.vibrate(300);
-                        navigator.notification.alert(e.payload.message, null, 'Hey!')
-                        navigator.notification.beep(1);
+                        $rootScope.$broadcast('receivedPushNotification', {message:e.payload.message})
+                        
                     }
                     else
                     {  

@@ -45,6 +45,12 @@ angular.module('App')
       $scope.map.markers = buildSpotsMarkers(args.withinBounds.spots)
     });
 
+    $rootScope.$on('receivedPushNotification', function(event, args) {
+      User.checkNewNotifications(function(response) {
+        $rootScope.newNotifications = response
+      })
+    }) 
+
     // Init
 
     $rootScope.activeTab = $rootScope.activeTab || 'loading'
