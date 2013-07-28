@@ -74,3 +74,9 @@ angular.module('App').filter('fromNow', function() {
     return moment(date).fromNow();
   }
 });
+
+// Forward app resumed event to angular
+document.addEventListener("resume", function() {
+  var scope = angular.element(document).scope();
+  scope.$apply(scope.$broadcast('appResumed'));
+}, false);

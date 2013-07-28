@@ -127,6 +127,7 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
             token = null;
             id = null;
             $rootScope.user = null;
+            $rootScope.position = null;
             localStorage.clear()
         }
 

@@ -51,6 +51,10 @@ angular.module('App')
       })
     }) 
 
+    $rootScope.$on('appResumed', function(event, args) {
+      refresh()
+    }) 
+
     // Init
 
     $rootScope.activeTab = $rootScope.activeTab || 'loading'
