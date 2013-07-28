@@ -91,6 +91,12 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
             return preferences
         },
 
+        notifications: function(successCallback) {
+            $http.get(Settings.host+'notifications/previous?token='+token).success(successCallback).error(function(response) {
+                console.log(response)
+            })
+        },
+
         logout: function() {
             token = null;
             id = null;

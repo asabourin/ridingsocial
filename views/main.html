@@ -8,7 +8,7 @@
       <div class="centered"><i class="icon-globe loading-globe"></i><br><span class="muted">Getting your location...</span></div>
     </div>
 
-    <div id="riders" ng-switch-when="riders">
+    <div ng-switch-when="riders" ng-controller="FollowedRiders">
       <ul>
         <li class="card {{session.color}} clearfix" ng-repeat="session in followed_sessions" ng-include="'views/shared/_session.html'" ng-controller="SessionController"></li>
       </ul>
@@ -24,7 +24,7 @@
       </google-map>
     </div>
 
-    <div id="spots" ng-switch-when="spots" >
+    <div ng-switch-when="spots" ng-controller="WatchedSpots">
         <ul>
           <li class="card">
             <div class="clearfix" ng-repeat="spot in watched_spots" >
@@ -35,6 +35,21 @@
             </div>
           </li>
         </ul>
+    </div>
+
+    <div ng-switch-when="notifications" ng-controller="Notifications">
+      <ul>
+        <li class="card clearfix">
+          
+           <div class="info" ng-repeat="notification in notifications">
+            <img ng-src="{{notification.data.picture}}" class="rider-small pull-left">
+            {{notification.data.name}} {{notification.action}}
+            <br>
+            <small class="muted"><i class="icon-time"></i> {{notification.created_at | fromNow}}</small>
+          </div>
+
+        </li>
+      </ul>
     </div>
 
 </div>

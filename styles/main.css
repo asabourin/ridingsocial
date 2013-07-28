@@ -272,11 +272,7 @@ div#logo h1 {
 /* Spots n Sessions */
 
 #main ul {
-  padding: 48px 0;
-}
-
-#spots, #riders {
-  padding: 0 5px;
+  padding: 48px 5px;
 }
 
 .card {

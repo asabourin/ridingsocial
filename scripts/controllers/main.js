@@ -1,17 +1,15 @@
 angular.module('App')
-  .controller('MainController', function(User, Geolocation, Spots, Sessions, CordovaReady, $scope, $rootScope, $location, $navigate) {
+
+//
+.controller('MainController', function(User, Geolocation, Spots, Sessions, CordovaReady, $scope, $rootScope, $location, $navigate) {
 
     // Events
 
     $rootScope.$on("positionUpdated", function (event, args) {
         Spots.refreshNearby(args.position)
-        Spots.updateDistanceWatched(args.position)
         updateMap(args.position)
         $rootScope.position = args.position
         
-        if($rootScope.followed_sessions != undefined) {
-          computeSessionsDistances($rootScope.followed_sessions)
-        }
         if($rootScope.activeTab == 'loading') {
           $rootScope.activeTab = 'map'
         }
@@ -22,10 +20,6 @@ angular.module('App')
       $scope.loading = false
     })
 
-    $rootScope.$on("watchedSpotsUpdated", function (event, args) {
-        $rootScope.watched_spots = args.watched
-    });
-
     $rootScope.$on("nearbySpotsUpdated", function(event, args) {
       $scope.loading = false
       Spots.checkNearest()
@@ -35,13 +29,6 @@ angular.module('App')
         navigator.notification.vibrate(300);
         navigator.notification.confirm("Wanna check-in?", wannaCheckin, "You're at "+args.spot.name+"!", "Yeah!, Not now");
     })
-
-    $rootScope.$on("sessionsUpdated", function (event, args) {
-        $rootScope.followed_sessions = args.sessions
-        if($rootScope.position != undefined) {
-          computeSessionsDistances($rootScope.followed_sessions)
-        }
-    });
 
     $scope.$on('$destroy', function () {
         Geolocation.stopWatching()
@@ -93,17 +80,9 @@ angular.module('App')
 
     function refresh() {
       $scope.loading =true
-      Spots.fetchWatched(User.token())
-      Sessions.refreshFollowed(User.token())
       Geolocation.resetPosition()
       CordovaReady(Geolocation.getPosition())
       $rootScope.map.zoom = 13
-    }
-
-    function computeSessionsDistances(sessions) {
-      _.each(sessions, function(s) {
-            s.distance = Spots.distance(s.spot, $rootScope.position)
-        })
     }
 
     function wannaCheckin(index) {
@@ -144,4 +123,52 @@ angular.module('App')
         return {min_lat: min_lat, max_lat: max_lat, min_lng: min_lng, max_lng: max_lng}
     }
     
+})
+
+//
+.controller('FollowedRiders', function(User, Sessions, Spots, $scope, $rootScope, $navigate) {
+
+    Sessions.followed(User.token(), function(response) {
+        $rootScope.followed_sessions =  response
+        if($rootScope.position != undefined) {
+          computeSessionsDistances($rootScope.followed_sessions)
+        }
+    })
+
+    //
+
+    function computeSessionsDistances(sessions) {
+      _.each(sessions, function(s) {
+            s.distance = Spots.distance(s.spot, $rootScope.position)
+        })
+    }
+
+})
+
+//
+.controller('WatchedSpots', function(User, Sessions, Spots, $scope, $rootScope, $navigate) {
+
+    Spots.watched(User.token(), function(response) {
+        $rootScope.watched_spots = response
+        if($rootScope.position != undefined) {
+          computeWatchedDistances($rootScope.watched_spots)
+        }
+    })
+
+
+    function computeWatchedDistances(spots) {
+      _.each(spots, function(s) {
+            s.distance = Spots.distance(s, $rootScope.position)
+        })
+    }
+    
+})
+
+//
+.controller('Notifications', function(User, $scope, $rootScope, $navigate) {
+
+  User.notifications(function(response) {
+        $rootScope.notifications = response
+    })
+
 })

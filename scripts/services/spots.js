@@ -1,6 +1,6 @@
 angular.module('Services').factory('Spots', function ($rootScope, $http) {
 
-    var nearby, watched, checkinAt, withinBounds;
+    var nearby, checkinAt, withinBounds;
 
     function distance(spot, location) {
       var r = 6371 //km
@@ -11,16 +11,6 @@ angular.module('Services').factory('Spots', function ($rootScope, $http) {
       lon2= location.longitude * rad
       d = Math.acos(Math.sin(lat1)*Math.sin(lat2) + Math.cos(lat1)*Math.cos(lat2) * Math.cos(lon2-lon1)) * r;
       return d.toFixed(1)
-    }
-
-    function updateDistanceWatched(position) {
-        if(position != undefined) {
-            var spots = _.map(watched, function(spot) {
-                spot.distance = distance(spot, position);
-                return spot
-            })
-            $rootScope.$broadcast('watchedSpotsUpdated', {watched:spots})
-        }
     }
 
     return {
@@ -37,16 +27,8 @@ angular.module('Services').factory('Spots', function ($rootScope, $http) {
             checkinAt = spot
         },
 
-        favorites: function() {
-            return favorites
-        },
-
         distance: function(spot, location) {
             return distance(spot, location)
-        },
-
-        updateDistanceWatched: function(position) {
-            updateDistanceWatched(position)
         },
 
         refreshNearby:function (position) {
@@ -67,21 +49,17 @@ angular.module('Services').factory('Spots', function ($rootScope, $http) {
             });
         },
 
-        fetchWatched: function(token) {
-            $http.get(Settings.host+'spots/watched?&token='+token).success(function(response){
-                watched = response;
-                updateDistanceWatched($rootScope.position)
-                $rootScope.$broadcast('watchedSpotsUpdated', {watched:watched})
-            }, function(error) {
-
-            });
-        },
-
         checkNearest: function() {
             if(nearby[0] != undefined && nearby[0]['distance'] <= Settings.checkin_distance && (currentNearest == undefined || currentNearest.id != nearby[0]['id'])) {
                 checkinAt = nearby[0];
                 $rootScope.$broadcast('newNearestSpot', {spot:checkinAt})
             }
+        },
+
+        watched: function(token, successCallback) {
+            $http.get(Settings.host+'spots/watched?token='+token).success(successCallback).error(function(response) {
+                console.log(response)
+            });
         },
 
         show: function(token, id, successCallback, errorCallback) {
