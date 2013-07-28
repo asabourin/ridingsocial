@@ -1,7 +1,7 @@
 angular.module('Services').factory('User', function ($rootScope, $http) {
 
     // Init
-    var id, token, lastCheckinAt, preferences;
+    var id, token, lastCheckinAt, preferences, lastCheckAt;
     
     var persistedUser = JSON.parse(localStorage.getItem('user'));
 
@@ -16,12 +16,22 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
     }
     else {preferences = new Object({notify: true})}
 
+    var savedLastCheckAt = JSON.parse(localStorage.getItem('lastCheckAt'));
+    if(savedLastCheckAt != undefined) {
+        lastCheckAt = savedLastCheckAt
+    }
+    else {lastCheckAt = new Object({'followed_riders': 0, 'watched_spots': 0, 'notifications': 0})}
+
     //
 
     function savePreferences() {
         localStorage.setItem('preferences', JSON.stringify(preferences)) 
         var payload = "notify="+preferences.notify
         $http.post(Settings.host+'preferences?token='+token, payload, {headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}})
+    }
+
+    function saveLastCheckAt() {
+        localStorage.setItem('lastCheckAt', JSON.stringify(lastCheckAt)) 
     }
 
     function persistUser() {
@@ -82,6 +92,22 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
             lastCheckinAt = time
         },
 
+        updateLastCheckAt: function(what) {
+            lastCheckAt[what] = Math.round(new Date().getTime() / 1000)
+            saveLastCheckAt()
+        },
+
+        lastCheckAt: function(what) {
+            return lastCheckAt[what]
+        },
+
+        checkNewNotifications: function(successCallback) {
+            var params ='last_check_notifications='+lastCheckAt['notifications']+'&last_check_riders='+lastCheckAt['followed_riders']+'&last_check_spots='+lastCheckAt['watched_spots']
+            $http.get(Settings.host+'notifications/new_since?token='+token+'&'+params).success(successCallback).error(function(response) {
+                console.log(response)
+            })
+        },
+
         updatePreferences: function(prefs) {
             preferences = prefs
             savePreferences()
@@ -92,7 +118,7 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
         },
 
         notifications: function(successCallback) {
-            $http.get(Settings.host+'notifications/previous?token='+token).success(successCallback).error(function(response) {
+            $http.get(Settings.host+'notifications?token='+token).success(successCallback).error(function(response) {
                 console.log(response)
             })
         },

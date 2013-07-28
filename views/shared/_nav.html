@@ -2,9 +2,20 @@
   
   <a class="navbar-icon navbar-button pull-left" ><img src="images/shaka.png" class="menu-icon" ng-tap="openMenu()" /></a>
   
-  <a class="navbar-icon" ng-class="{'tab-active arrow_box': activeTab == 'riders'}" ng-tap="toggleTab('riders')"><i class="icon-user icon-large"></i></a>
-  <a class="navbar-icon" ng-class="{'tab-active arrow_box': activeTab == 'spots'}" ng-tap="toggleTab('spots')"><i class="icon-map-marker icon-large"></i></a>
-  <a class="navbar-icon" ng-class="{'tab-active arrow_box': activeTab == 'notifications'}" ng-tap="toggleTab('notifications')"><i class="icon-bell-alt icon-large"></i></a>
+  <a class="navbar-icon" ng-class="{'tab-active arrow_box': activeTab == 'riders','tab-active': newNotifications.followed_riders>0}" ng-tap="toggleTab('riders')">
+  	<i class="icon-user icon-large"></i>
+  	<span class="notification-number" ng-show="newNotifications.followed_riders>0">{{newNotifications.followed_riders}}</span>
+  </a>
+
+  <a class="navbar-icon" ng-class="{'tab-active arrow_box': activeTab == 'spots', 'tab-active': newNotifications.watched_spots>0}" ng-tap="toggleTab('spots')">
+  	<i class="icon-map-marker icon-large"></i>
+  	<span class="notification-number" ng-show="newNotifications.watched_spots>0">{{newNotifications.watched_spots}}</span>
+  </a>
+
+  <a class="navbar-icon" ng-class="{'tab-active arrow_box': activeTab == 'notifications', 'tab-active': newNotifications.notifications>0}" ng-tap="toggleTab('notifications')">
+  	<i class="icon-bell-alt icon-large"></i>
+  	<span class="notification-number" ng-show="newNotifications.notifications>0">{{newNotifications.notifications}}</span>
+  </a>
   
   <a class="navbar-icon navbar-button pull-right" ng-tap="refresh()">
 	  <i class="icon-refresh icon-large" ng-hide="loading"></i>

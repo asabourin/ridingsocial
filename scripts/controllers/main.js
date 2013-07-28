@@ -81,6 +81,9 @@ angular.module('App')
 
     function refresh() {
       $rootScope.loading =true
+      User.checkNewNotifications(function(response) {
+        $rootScope.newNotifications = response
+      })
       Geolocation.resetPosition()
       CordovaReady(Geolocation.getPosition())
       $rootScope.map.zoom = 13
@@ -131,6 +134,9 @@ angular.module('App')
 
   $rootScope.loading = true
 
+  User.updateLastCheckAt('followed_riders')
+  $rootScope.newNotifications.followed_riders = 0
+
   Sessions.followed(User.token(), function(response) {
       $rootScope.followed_sessions = response
       if($rootScope.position != undefined) {
@@ -153,6 +159,9 @@ angular.module('App')
 .controller('WatchedSpots', function(User, Sessions, Spots, $scope, $rootScope, $navigate) {
 
   $rootScope.loading = true
+
+  User.updateLastCheckAt('watched_spots')
+  $rootScope.newNotifications.watched_spots = 0
   
   Spots.watched(User.token(), function(response) {
       $rootScope.watched_spots = response
@@ -175,6 +184,9 @@ angular.module('App')
 .controller('Notifications', function(User, $scope, $rootScope, $navigate) {
 
   $rootScope.loading = true
+
+  User.updateLastCheckAt('notifications')
+  $rootScope.newNotifications.notifications = 0
 
   User.notifications(function(response) {
         $rootScope.notifications = response

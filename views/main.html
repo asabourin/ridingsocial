@@ -9,6 +9,7 @@
     </div>
 
     <div ng-switch-when="riders" ng-controller="FollowedRiders">
+      <h4 class="text-center muted">Following {{nb_followed}} riders</h4>
       <ul>
         <li class="card {{session.color}} clearfix" ng-repeat="session in followed_sessions" ng-include="'views/shared/_session.html'" ng-controller="SessionController"></li>
       </ul>
@@ -25,6 +26,7 @@
     </div>
 
     <div ng-switch-when="spots" ng-controller="WatchedSpots">
+      <h4 class="text-center muted">Watching {{watched_spots.length}} spots</h4>
         <ul>
           <li class="card">
             <div class="clearfix" ng-repeat="spot in watched_spots" >
@@ -38,14 +40,12 @@
     </div>
 
     <div ng-switch-when="notifications" ng-controller="Notifications">
+      <h4 class="text-center muted">Notifications</h4>
       <ul>
-        <li class="card clearfix">
+        <li class="card clearfix" ng-show="notifications.length > 0">
           
            <div class="info" ng-repeat="notification in notifications">
-            <img ng-src="{{notification.data.picture}}" class="rider-small pull-left">
-            {{notification.data.name}} {{notification.action}}
-            <br>
-            <small class="muted"><i class="icon-time"></i> {{notification.created_at | fromNow}}</small>
+            <div ng-include="'views/notifications/'+notification.action+'.html'"></div>
           </div>
 
         </li>
