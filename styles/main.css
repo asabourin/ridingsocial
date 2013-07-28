@@ -294,8 +294,11 @@ div#logo h1 {
 
 /* Spots n Sessions */
 
-#main ul {
+#main {
   margin-top: 48px;
+}
+
+#main ul {
   padding: 5px;
 }
 

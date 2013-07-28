@@ -13,16 +13,16 @@ angular.module('App')
         if($rootScope.activeTab == 'loading') {
           $rootScope.activeTab = 'map'
         }
-        $scope.loading = false
+        $rootScope.loading = false
     });
 
     $rootScope.$on("locationTimeout", function (event, args) {
       navigator.notification.alert(Lang.en.error_location, null, Lang.en.error)
-      $scope.loading = false
+      $rootScope.loading = false
     })
 
     $rootScope.$on("nearbySpotsUpdated", function(event, args) {
-      $scope.loading = false
+      $rootScope.loading = false
       Spots.checkNearest()
     })
 
@@ -80,7 +80,7 @@ angular.module('App')
     $scope.refresh = function() { refresh() }
 
     function refresh() {
-      $scope.loading =true
+      $rootScope.loading =true
       Geolocation.resetPosition()
       CordovaReady(Geolocation.getPosition())
       $rootScope.map.zoom = 13
@@ -129,14 +129,14 @@ angular.module('App')
 //
 .controller('FollowedRiders', function(User, Sessions, Spots, $scope, $rootScope, $navigate) {
 
-  $scope.loading = true
+  $rootScope.loading = true
 
   Sessions.followed(User.token(), function(response) {
       $rootScope.followed_sessions = response
       if($rootScope.position != undefined) {
         computeSessionsDistances($rootScope.followed_sessions)
       }
-      $scope.loading = false
+      $rootScope.loading = false
   })
 
   //
@@ -152,14 +152,14 @@ angular.module('App')
 //
 .controller('WatchedSpots', function(User, Sessions, Spots, $scope, $rootScope, $navigate) {
 
-  $scope.loading = true
+  $rootScope.loading = true
   
   Spots.watched(User.token(), function(response) {
       $rootScope.watched_spots = response
       if($rootScope.position != undefined) {
         computeWatchedDistances($rootScope.watched_spots)
       }
-      $scope.loading = false
+      $rootScope.loading = false
   })
 
 
@@ -174,11 +174,11 @@ angular.module('App')
 //
 .controller('Notifications', function(User, $scope, $rootScope, $navigate) {
 
-  $scope.loading = true
+  $rootScope.loading = true
 
   User.notifications(function(response) {
         $rootScope.notifications = response
-        $scope.loading = false
+        $rootScope.loading = false
     })
 
 })
