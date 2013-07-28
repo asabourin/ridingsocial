@@ -51,7 +51,7 @@ angular.module('App')
     $navigate.eraseHistory()
     google.maps.visualRefresh = true;
 
-    if($rootScope.position == undefined) {
+    if($rootScope.position == undefined) { // On app start
       angular.extend($rootScope, {
         map: {
           center: {
@@ -63,6 +63,7 @@ angular.module('App')
           zoom: 13
         }
       })
+      $rootScope.newNotifications = new Object()
       refresh()
     }
 

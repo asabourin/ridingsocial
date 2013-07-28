@@ -9,7 +9,7 @@
     </div>
 
     <div ng-switch-when="riders" ng-controller="FollowedRiders">
-      <h4 class="text-center muted">Following {{nb_followed}} riders</h4>
+      <h4 class="text-center muted">Sessions by riders you follow</h4>
       <ul>
         <li class="card {{session.color}} clearfix" ng-repeat="session in followed_sessions" ng-include="'views/shared/_session.html'" ng-controller="SessionController"></li>
       </ul>
@@ -26,7 +26,7 @@
     </div>
 
     <div ng-switch-when="spots" ng-controller="WatchedSpots">
-      <h4 class="text-center muted">Watching {{watched_spots.length}} spots</h4>
+      <h4 class="text-center muted">Spots you watch</h4>
         <ul>
           <li class="card">
             <div class="clearfix" ng-repeat="spot in watched_spots" >
