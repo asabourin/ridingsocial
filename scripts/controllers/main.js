@@ -124,6 +124,9 @@ angular.module('App')
           id: spot.id,
           latitude: parseFloat(spot.lat),
           longitude: parseFloat(spot.lng),
+          showWindow: false,
+          alert: function() {alert('hello'); $scope.$apply()},
+          closeClick: function() {this.showWindow = false; $scope.$apply()},
           icon: 'images/flags/'+spot.color+'_32.png',
         })
       })
