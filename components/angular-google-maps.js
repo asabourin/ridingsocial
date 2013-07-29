@@ -28,6 +28,34 @@
  */
 
 angular.module('google-maps', []);
+/**!
+ * The MIT License
+ *
+ * Copyright (c) 2010-2012 Google, Inc. http://angularjs.org
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * angular-google-maps
+ * https://github.com/nlaplante/angular-google-maps
+ *
+ * @author Nicolas Laplante https://plus.google.com/108189012221374960701
+ */
 
 angular.module('google-maps')
     .directive('googleMap', ['$log', '$timeout', function ($log, $timeout) {
@@ -35,8 +63,7 @@ angular.module('google-maps')
         "use strict";
 
         var DEFAULTS = {
-          mapTypeId: google.maps.MapTypeId.ROADMAP,
-          backgroundColor: '#f0f6fa'
+          mapTypeId: google.maps.MapTypeId.ROADMAP
         };
 
         /*
@@ -87,10 +114,11 @@ angular.module('google-maps')
             scope: {
                 center: '=center',          // required
                 zoom: '=zoom',              // required
+                dragging: '=dragging',      // optional
                 markers: '=markers',        // optional
                 refresh: '&refresh',        // optional
                 windows: '=windows',        // optional
-                events: '=events' ,          // optional
+                events: '=events',           // optional
                 bounds: '=bounds'
             },
 
@@ -158,12 +186,23 @@ angular.module('google-maps')
                 }));
 
                 var dragging = false;
+
                 google.maps.event.addListener(_m, 'dragstart', function () {
                     dragging = true;
+                    $timeout(function () {
+                        scope.$apply(function (s) {
+                            s.dragging = dragging;
+                        });
+                    });
                 });
 
                 google.maps.event.addListener(_m, 'dragend', function () {
                     dragging = false;
+                    $timeout(function () {
+                        scope.$apply(function (s) {
+                            s.dragging = dragging;
+                        });
+                    });
                 });
 
                 google.maps.event.addListener(_m, 'drag', function () {
@@ -187,21 +226,25 @@ angular.module('google-maps')
                         });
                     }
                 });
-
+                var settingCenterFromScope = false;
                 google.maps.event.addListener(_m, 'center_changed', function () {
                     var c = _m.center;
 
+                    if(settingCenterFromScope) 
+                        return; //if the scope notified this change then there is no reason to update scope otherwise infinite loop
                     $timeout(function () {
                         scope.$apply(function (s) {
                             if (!_m.dragging) {
-                                s.center.latitude = c.lat();
-                                s.center.longitude = c.lng();
+                                if(s.center.latitude !== c.lat())
+                                    s.center.latitude = c.lat();
+                                if(s.center.longitude !== c.lng())
+                                    s.center.longitude = c.lng();
                             }
                         });
                     });
                 });
 
-                google.maps.event.addListener(_m, 'bounds_changed', function () {
+                google.maps.event.addListener(_m, 'idle', function () {
                     var b = _m.getBounds()
                     var ne = b.getNorthEast()
                     var sw = b.getSouthWest()
@@ -264,7 +307,7 @@ angular.module('google-maps')
                     if (newValue === oldValue) {
                         return;
                     }
-
+                    settingCenterFromScope = true;
                     if (!dragging) {
 
                         var coords = new google.maps.LatLng(newValue.latitude, newValue.longitude);
@@ -278,6 +321,7 @@ angular.module('google-maps')
 
                         //_m.draw();
                     }
+                    settingCenterFromScope = false;
                 }, true);
 
                 scope.$watch('zoom', function (newValue, oldValue) {
@@ -292,7 +336,7 @@ angular.module('google-maps')
             }
         };
     }]);
-;
+
 
 angular.module('google-maps')
     .directive('marker', ['$log', '$timeout', function ($log, $timeout) {
@@ -301,7 +345,7 @@ angular.module('google-maps')
 
         var DEFAULTS = {
             // Animation is enabled by default
-            animation: null
+            animation: google.maps.Animation.DROP
         };
 
         /**
@@ -312,6 +356,7 @@ angular.module('google-maps')
         function isFalse(value) {
             return ['false', 'FALSE', 0, 'n', 'N', 'no', 'NO'].indexOf(value ) !== -1;
         }
+        
         return {
             restrict: 'ECMA',
             require: '^googleMap',
@@ -321,8 +366,8 @@ angular.module('google-maps')
             replace: true,
             scope: {
                 coords: '=coords',
-                click: '&click',
-                icon: '=icon'
+                icon: '=icon',
+                click: '&click'
             },
             controller: function ($scope, $element) {
              this.getMarker = function () {
@@ -358,13 +403,12 @@ angular.module('google-maps')
                     var marker = new google.maps.Marker(opts);
                     element.data('instance', marker);
 
-                    if (angular.isDefined(attrs.click) && scope.click !== null) {
-                        google.maps.event.addListener(marker, 'click', function () {
+                    google.maps.event.addListener(marker, 'click', function () {
+                        if (angular.isDefined(attrs.click) && scope.click !== null)
                             $timeout(function() {
-                                scope.click()
+                                scope.click();
                             })
-                        });
-                    }
+                    });
 
                     scope.$watch('coords', function (newValue, oldValue) {
                         if (newValue !== oldValue) {
@@ -380,6 +424,16 @@ angular.module('google-maps')
                         }
                     }, true);
 
+                    scope.$watch('icon', function (newValue, oldValue) {
+                        if (newValue !== oldValue) {
+                            marker.icon = newValue;
+                            marker.setMap(null);   
+                            marker.setMap(mapCtrl.getMap());
+                            marker.setPosition(new google.maps.LatLng(scope.coords.latitude, scope.coords.longitude));
+                            marker.setVisible(scope.coords.latitude !== null && scope.coords.longitude !== null);
+                        }
+                    }, true);
+
                     // remove marker on scope $destroy
                     scope.$on("$destroy", function () {
                         marker.setMap(null);
@@ -388,4 +442,4 @@ angular.module('google-maps')
             }
         };
     }]);
-;
+
