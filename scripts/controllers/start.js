@@ -48,7 +48,7 @@ angular.module('App')
 
   // Init
 
-  if(User.isLogged()) {
+  if(User.token() !== undefined) {
     $scope.$broadcast('rs_connected');
   }
   else{

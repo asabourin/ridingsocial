@@ -3,32 +3,41 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
     "use strict";
 
     // Init
-    var id, token, lastCheckinAt, preferences, lastCheckAt;
+    var id, token, lastCheckinAt, preferences, checkedAt;
 
-    var persistedUser = JSON.parse(localStorage.getItem('user'));
-
-    if(persistedUser !== null) {
-        id = persistedUser.id;
-        token = persistedUser.token;
-    }
-
-    var savedPreferences = JSON.parse(localStorage.getItem('preferences'));
-    if(savedPreferences !== null) {
-        preferences = savedPreferences;
-    }
-    else {
-      preferences = new Object({notify: true});
-    }
-
-    var savedLastCheckAt = JSON.parse(localStorage.getItem('lastCheckAt'));
-    if(savedLastCheckAt !== null) {
-        lastCheckAt = savedLastCheckAt;
-    }
-    else {
-      lastCheckAt = new Object({'followed_riders': timestamp(), 'watched_spots': timestamp(), 'notifications': timestamp()});
-    }
+    loadSavedUser();
+    loadSavedPreferences();
+    loadSavedCheckedAt();
 
     //
+
+    function loadSavedUser() {
+      var persistedUser = JSON.parse(localStorage.getItem('user'));
+      if(persistedUser !== null) {
+        id = persistedUser.id;
+        token = persistedUser.token;
+      }
+    }
+
+    function loadSavedPreferences() {
+      var savedPreferences = JSON.parse(localStorage.getItem('preferences'));
+      if(savedPreferences !== null) {
+          preferences = savedPreferences;
+      }
+      else {
+        preferences = new Object({notify: true});
+      }
+    }
+
+    function loadSavedCheckedAt() {
+      var savedCheckedAt = JSON.parse(localStorage.getItem('checkedAt'));
+      if(savedCheckedAt !== null) {
+          checkedAt = savedCheckedAt;
+      }
+      else {
+        checkedAt = new Object({'followed_riders': timestamp(), 'watched_spots': timestamp(), 'notifications': timestamp()});
+      }
+    }
 
     function savePreferences() {
         localStorage.setItem('preferences', JSON.stringify(preferences));
@@ -36,17 +45,13 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
         $http.post(Settings.host+'preferences?token='+token, payload, {headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}});
     }
 
-    function saveLastCheckAt() {
-        localStorage.setItem('lastCheckAt', JSON.stringify(lastCheckAt));
+    function saveCheckedAt() {
+        localStorage.setItem('checkedAt', JSON.stringify(checkedAt));
     }
 
     function persistUser() {
         var user = {id: id, token:token, lastCheckinAt:lastCheckinAt};
         localStorage.setItem('user', JSON.stringify(user));
-    }
-
-    function isLogged() {
-        return (token !== undefined && token !== null);
     }
 
     function timestamp() {
@@ -56,10 +61,6 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
     //
 
     return {
-
-        isLogged: function() {
-          isLogged();
-        },
 
         token: function() {
             return token;
@@ -104,17 +105,17 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
             lastCheckinAt = time;
         },
 
-        updateLastCheckAt: function(what) {
-            lastCheckAt[what] = timestamp();
-            saveLastCheckAt();
+        updateCheckedAt: function(what) {
+            checkedAt[what] = timestamp();
+            saveCheckedAt();
         },
 
-        lastCheckAt: function(what) {
-            return lastCheckAt[what];
+        checkedAt: function(what) {
+            return checkedAt[what];
         },
 
         checkNewNotifications: function(successCallback) {
-            var params ='last_check_notifications='+lastCheckAt.notifications+'&last_check_riders='+lastCheckAt.followed_riders+'&last_check_spots='+lastCheckAt.watched_spots;
+            var params ='last_check_notifications='+checkedAt.notifications+'&last_check_riders='+checkedAt.followed_riders+'&last_check_spots='+checkedAt.watched_spots;
             $http.get(Settings.host+'notifications/new_since?token='+token+'&'+params).success(successCallback).error(function(response) {
                 console.log(response);
             });

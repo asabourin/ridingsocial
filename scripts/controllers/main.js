@@ -152,7 +152,7 @@ angular.module('App')
 
   $rootScope.loading = true
 
-  User.updateLastCheckAt('followed_riders')
+  User.updateCheckedAt('followed_riders')
   $rootScope.newNotifications.followed_riders = 0
 
   Sessions.followed(User.token(), function(response) {
@@ -178,7 +178,7 @@ angular.module('App')
 
   $rootScope.loading = true
 
-  User.updateLastCheckAt('watched_spots')
+  User.updateCheckedAt('watched_spots')
   $rootScope.newNotifications.watched_spots = 0
   
   Spots.watched(User.token(), function(response) {
@@ -203,7 +203,7 @@ angular.module('App')
 
   $rootScope.loading = true
 
-  User.updateLastCheckAt('notifications')
+  User.updateCheckedAt('notifications')
   $rootScope.newNotifications.notifications = 0
 
   User.notifications(function(response) {
