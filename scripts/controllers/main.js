@@ -31,7 +31,7 @@ angular.module('App')
     });
     
     $scope.$watch('map.bounds', function(oldVal, newVal){ 
-        if($scope.map.bounds.northeast !=undefined) {
+        if($scope.map.bounds.northeast !== undefined) {
           Spots.fetchWithinBounds(bufferBounds($scope.map.bounds));
         }
     }, true);
@@ -68,14 +68,14 @@ angular.module('App')
           zoom: 13
         }
       });
-      $rootScope.newNotifications = new Object();
+      $rootScope.newNotifications = {};
       refresh();
     }
 
     // Functions
 
     $scope.toggleTab = function(tab) {
-        if($rootScope.activeTab == tab) {
+        if($rootScope.activeTab === tab) {
           $rootScope.activeTab = 'map';
         }
         else {
@@ -100,7 +100,7 @@ angular.module('App')
     }
 
     function wannaCheckin(index) {
-        if(index == 1) {
+        if(index === 1) {
             $navigate.go('/checkin', 'pop');
         }
         $scope.$apply();
@@ -150,7 +150,7 @@ angular.module('App')
 
   Sessions.followed(User.token(), function(response) {
     $rootScope.followed_sessions = response;
-    if($rootScope.position != undefined) {
+    if($rootScope.position !== undefined) {
       computeSessionsDistances($rootScope.followed_sessions);
     }
     $rootScope.loading = false;
@@ -177,7 +177,7 @@ angular.module('App')
   
   Spots.watched(User.token(), function(response) {
     $rootScope.watched_spots = response;
-    if($rootScope.position != undefined) {
+    if($rootScope.position !== undefined) {
       computeWatchedDistances($rootScope.watched_spots);
     }
     $rootScope.loading = false;
