@@ -21,7 +21,7 @@
       
       <google-map center="map.center" zoom="map.zoom" draggable="true" dragging="map.dragging" bounds="map.bounds" type="roadmap" >
           <marker ng-show="myPosition" coords="myPosition"></marker>
-          <marker ng-repeat="m in map.markers" animate="false" coords="m" icon="m.icon" click="navigate.go('/spots/'+m.id, 'none')"></marker>
+          <marker ng-repeat="m in map.markers" animate="false" coords="m" icon="m.icon" click="goToSpot(m.id)"></marker>
       </google-map>
     </div>
 
