@@ -1,0 +1,31 @@
+{
+  "name": "ridingsocial",
+  "version": "1.0.0",
+  "description": "Mobile app for RidingSocial",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/asabourin/rs-mobile.git"
+  },
+  "scripts": {
+    "build": "grunt"
+  },
+  "devDependencies": {
+    "mocha": "~1.9.0",
+    "should": "~1.2.0",
+    "grunt-contrib-uglify": "~0.2.1",
+    "grunt-contrib-jshint": "~0.5.4",
+    "grunt-contrib-copy": "~0.4.1",
+    "grunt-contrib-compress": "~0.5.1",
+    "grunt-contrib-clean": "~0.4.1",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-mkdir": "~0.1.1",
+    "grunt-contrib-connect": "~0.3.0",
+    "grunt-open": "~0.2.0",
+    "grunt-contrib-watch": "~0.4.4",
+    "grunt": "~0.4.1"
+  },
+  "dependencies": {
+    "grunt-cli": "~0.1.9",
+    "grunt": "~0.4.1"
+  }
+}

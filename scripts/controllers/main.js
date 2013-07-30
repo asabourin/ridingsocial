@@ -88,6 +88,10 @@ angular.module('App')
         }
     }
 
+    $scope.goToSpot = function(id) {
+      navigate.go('/spots/'+id, 'none')
+    }
+
     $scope.refresh = function() { refresh() }
 
     function refresh() {
