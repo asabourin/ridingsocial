@@ -92,7 +92,7 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
 
         registerDevice:function (settings, successCallback, errorCallback) {
 
-            if(isLogged) {
+            if(token !== undefined) {
                 var payload = "platform="+settings.platform+"&device_token="+settings.token;
                 $http.post(Settings.host+'register?token='+token, payload, {headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}}).success(successCallback).error(errorCallback);
             }
