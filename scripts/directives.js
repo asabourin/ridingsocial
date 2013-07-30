@@ -3,7 +3,8 @@ angular.module('App').directive("ngTap", function() {
   return function($scope, $element, $attributes) {
     var tapped = false;
     $element.bind("touchstart", function(event) {
-      return tapped = true;
+      tapped = true;
+      return true;
     });
     $element.bind("touchmove", function(event) {
       tapped = false;
