@@ -27,4 +27,4 @@ angular.module('Services').factory('Riders', function ($rootScope, $http) {
         }
     };
 
-})
+});

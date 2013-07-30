@@ -1,12 +1,11 @@
 angular.module('Services').factory('Sessions', function ($rootScope, $http) {
 
-
     return {
 
         followed: function(token, successCallback) {
             $http.get(Settings.host+'checkins/followed?token='+token).success(successCallback).error(function(response){
-                console.log(response)
-             })
+                console.log(response);
+             });
         },
 
         show: function(id, successCallback, errorCallback) {
@@ -27,6 +26,6 @@ angular.module('Services').factory('Sessions', function ($rootScope, $http) {
         postComment: function(token, id, text, successCallback, errorCallback) {
             $http.post(Settings.host+'checkins/'+id+'/comments?token='+token, "text="+text, {headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}}).success(successCallback).error(errorCallback);
         }
-    }
+    };
 
-})
+});
