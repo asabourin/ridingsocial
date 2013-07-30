@@ -1,4 +1,5 @@
 angular.module('Services').factory('Facebook', function ($rootScope, CordovaReady) {
+    
     return {
 
         init: CordovaReady(function (onSuccess, onError, options) {
@@ -10,6 +11,7 @@ angular.module('Services').factory('Facebook', function ($rootScope, CordovaRead
                 $rootScope.$broadcast("fb_statusChange", {'status':response.status});
             }, true);
         },
+
         login:function () {
             FB.getLoginStatus(function (response) {
                 switch (response.status) {
@@ -22,7 +24,6 @@ angular.module('Services').factory('Facebook', function ($rootScope, CordovaRead
                             if (response.authResponse) {
                                 $rootScope.$broadcast('fb_connected', {response:response});
                             } else {
-                                console.log('login failed 1')
                                 $rootScope.$broadcast('fb_login_failed');
                             }
                         }, {scope: Settings.facebook_permissions});
@@ -30,6 +31,7 @@ angular.module('Services').factory('Facebook', function ($rootScope, CordovaRead
                 }
             }, true);
         },
+
         logout:function () {
             FB.logout(function (response) {
                 if (response) {
@@ -39,6 +41,7 @@ angular.module('Services').factory('Facebook', function ($rootScope, CordovaRead
                 }
             });
         },
+
         unsubscribe:function () {
             FB.api("/me/permissions", "DELETE", function (response) {
                 $rootScope.$broadcast('fb_get_login_status');
@@ -46,4 +49,4 @@ angular.module('Services').factory('Facebook', function ($rootScope, CordovaRead
         }
     };
 
-})
+});
