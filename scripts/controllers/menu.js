@@ -28,7 +28,7 @@
 
     function logout() {
         $scope.menuOpen = false;
-        User.logout()
+        User.logout();
         $navigate.go('/start', 'fade')
     }
 

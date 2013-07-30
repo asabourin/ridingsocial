@@ -137,9 +137,9 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
         },
 
         logout: function() {
-            token = null;
-            id = null;
-            $rootScope.user = null;
+            token = undefined;
+            id = undefined;
+            $rootScope.user = undefined;
             $rootScope.position = null;
             localStorage.clear();
         }
