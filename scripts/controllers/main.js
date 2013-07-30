@@ -30,11 +30,7 @@ angular.module('App')
         navigator.notification.vibrate(300);
         navigator.notification.confirm("Wanna check-in?", wannaCheckin, "You're at "+args.spot.name+"!", "Yeah!, Not now");
     })
-
-    $scope.$on('$destroy', function () {
-        Geolocation.stopWatching()
-    });
-
+    
     $scope.$watch('map.bounds', function(oldVal, newVal){ 
         if($scope.map.bounds.northeast !=undefined) {
           Spots.fetchWithinBounds(bufferBounds($scope.map.bounds))
