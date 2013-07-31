@@ -300,10 +300,11 @@ div#logo h1 {
 
 #main h4 {
   padding-top: 10px;
+  margin: 0;
 }
 
 #main ul {
-  padding: 0 5px;
+  padding: 0 5px 5px 5px;
 }
 
 .card {
