@@ -1,48 +1,40 @@
-angular.module('Services').factory('Geolocation', function ($rootScope, CordovaReady) {
+angular.module('Services').factory('Geolocation', function ($rootScope) {
 
-  var watcher, currentPosition;
-
-  var getPosition = function() {
-    watcher = navigator.geolocation.getCurrentPosition(
-      function(position) {
-        onPositionReceived(position);
-      }, 
-      function(error) {
-        $rootScope.$broadcast('locationTimeout');
-      }, 
-      {maximumAge: 1000, timeout: Settings.geoloc_timeout, enableHighAccuracy: true}
-    );
-     
-  };
+  var lastPosition;
 
   function onPositionReceived(position) {
-    var newPosition = {latitude:position.coords.latitude.toFixed(4), longitude:position.coords.longitude.toFixed(4)};
-    if(hasPositionChanged(newPosition)) {
-        currentPosition = newPosition;
-        $rootScope.$broadcast('positionUpdated', {position:newPosition});
+    if(hasPositionChanged(position.coords)) {
+        lastPosition = position.coords;
+        $rootScope.$broadcast('positionUpdated', {position:position.coords});
         $rootScope.$apply();
     } 
   }
 
   function hasPositionChanged(newPosition) {
-    return (currentPosition === undefined || Math.abs(currentPosition.latitude - newPosition.latitude) > 0.001 || Math.abs(currentPosition.longitude - newPosition.longitude) > 0.001);
+    return (lastPosition === undefined || Math.abs(lastPosition.latitude - newPosition.latitude) > 0.001 || Math.abs(lastPosition.longitude - newPosition.longitude) > 0.001);
   }
-
-  var resetPosition = function() {
-    currentPosition = undefined;
-  };
 
   //
 
   return {
 
-    currentPosition: function() {
-      return currentPosition;
+    getPosition: function() {
+      navigator.geolocation.getCurrentPosition(
+        function(position) {
+          onPositionReceived(position);
+        }, 
+        function(error) {
+          $rootScope.$broadcast('locationTimeout');
+        }, 
+        {maximumAge: 1000, timeout: Settings.geoloc_timeout, enableHighAccuracy: true}
+      );
+       
     },
 
-    getPosition: getPosition,
-
-    resetPosition: resetPosition
+    resetPosition: function() {
+      lastPosition = undefined;
+      $rootScope.position = undefined;
+    }
 
   };
 

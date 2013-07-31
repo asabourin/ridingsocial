@@ -6,13 +6,12 @@ angular.module('App')
     // Events
 
     $rootScope.$on("positionUpdated", function (event, args) {
-        Spots.refreshNearby(args.position);
-        updateMap(args.position);
-        $rootScope.position = args.position;
-        if($rootScope.activeTab == 'loading') {
-          $rootScope.activeTab = 'map';
-        }
-        $rootScope.loading = false;
+      $rootScope.position = args.position;
+      Spots.refreshNearby(args.position);
+      updateMap(args.position);
+      if($rootScope.activeTab == 'loading') {
+        $rootScope.activeTab = 'map';
+      }
     });
 
     $rootScope.$on("locationTimeout", function (event, args) {
@@ -52,11 +51,11 @@ angular.module('App')
 
     // Init
 
-    $rootScope.activeTab = $rootScope.activeTab || 'loading';
     $navigate.eraseHistory();
     google.maps.visualRefresh = true;
 
     if($rootScope.position === undefined) { // On app start
+      $rootScope.activeTab = 'loading';
       angular.extend($rootScope, {
         map: {
           center: {
@@ -94,7 +93,6 @@ angular.module('App')
       User.checkNewNotifications(function(response) {
         $rootScope.newNotifications = response;
       });
-      Geolocation.resetPosition();
       CordovaReady(Geolocation.getPosition());
       $rootScope.map.zoom = 13;
     }
@@ -150,10 +148,10 @@ angular.module('App')
 
   Sessions.followed(User.token(), function(response) {
     $rootScope.followed_sessions = response;
+    $rootScope.loading = false;
     if($rootScope.position !== undefined) {
       computeSessionsDistances($rootScope.followed_sessions);
     }
-    $rootScope.loading = false;
   });
 
   // Functions
@@ -177,10 +175,10 @@ angular.module('App')
   
   Spots.watched(User.token(), function(response) {
     $rootScope.watched_spots = response;
+    $rootScope.loading = false;
     if($rootScope.position !== undefined) {
       computeWatchedDistances($rootScope.watched_spots);
     }
-    $rootScope.loading = false;
   });
 
   // Functions

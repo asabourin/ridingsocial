@@ -1,4 +1,4 @@
- angular.module('App').controller('MenuController', function(User, $scope, $rootScope, $navigate) {
+ angular.module('App').controller('MenuController', function(User, Geolocation, $scope, $rootScope, $navigate) {
 
     $scope.preferences = User.getPreferences();
 
@@ -28,6 +28,7 @@
 
     function logout() {
         $scope.menuOpen = false;
+        Geolocation.resetPosition();
         User.logout();
         $navigate.go('/start', 'fade');
     }

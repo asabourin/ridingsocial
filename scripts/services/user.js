@@ -140,7 +140,6 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
             token = undefined;
             id = undefined;
             $rootScope.user = undefined;
-            $rootScope.position = null;
             localStorage.clear();
         }
 
