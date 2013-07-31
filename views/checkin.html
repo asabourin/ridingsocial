@@ -13,13 +13,13 @@
     <form name="form" id="checkin-form" ng-class="(picture_src.length>0) ? 'with-photo' : ''">
 
       <div class="btn-group">
-        <button type="button" class="btn btn-large quarter" ng-model="activity" btn-radio="'kitesurfing'"><img src="images/activities/kitesurfing.png" height="24" /></button> <button type="button" class="btn btn-large quarter" ng-model="activity" btn-radio="'windsurfing'"><img src="images/activities/windsurfing.png" height="24" /></button><button type="button" class="btn btn-large quarter" ng-model="activity" btn-radio="'surfing'"><img src="images/activities/surfing.png" height="24" /></button><button type="button" class="btn btn-large quarter" ng-model="activity" btn-radio="'wakeboarding'"><img src="images/activities/wakeboarding.png" height="24" />
+        <button type="button" class="btn quarter" ng-model="activity" btn-radio="'kitesurfing'"><img src="images/activities/kitesurfing.png" style="height:40px;width:40px" /></button> <button type="button" class="btn quarter" ng-model="activity" btn-radio="'windsurfing'"><img src="images/activities/windsurfing.png" style="height:40px;width:40px" /></button><button type="button" class="btn quarter" ng-model="activity" btn-radio="'surfing'"><img src="images/activities/surfing.png" style="height:40px;width:40px" /></button><button type="button" class="btn quarter" ng-model="activity" btn-radio="'wakeboarding'"><img src="images/activities/wakeboarding.png" style="height:40px;width:40px" />
       </div>
 
       <textarea id="checkin-comment" class="input-block-level" ng-model="comment" placeholder="How is it?" row="1"></textarea>
 
       <div class="btn-group">
-        <button type="button" class="btn third" ng-model="rating" btn-radio="'0'"><img src="images/flags/red_80.png" width="40" /></button> <button type="button" class="btn third" ng-model="rating" btn-radio="'50'"><img src="images/flags/yellow_80.png" width="40" /></button> <button type="button" class="btn third" ng-model="rating" btn-radio="'100'"><img src="images/flags/green_80.png" width="40" /></button>
+        <button type="button" class="btn third" ng-model="rating" btn-radio="'0'"><img src="images/flags/red_80.png" style="height:40px;width:40px" /></button> <button type="button" class="btn third" ng-model="rating" btn-radio="'50'"><img src="images/flags/yellow_80.png" style="height:40px;width:40px" /></button> <button type="button" class="btn third" ng-model="rating" btn-radio="'100'"><img src="images/flags/green_80.png" style="height:40px;width:40px" /></button>
       </div>
 
       <input id="search-rider-input" type="text" class="input-block-level" ng-model="selected" typeahead-min-length="2" typeahead="rider.name for rider in followed_riders | filter:$viewValue" placeholder="Anyone with you?" ng-change="addRider()">
