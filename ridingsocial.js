@@ -164,13 +164,12 @@ document.addEventListener("resume", function() {
     // Events
 
     $rootScope.$on("positionUpdated", function (event, args) {
-        Spots.refreshNearby(args.position);
-        updateMap(args.position);
-        $rootScope.position = args.position;
-        if($rootScope.activeTab == 'loading') {
-          $rootScope.activeTab = 'map';
-        }
-        $rootScope.loading = false;
+      $rootScope.position = args.position;
+      Spots.refreshNearby(args.position);
+      updateMap(args.position);
+      if($rootScope.activeTab == 'loading') {
+        $rootScope.activeTab = 'map';
+      }
     });
 
     $rootScope.$on("locationTimeout", function (event, args) {
@@ -210,11 +209,11 @@ document.addEventListener("resume", function() {
 
     // Init
 
-    $rootScope.activeTab = $rootScope.activeTab || 'loading';
     $navigate.eraseHistory();
     google.maps.visualRefresh = true;
 
     if($rootScope.position === undefined) { // On app start
+      $rootScope.activeTab = 'loading';
       angular.extend($rootScope, {
         map: {
           center: {
@@ -252,7 +251,6 @@ document.addEventListener("resume", function() {
       User.checkNewNotifications(function(response) {
         $rootScope.newNotifications = response;
       });
-      Geolocation.resetPosition();
       CordovaReady(Geolocation.getPosition());
       $rootScope.map.zoom = 13;
     }
@@ -308,10 +306,10 @@ document.addEventListener("resume", function() {
 
   Sessions.followed(User.token(), function(response) {
     $rootScope.followed_sessions = response;
+    $rootScope.loading = false;
     if($rootScope.position !== undefined) {
       computeSessionsDistances($rootScope.followed_sessions);
     }
-    $rootScope.loading = false;
   });
 
   // Functions
@@ -335,10 +333,10 @@ document.addEventListener("resume", function() {
   
   Spots.watched(User.token(), function(response) {
     $rootScope.watched_spots = response;
+    $rootScope.loading = false;
     if($rootScope.position !== undefined) {
       computeWatchedDistances($rootScope.watched_spots);
     }
-    $rootScope.loading = false;
   });
 
   // Functions
@@ -365,7 +363,7 @@ document.addEventListener("resume", function() {
     $rootScope.loading = false;
   });
 
-});; angular.module('App').controller('MenuController', function(User, $scope, $rootScope, $navigate) {
+});; angular.module('App').controller('MenuController', function(User, Geolocation, $scope, $rootScope, $navigate) {
 
     $scope.preferences = User.getPreferences();
 
@@ -395,6 +393,7 @@ document.addEventListener("resume", function() {
 
     function logout() {
         $scope.menuOpen = false;
+        Geolocation.resetPosition();
         User.logout();
         $navigate.go('/start', 'fade');
     }
@@ -764,51 +763,43 @@ angular.module('App').filter('fromNow', function() {
         }
     };
 
-});;angular.module('Services').factory('Geolocation', function ($rootScope, CordovaReady) {
+});;angular.module('Services').factory('Geolocation', function ($rootScope) {
 
-  var watcher, currentPosition;
-
-  var getPosition = function() {
-    watcher = navigator.geolocation.getCurrentPosition(
-      function(position) {
-        onPositionReceived(position);
-      }, 
-      function(error) {
-        $rootScope.$broadcast('locationTimeout');
-      }, 
-      {maximumAge: 1000, timeout: Settings.geoloc_timeout, enableHighAccuracy: true}
-    );
-     
-  };
+  var lastPosition;
 
   function onPositionReceived(position) {
-    var newPosition = {latitude:position.coords.latitude.toFixed(4), longitude:position.coords.longitude.toFixed(4)};
-    if(hasPositionChanged(newPosition)) {
-        currentPosition = newPosition;
-        $rootScope.$broadcast('positionUpdated', {position:newPosition});
+    if(hasPositionChanged(position.coords)) {
+        lastPosition = position.coords;
+        $rootScope.$broadcast('positionUpdated', {position:position.coords});
         $rootScope.$apply();
     } 
   }
 
   function hasPositionChanged(newPosition) {
-    return (currentPosition === undefined || Math.abs(currentPosition.latitude - newPosition.latitude) > 0.001 || Math.abs(currentPosition.longitude - newPosition.longitude) > 0.001);
+    return (lastPosition === undefined || Math.abs(lastPosition.latitude - newPosition.latitude) > 0.001 || Math.abs(lastPosition.longitude - newPosition.longitude) > 0.001);
   }
-
-  var resetPosition = function() {
-    currentPosition = undefined;
-  };
 
   //
 
   return {
 
-    currentPosition: function() {
-      return currentPosition;
+    getPosition: function() {
+      navigator.geolocation.getCurrentPosition(
+        function(position) {
+          onPositionReceived(position);
+        }, 
+        function(error) {
+          $rootScope.$broadcast('locationTimeout');
+        }, 
+        {maximumAge: 1000, timeout: Settings.geoloc_timeout, enableHighAccuracy: true}
+      );
+       
     },
 
-    getPosition: getPosition,
-
-    resetPosition: resetPosition
+    resetPosition: function() {
+      lastPosition = undefined;
+      $rootScope.position = undefined;
+    }
 
   };
 
@@ -1169,7 +1160,6 @@ function onNotificationAPN(event) {
             token = undefined;
             id = undefined;
             $rootScope.user = undefined;
-            $rootScope.position = null;
             localStorage.clear();
         }
 
