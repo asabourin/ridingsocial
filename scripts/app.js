@@ -1,10 +1,11 @@
-'use strict';
-
 angular.module('Services', []);
 
 angular.module('App', ['Services', 'ui.bootstrap', 'google-maps', 'ajoslin.mobile-navigate'])
 
-  .config(function ($routeProvider, $locationProvider) {
+  .config(function ($routeProvider) {
+
+    "use strict";
+
     $routeProvider
       .when('/', {
         controller: 'StartController'
@@ -35,7 +36,7 @@ angular.module('App', ['Services', 'ui.bootstrap', 'google-maps', 'ajoslin.mobil
       })
       .otherwise({
         redirectTo: '/'
-      })
+      });
   })
   .run(function($templateCache,$http){
       $http.get('views/main.html', {cache:$templateCache});
