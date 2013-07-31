@@ -3,7 +3,7 @@
     
     <a class="navbar-icon navbar-button pull-left" ng-tap="navigate.back()"><i class="icon-chevron-left "></i></a>
     
-    <a class="navbar-icon navbar-button pull-right" ng-show="!rider"><i class="icon-spinner icon-large icon-spin"></i></a>
+    <a class="navbar-icon navbar-button pull-right" ng-show="!rider"><span class="loader"></span></a>
     
     <span ng-hide="rider.id == user.id || !rider" class="pull-right">
         <a class="navbar-icon navbar-button dimmed" ng-show="!rider.following" ng-tap="follow()"><i class="icon-eye-open "></i></a>

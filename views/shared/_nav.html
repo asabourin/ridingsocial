@@ -18,6 +18,7 @@
   </a>
   
   <a class="navbar-icon navbar-button pull-right" ng-tap="refresh()">
-	  <i class="icon-refresh icon-large" ng-class="{'icon-spin icon-spinner': loading}"></i>
+	  <i class="icon-refresh icon-large" ng-hide="loading"></i>
+    <span class="loader" ng-show="loading"></span>
   </a>
 </div>
