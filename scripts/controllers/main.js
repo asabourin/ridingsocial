@@ -93,6 +93,7 @@ angular.module('App')
       User.checkNewNotifications(function(response) {
         $rootScope.newNotifications = response;
       });
+      Geolocation.resetPosition();
       CordovaReady(Geolocation.getPosition());
       $rootScope.map.zoom = 13;
     }
