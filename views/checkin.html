@@ -22,9 +22,9 @@
         <button type="button" class="btn third" ng-model="rating" btn-radio="'0'"><img src="images/flags/red_80.png" width="40" /></button> <button type="button" class="btn third" ng-model="rating" btn-radio="'50'"><img src="images/flags/yellow_80.png" width="40" /></button> <button type="button" class="btn third" ng-model="rating" btn-radio="'100'"><img src="images/flags/green_80.png" width="40" /></button>
       </div>
 
-      <input id="search-rider-input" type="text" class="input-block-level" ng-model="selected" typeahead-min-length="2" typeahead="rider.name for rider in followed | filter:$viewValue" placeholder="Anyone with you?" ng-change="addRider()">
+      <input id="search-rider-input" type="text" class="input-block-level" ng-model="selected" typeahead-min-length="2" typeahead="rider.name for rider in followed_riders | filter:$viewValue" placeholder="Anyone with you?" ng-change="addRider()">
 
-      <span ng-repeat="rider in selectedRiders">
+      <span ng-repeat="rider in selected_riders">
           <span class="thumb" ng-tap="removeRider(rider.id)" ng-style="{'background-image':'url('+rider.picture+')'}" /></span>
       </span>
 

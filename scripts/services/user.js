@@ -70,7 +70,7 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
             return {id: id, token:token, lastCheckinAt:lastCheckinAt};
         },
 
-        fetchFollowed: function(successCallback) {
+        fetchFollowedRiders: function(successCallback) {
             $http.get(Settings.host+'riders/followed?token='+token).success(successCallback).error(function(response) {
                 console.log(response);
             });
