@@ -6,9 +6,9 @@
 
     <div class="action">
         
-        <span ng-show="loading" class="loader"></span>
-        <a class="btn btn-large btn-primary" ng-show="showFacebook" ng-tap="login()" >
-          
+        <i class="icon-spinner icon-spin icon-3x" ng-show="loading"></i>
+
+        <a class="btn btn-large btn-primary" ng-hide="loading" ng-tap="login()" >
           <i class="icon-facebook icon-large"></i>  Sign-in with Facebook
         </a> 
 
