@@ -16,6 +16,20 @@ angular.module('App').directive("ngTap", function() {
       }
     });
   };
+})
+
+//Window resize
+.directive('resize', function ($window) {
+  return function (scope) {
+    scope.width = $window.innerWidth;
+    scope.height = $window.innerHeight;
+    angular.element($window).bind('resize', function () {
+        scope.$apply(function () {
+            scope.width = $window.innerWidth;
+            scope.height = $window.innerHeight;
+        });
+    });
+  };
 });
 
 // Timeago filter using Moment.js
@@ -24,3 +38,4 @@ angular.module('App').filter('fromNow', function() {
     return moment(date).fromNow();
   };
 });
+

@@ -1,6 +1,6 @@
 <div modal="othersOpen" close="hideOthers()" options="optsMenu">
     <div class="modal-body">
-      <button type="button" class="close" ng-tap="hideOthers()">&times;</button>
+      <a class="close" ng-tap="hideOthers()">&times;</a>
         <div class="clearfix" ng-repeat="rider in this_session.others">
           <img ng-tap="hideOthers();navigate.go('/riders/'+rider.id)" ng-src="{{rider.picture}}" class="rider-small pull-left"><a ng-tap="hideOthers();navigate.go('/riders/'+rider.id)">{{rider.name}}</a>
           <br>

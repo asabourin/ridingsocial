@@ -1,5 +1,5 @@
 angular.module('App')
-  .controller('SessionController', function(Sessions, User, Spots, $scope, $rootScope) {
+  .controller('SessionController', function(Sessions, User, Spots, $scope, $rootScope, $window) {
 
     $scope.showOthers = function (session_id) {
       $rootScope.this_session = $scope.session;
@@ -38,13 +38,14 @@ angular.module('App')
 
     $scope.hideComments = function () {
       $rootScope.comments = [];
+      $rootScope.likes = [];
       $rootScope.session = null;
       $rootScope.commentsOpen = false;
     };
 
     $scope.postComment = function(session_id) {
       if($scope.reply && !$scope.posting_comment) {
-        $scope.post_comment_loading = true;
+        $scope.posting_comment = true;
         Sessions.postComment(User.token(), session_id, $scope.reply, function(response){
           $rootScope.comments.push(response);
           $scope.posting_comment = false;

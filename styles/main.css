@@ -21,6 +21,10 @@ body {
     -webkit-background-size: 100%;
 }
 
+body.modal-open {
+  overflow: hidden;
+}
+
 @font-face {
   font-family: 'Handel';
   font-style: normal;
@@ -33,7 +37,7 @@ a {
     font-weight: bold;
 }
 
-a.btn {
+a.btn, a.close {
     -webkit-tap-highlight-color: rgba(0,0,0,0);
     font-weight: normal;
 }
@@ -153,22 +157,22 @@ h1 {
 
 .modal {
   position:fixed;
-  top: 10px;
-  left: 10px;
-  right: 10px;
+  top: 0px;
+  left: 0px;
+  right: 0px;
   width:auto;
-  margin:0;
+  margin: auto;
 }
 
 .modal-body, .modal-header, .modal-footer {
   padding: 5px;
 }
 
-.close {
-  font-size: 30px;
-  display: block;
-  height: 30px;
-  width: 30px;
+a.close {
+  font-size: 40px;
+  display: inline-block;
+  padding:5px;
+  z-index: 1050;
 }
 
 /* Start */
