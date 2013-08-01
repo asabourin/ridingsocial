@@ -10,6 +10,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-open');
   grunt.loadNpmTasks('grunt-mkdir');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
   
   // Project configuration.
   grunt.initConfig({
@@ -17,7 +18,7 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     
     clean: {
-      dist: ['<%= pkg.name %>.js', '<%= pkg.name %>.min.js', 'tmp']
+      dist: ['<%= pkg.name %>.js', '<%= pkg.name %>.min.js', '<%= pkg.name %>.min.css', 'tmp']
     },
     
     mkdir: {
@@ -39,15 +40,6 @@ module.exports = function(grunt) {
       },
     },
     
-    copy: {
-      dist: {
-        files: [{
-          src: 'tmp/output.js',
-          dest: '<%= pkg.name %>.js'
-        }]
-      }
-    },
-    
     uglify: {
       options: {
         compress: true,
@@ -57,6 +49,14 @@ module.exports = function(grunt) {
       dist: {
         src: 'tmp/output.js',
         dest: '<%= pkg.name %>.min.js'
+      }
+    },
+
+    cssmin: {
+      combine: {
+        files: {
+          'styles/<%= pkg.name %>.min.css': ['styles/bootstrap-custom.css', 'styles/font-awesome.min.css', 'styles/mobile-nav.css', 'styles/main.css']
+        }
       }
     },
     
@@ -71,8 +71,8 @@ module.exports = function(grunt) {
     watch: {
       all: {
         options: { livereload: true },
-        files: ['scripts/**/*.js'],
-        tasks: ['clean:example', 'concat:example'],
+        files: ['scripts/**/*.js', 'styles/main.css'],
+        tasks: ['default'],
       },
     }
   
@@ -87,9 +87,9 @@ module.exports = function(grunt) {
                                  'test', 
                                  'jshint', 
                                  'mkdir', 
-                                 'concat:dist', 
-                                 'copy:dist',
-                                 'uglify']);
+                                 'concat:dist',
+                                 'uglify',
+                                 'cssmin']);
   
 
 };

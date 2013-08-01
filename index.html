@@ -6,37 +6,56 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->  
-    <link rel="stylesheet" href="styles/bootstrap-custom.css">
-    <link rel="stylesheet" href="styles/font-awesome.min.css">
-    <link rel="stylesheet" href="styles/mobile-nav.css">
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/ridingsocial.min.css">
+    
   </head>
 
   <body ng-controller="NavController">
 
-    <!-- Add your site or application content here -->
     <mobile-view></mobile-view>
 
-    <script src="phonegap.min.js"></script>
-
-    <script src="components/angular-1.1.5.min.js"></script>
-
-    <script src="components/ui-bootstrap-tpls-0.4.0.min.js"></script>
-    <script src="components/underscore-min.js"></script>
-    <script src="components/mobile-nav.js"></script>
-    <script src="components/angular-google-maps.js"></script>
-    <script src="components/moment.min.js"></script>
-
-    <script src="cdv-plugin-fb-connect.js"></script>
-    <script src="facebook-js-sdk.min.js"></script>
-    <script src="PushNotification.js"></script>
-
-    <!-- build:js scripts/scripts.js -->
-    <script src="ridingsocial.min.js"></script>
-
+    <!-- Libs -->
+    <script src="libs/phonegap.min.js"></script>
+    <script src="libs/angular-1.1.5.min.js"></script>
+    <script src="libs/facebook-js-sdk.min.js"></script>
+    <script src="libs/cdv-plugin-fb-connect.js"></script>
+    <script src="libs/PushNotification.js"></script>
+    <script src="libs/mobile-nav.js"></script>
+    <script src="libs/underscore-min.js"></script>
+    <script src="libs/angular-google-maps.js"></script>
+    <script src="libs/moment.min.js"></script>
+    <script src="libs/ui-bootstrap-tpls-0.4.0.min.js"></script>
     <script src="http://maps.googleapis.com/maps/api/js?sensor=true&language=en"></script>
 
-    <!-- endbuild -->
+     <!-- Minified App -->
+    <script src="ridingsocial.min.js"></script>
+    
+    <!-- App
+    <script src="scripts/app.js"></script>
+    <script src="scripts/settings.js"></script>
+    <script src="scripts/directives.js"></script>
+
+    <script src="scripts/controllers/nav.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/menu.js"></script>
+    <script src="scripts/controllers/start.js"></script>
+    <script src="scripts/controllers/sessions.js"></script>
+    <script src="scripts/controllers/checkin.js"></script>
+    <script src="scripts/controllers/riders.js"></script>
+    <script src="scripts/controllers/spots.js"></script>
+
+    <script src="scripts/services/cordova.js"></script>
+    <script src="scripts/services/facebook.js"></script>
+    <script src="scripts/services/user.js"></script>
+    <script src="scripts/services/geolocation.js"></script>
+    <script src="scripts/services/riders.js"></script>
+    <script src="scripts/services/spots.js"></script>
+    <script src="scripts/services/sessions.js"></script>
+    <script src="scripts/services/checkin.js"></script>
+    <script src="scripts/services/push.js"></script>
+    -->
+
+   
 
   </body>
 
