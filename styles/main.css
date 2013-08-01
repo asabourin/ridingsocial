@@ -179,7 +179,7 @@ a.close {
 
 #start {
   height: 100%;
-  background: #f0f6fa url('../splash.png') no-repeat;
+  background: #f0f6fa url('../images/splash.png') no-repeat;
   background-size:cover;
 }
 

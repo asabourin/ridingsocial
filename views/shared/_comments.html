@@ -4,8 +4,6 @@
 
     <div class="modal-body" ng-style="{'max-height':(height-65)+'px !important'}" >
 
-        <p class="text-center" ng-hide="comments || likes">...</p>
-
         <p ng-show="likes.length>0">
             <i class="icon-thumbs-up-alt"></i>
             <span ng-repeat="like in likes"><a ng-tap="hideComments();navigate.go('/riders/'+like.author.id)">{{like.author.name}}</a>{{{true: '', false: ', '}[$last]}}
