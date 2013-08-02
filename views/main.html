@@ -14,7 +14,6 @@
         <li class="card {{session.color}} clearfix" ng-repeat="session in followed_sessions" ng-include="'views/shared/_session.html'" ng-controller="SessionController"></li>
       </ul>
       <div ng-include="'views/shared/_others.html'"></div>
-      <div ng-include="'views/shared/_comments.html'"></div>
     </div>
 
     <div id="map_canvas" ng-switch-when="map">

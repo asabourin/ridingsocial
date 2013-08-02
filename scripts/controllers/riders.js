@@ -2,47 +2,57 @@ angular.module('App')
   
   .controller('Riders.show', function(User, Riders, Spots, $scope, $rootScope, $routeParams) {
 
-    Riders.show(User.token(), $routeParams.id, function(response) {
-        $scope.rider = response;
-        $scope.tab = 'sessions';
-    });
+    // Init
 
-    Riders.sessions(User.token(), $routeParams.id, function(response) {
-        $scope.sessions = response;
-        _.each($scope.sessions, function(s) {
-            s.distance = Spots.distance(s.spot, $rootScope.position);
+    if($rootScope.rider === undefined || $rootScope.rider.id !== parseInt($routeParams.id, 10)) { 
+
+        $rootScope.rider = null;
+        $rootScope.rider_sessions = null;
+        $rootScope.rider_spots = null;
+
+        Riders.show(User.token(), $routeParams.id, function(response) {
+            $rootScope.rider = response;
+            $rootScope.rider_tab = 'sessions';
         });
-    });
 
-    Riders.spots(User.token(), $routeParams.id, function(response) {
-        $scope.rider_spots = _.sortBy(response, function(s){return -s.nb_sessions;});
-    });
+        Riders.sessions(User.token(), $routeParams.id, function(response) {
+            $rootScope.rider_sessions = response;
+            _.each($rootScope.sessions, function(s) {
+                s.distance = Spots.distance(s.spot, $rootScope.position);
+            });
+        });
+
+        Riders.spots(User.token(), $routeParams.id, function(response) {
+            $rootScope.rider_spots = _.sortBy(response, function(s){return -s.nb_sessions;});
+        });
+
+    }
 
     // Functions
 
     $scope.follow = function() {
-        navigator.notification.confirm("Follow "+$scope.rider.name+"?", follow, "", ["Yes", "Cancel"]);
+        navigator.notification.confirm("Follow "+$rootScope.rider.name+"?", follow, "", ["Yes", "Cancel"]);
     };
 
     function follow(index) {
         if(index == 1) {
             Riders.follow(User.token(), $scope.rider.id, function(response) {
-                $scope.rider.following = true;
-                $scope.rider.nb_followers += 1;
+                $rootScope.rider.following = true;
+                $rootScope.rider.nb_followers += 1;
             });
             $scope.$apply();
         }
     }
 
     $scope.unfollow = function() {
-        navigator.notification.confirm("Are you sure?", stopFollowing, "Stop following "+$scope.rider.name, ["Yes", "Cancel"]);
+        navigator.notification.confirm("Are you sure?", stopFollowing, "Stop following "+$rootScope.rider.name, ["Yes", "Cancel"]);
     };
 
     function stopFollowing(index) {
         if(index == 1) {
             Riders.unfollow(User.token(), $scope.rider.id, function(response) {
-                $scope.rider.following = false;
-                $scope.rider.nb_followers -= 1;
+                $rootScope.rider.following = false;
+                $rootScope.rider.nb_followers -= 1;
             });
             $scope.$apply();
         }
