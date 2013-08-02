@@ -25,21 +25,21 @@
       <p>{{spot.state}}, {{spot.country}}<br> {{spot.distance}}km</p>
     </div>
 
-    <div id="tabs" ng-switch="tab" ng-animate="'fade'">
+    <div id="tabs" ng-switch="spot_tab" ng-animate="'fade'">
 
         <div class="btn-group">
-            <button class="btn btn-small half" ng-model="tab" btn-radio="'sessions'"><span class="big-number"><i class="icon-flag-checkered"></i> {{spot.nb_sessions}}</span><br>Sessions</button>
-            <button class="btn btn-small half" ng-model="tab" btn-radio="'riders'"><span class="big-number"><i class="icon-user"></i> {{spot.nb_riders}}</span><br>Riders</button>
+            <button class="btn btn-small half" ng-model="spot_tab" btn-radio="'sessions'"><span class="big-number"><i class="icon-flag-checkered"></i> {{spot.nb_sessions}}</span><br>Sessions</button>
+            <button class="btn btn-small half" ng-model="spot_tab" btn-radio="'riders'"><span class="big-number"><i class="icon-user"></i> {{spot.nb_riders}}</span><br>Riders</button>
         </div>
 
       <ul ng-switch-when="sessions">
-          <li class="card {{session.color}} clearfix" ng-repeat="session in sessions" ng-include="'views/shared/_session.html'"></li>
+          <li class="card {{session.color}} clearfix" ng-repeat="session in spot_sessions" ng-include="'views/shared/_session.html'"></li>
           <div ng-include="'views/shared/_others.html'"></div>
         </ul>
 
         <ul ng-switch-when="riders">
           <li class="card">
-            <div class="info" ng-repeat="rider in riders">
+            <div class="info" ng-repeat="rider in spot_riders">
               <img ng-tap="navigate.go('/riders/'+rider.id)" ng-src="{{rider.picture}}" class="rider-small pull-left"><a ng-tap="navigate.go('/riders/'+rider.id)">{{rider.name}}</a>
               <p><ng-pluralize count="rider.nb_sessions" when="{'0': '', 'one': '1 session', 'other': '{} sessions'}"></ng-pluralize></p>
             </div>
