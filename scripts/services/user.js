@@ -66,6 +66,10 @@ angular.module('Services').factory('User', function ($rootScope, $http) {
             return token;
         },
 
+        id: function() {
+            return id;
+        },
+
         get: function() {
             return {id: id, token:token, lastCheckinAt:lastCheckinAt};
         },

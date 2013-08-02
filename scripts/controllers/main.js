@@ -15,8 +15,8 @@ angular.module('App')
     });
 
     $rootScope.$on("locationTimeout", function (event, args) {
-      navigator.notification.alert(Lang.en.error_location, null, Lang.en.error);
       $rootScope.loading = false;
+      navigator.notification.alert(Lang.en.error_location, null, Lang.en.error);
     });
 
     $rootScope.$on("nearbySpotsUpdated", function(event, args) {

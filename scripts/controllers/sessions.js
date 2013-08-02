@@ -12,33 +12,36 @@ angular.module('App')
 
     $scope.toggleLikeSession = function() {
       if($scope.session.liked) {
+        $scope.session.liked = false;
+        $scope.session.nb_likes -= 1; // Outside the success function of below to make it feels faster
         Sessions.unlike(User.token(), $scope.session.id, function(response) {
-          $scope.session.liked = false;
-          $scope.session.nb_likes -= 1;
         });
       }
       else {
+        $scope.session.liked = true;
+        $scope.session.nb_likes += 1; // Outside the success function of below to make it feels faster
         Sessions.like(User.token(), $scope.session.id, function(response) {
-          $scope.session.liked = true;
-          $scope.session.nb_likes += 1;
         });
       }
     };
 
     $scope.showComments = function () {
       $rootScope.session = $scope.session;
+      $rootScope.commentsLoading = true;
       Sessions.comments($scope.session.id, function(response) {
         $rootScope.comments = response;
+        $rootScope.commentsLoading = false;
       });
       Sessions.likes($scope.session.id, function(response) {
         $rootScope.likes = response;
+        $rootScope.commentsLoading = false;
       });
       $rootScope.commentsOpen = true;
     };
 
     $scope.hideComments = function () {
-      $rootScope.comments = [];
-      $rootScope.likes = [];
+      $rootScope.comments = undefined;
+      $rootScope.likes = undefined;
       $rootScope.session = null;
       $rootScope.commentsOpen = false;
     };
@@ -50,6 +53,9 @@ angular.module('App')
           $rootScope.comments.push(response);
           $scope.posting_comment = false;
           $scope.reply = '';
+        }, function(error) {
+          navigator.notification.alert(Lang.en.error, null, Lang.en.error_comment);
+          $scope.posting_comment = false;
         });
       }
     };

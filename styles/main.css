@@ -157,21 +157,21 @@ h1 {
 
 .modal {
   position:fixed;
-  top: 0px;
-  left: 0px;
-  right: 0px;
+  top: 10px;
+  left: 10px;
+  right: 10px;
   width:auto;
   margin: auto;
 }
 
 .modal-body, .modal-header, .modal-footer {
   padding: 5px;
+  min-height: 30px;
 }
 
 a.close {
-  font-size: 40px;
+  font-size: 45px;
   display: inline-block;
-  padding:5px;
   z-index: 1050;
 }
 
@@ -407,6 +407,7 @@ p.comment {
 
 textarea.text-comment {
   height: 42px;
+  margin: 0;
 }
 
 p.details {

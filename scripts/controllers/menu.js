@@ -17,11 +17,16 @@
     $rootScope.optsMenu = {
       backdropFade: false,
       dialogFade:false,
-      backdropClick: false
+      backdropClick: true
     };
 
     $scope.goToDesktopSite = function () {
       window.open('http://www.ridingsocial.net', '_system', 'location=yes');
+    };
+
+    $scope.goToMyProfile = function() {
+      $scope.menuOpen = false;
+      $navigate.go('/riders/'+User.id());
     };
 
     $scope.logout = function() {logout();};

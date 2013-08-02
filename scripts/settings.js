@@ -18,6 +18,7 @@ var Lang = {
     'checkin_successful': 'Check-in successful!',
     'error_checkin': 'Oops...',
     'error_location': 'Could not get your location. Check you\'ve got GPS enabled and we\'ll try again!',
+    'error_comment': 'Could not save your comment. Check your data connection and try again.',
     'error': 'Oops...'
   }
 };

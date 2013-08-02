@@ -2,7 +2,9 @@
     
     <a class="close" ng-tap="hideComments()">&times;</a>
 
-    <div class="modal-body" ng-style="{'max-height':(height-65)+'px !important'}" >
+    <div class="modal-body" ng-style="{'max-height':(height-85)+'px !important'}" >
+
+        <div class="text-center" ng-show="commentsLoading"><i class="icon-spinner icon-spin icon-2x"></i></div>
 
         <p ng-show="likes.length>0">
             <i class="icon-thumbs-up-alt"></i>
@@ -21,7 +23,7 @@
 
     <div class="modal-footer" style>
     	<form ng-submit="postComment(session.id)" >
-            <textarea type="text" ng-model="reply" class="text-comment pull-left" placeholder="Comment..." ng-style="{'width':(width-70)+'px !important'}" ></textarea>
+            <textarea type="text" ng-model="reply" class="text-comment pull-left" placeholder="Comment..." ng-style="{'width':(width-90)+'px !important'}" ></textarea>
             <a class="btn btn-large pull-left" ng-tap="postComment(session.id)">
                 <i class="icon-reply" ng-hide="posting_comment"></i>
                 <i class="icon-spinner icon-spin" ng-show="posting_comment"></i>
