@@ -53,7 +53,7 @@ angular.module('App')
           $scope.posting_comment = false;
           $scope.reply = '';
         }, function(error) {
-          navigator.notification.alert(Lang.en.error, null, Lang.en.error_comment);
+          navigator.notification.alert(Lang.en.error_comment, null, Lang.en.error);
           $scope.posting_comment = false;
         });
       }
