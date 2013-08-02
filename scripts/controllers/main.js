@@ -93,9 +93,8 @@ angular.module('App')
       User.checkNewNotifications(function(response) {
         $rootScope.newNotifications = response;
       });
-      Geolocation.resetPosition();
-      CordovaReady(Geolocation.getPosition());
-      $rootScope.map.zoom = 13;
+      resetMap();
+      clearCachedRiderSpot();
     }
 
     function wannaCheckin(index) {
@@ -103,6 +102,17 @@ angular.module('App')
             $navigate.go('/checkin', 'pop');
         }
         $scope.$apply();
+    }
+
+    function resetMap() {
+      Geolocation.resetPosition();
+      CordovaReady(Geolocation.getPosition());
+      $rootScope.map.zoom = 13;
+    }
+
+    function clearCachedRiderSpot() {
+      $rootScope.rider = undefined;
+      $rootScope.spot = undefined;
     }
 
     function updateMap(position) {
