@@ -34,6 +34,10 @@ angular.module('App', ['Services', 'ui.bootstrap', 'google-maps', 'ajoslin.mobil
         templateUrl: 'views/session.html',
         controller: 'SessionsController'
       })
+      .when('/sessions/:id/comments', {
+        templateUrl: 'views/comments.html',
+        controller: 'CommentsController'
+      })
       .otherwise({
         redirectTo: '/'
       });

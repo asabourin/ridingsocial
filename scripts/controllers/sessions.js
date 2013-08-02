@@ -1,5 +1,5 @@
 angular.module('App')
-  .controller('SessionController', function(Sessions, User, Spots, $scope, $rootScope, $window) {
+  .controller('SessionController', function(Sessions, User, Spots, $scope, $rootScope, $navigate) {
 
     $scope.showOthers = function (session_id) {
       $rootScope.this_session = $scope.session;
@@ -25,32 +25,31 @@ angular.module('App')
       }
     };
 
-    $scope.showComments = function () {
-      $rootScope.session = $scope.session;
-      $rootScope.commentsLoading = true;
-      Sessions.comments($scope.session.id, function(response) {
-        $rootScope.comments = response;
-        $rootScope.commentsLoading = false;
-      });
-      Sessions.likes($scope.session.id, function(response) {
-        $rootScope.likes = response;
-        $rootScope.commentsLoading = false;
-      });
-      $rootScope.commentsOpen = true;
+    $scope.goToComments = function() {
+      $navigate.go('/sessions/'+$scope.session.id+'/comments');
     };
 
-    $scope.hideComments = function () {
-      $rootScope.comments = undefined;
-      $rootScope.likes = undefined;
-      $rootScope.session = null;
-      $rootScope.commentsOpen = false;
-    };
+})
 
-    $scope.postComment = function(session_id) {
+ .controller('CommentsController', function(Sessions, User, Spots, $scope, $rootScope, $routeParams) {
+
+    var session_id = $routeParams.id;
+
+    $scope.commentsLoading = true;
+    Sessions.comments(session_id, function(response) {
+      $scope.comments = response;
+      $scope.commentsLoading = false;
+    });
+    Sessions.likes(session_id, function(response) {
+      $scope.likes = response;
+      $scope.commentsLoading = false;
+    });
+
+    $scope.postComment = function() {
       if($scope.reply && !$scope.posting_comment) {
         $scope.posting_comment = true;
         Sessions.postComment(User.token(), session_id, $scope.reply, function(response){
-          $rootScope.comments.push(response);
+          $scope.comments.push(response);
           $scope.posting_comment = false;
           $scope.reply = '';
         }, function(error) {
