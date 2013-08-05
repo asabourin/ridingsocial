@@ -3,11 +3,11 @@
     $scope.preferences = User.getPreferences();
 
     $rootScope.openMenu = function () {
-      $scope.menuOpen = true;
+      $rootScope.menuOpen = true;
     };
 
     $rootScope.closeMenu = function () {
-      $scope.menuOpen = false;
+      $rootScope.menuOpen = false;
     };
 
     $scope.updatePreferences = function() {

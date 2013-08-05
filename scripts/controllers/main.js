@@ -9,9 +9,10 @@ angular.module('App')
       $rootScope.position = args.position;
       Spots.refreshNearby(args.position);
       updateMap(args.position);
-      if($rootScope.activeTab == 'loading') {
-        $rootScope.activeTab = 'map';
+      if($rootScope.main_tab == 'loading') {
+        $rootScope.main_tab = 'map';
       }
+      $rootScope.loading = false;
     });
 
     $rootScope.$on("locationTimeout", function (event, args) {
@@ -20,7 +21,6 @@ angular.module('App')
     });
 
     $rootScope.$on("nearbySpotsUpdated", function(event, args) {
-      $rootScope.loading = false;
       Spots.checkNearest();
     });
 
@@ -47,7 +47,7 @@ angular.module('App')
 
     $rootScope.$on('appResumed', function(event, args) {
       refresh();
-    }) ;
+    });
 
     // Init
 
@@ -55,7 +55,7 @@ angular.module('App')
     google.maps.visualRefresh = true;
 
     if($rootScope.position === undefined) { // On app start
-      $rootScope.activeTab = 'loading';
+      $rootScope.main_tab = 'loading';
       angular.extend($rootScope, {
         map: {
           center: {
@@ -74,11 +74,11 @@ angular.module('App')
     // Functions
 
     $scope.toggleTab = function(tab) {
-        if($rootScope.activeTab === tab) {
-          $rootScope.activeTab = 'map';
+        if($rootScope.main_tab === tab) {
+          $rootScope.main_tab = 'map';
         }
         else {
-          $rootScope.activeTab = tab;
+          $rootScope.main_tab = tab;
         }
     };
 
@@ -94,7 +94,6 @@ angular.module('App')
         $rootScope.newNotifications = response;
       });
       resetMap();
-      clearCachedRiderSpot();
     }
 
     function wannaCheckin(index) {
@@ -108,11 +107,6 @@ angular.module('App')
       Geolocation.resetPosition();
       CordovaReady(Geolocation.getPosition());
       $rootScope.map.zoom = 13;
-    }
-
-    function clearCachedRiderSpot() {
-      $rootScope.rider = undefined;
-      $rootScope.spot = undefined;
     }
 
     function updateMap(position) {
@@ -145,7 +139,7 @@ angular.module('App')
         var max_lng = ( bounds.northeast.longitude + Math.abs(bounds.northeast.longitude) * 0.01 ).toFixed(6);
         return {min_lat: min_lat, max_lat: max_lat, min_lng: min_lng, max_lng: max_lng};
     }
-    
+
 })
 
 /* Followed Riders */

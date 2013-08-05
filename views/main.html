@@ -2,7 +2,7 @@
 
 <div ng-include="'views/shared/_menu.html'" ng-controller="MenuController"></div>
 
-<div id="main" ng-switch="activeTab" ng-animate="'fade'">
+<div id="main" ng-switch="main_tab" ng-animate="'fade'">
 
     <div ng-switch-when="loading">
       <div class="centered"><i class="icon-globe loading-globe"></i><br><span class="muted">Getting your location...</span></div>
@@ -14,6 +14,7 @@
         <li class="card {{session.color}} clearfix" ng-repeat="session in followed_sessions" ng-include="'views/shared/_session.html'" ng-controller="SessionController"></li>
       </ul>
       <div ng-include="'views/shared/_others.html'"></div>
+      <div ng-include="'views/shared/_comments.html'"></div>
     </div>
 
     <div id="map_canvas" ng-switch-when="map">

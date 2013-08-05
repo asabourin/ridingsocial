@@ -34,7 +34,7 @@
       <i class="icon-thumbs-up" ng-show="session.liked" ></i> 
       <i class="icon-thumbs-up-alt" ng-show="!session.liked" ></i> 
       <ng-pluralize count="session.nb_likes" when="{'0': 'Like', 'one': '1 like', 'other': '{} likes'}"></ng-pluralize></button>
-    <button class="btn half" ng-tap="goToComments()"><i class="icon-comment-alt"></i> <ng-pluralize count="session.nb_comments" when="{'0': 'Comment', 'one': ' 1 comment', 'other': ' {} comments'}"></ng-pluralize></button>
+    <button class="btn half" ng-tap="showComments(session.id)"><i class="icon-comment-alt"></i> <ng-pluralize count="session.nb_comments" when="{'0': 'Comment', 'one': ' 1 comment', 'other': ' {} comments'}"></ng-pluralize></button>
   </div>
 
 </div>

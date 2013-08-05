@@ -25,30 +25,40 @@ angular.module('App')
       }
     };
 
-    $scope.goToComments = function() {
-      $navigate.go('/sessions/'+$scope.session.id+'/comments');
-    };
-
 })
 
  .controller('CommentsController', function(Sessions, User, Spots, $scope, $rootScope, $routeParams) {
 
-    var session_id = $routeParams.id;
+    $rootScope.showComments = function (session_id) { // Called from the session partial
 
-    $scope.commentsLoading = true;
-    Sessions.comments(session_id, function(response) {
-      $scope.comments = response;
-      $scope.commentsLoading = false;
-    });
-    Sessions.likes(session_id, function(response) {
-      $scope.likes = response;
-      $scope.commentsLoading = false;
-    });
+      $scope.comments = undefined;
+      $scope.likes = undefined;
+      $scope.commentsLoading = true;
+      $scope.session_id = session_id;
+
+      Sessions.comments(session_id, function(response) {
+        $scope.comments = response;
+        $scope.commentsLoading = false;
+      });
+      
+      Sessions.likes(session_id, function(response) {
+        $scope.likes = response;
+        $scope.commentsLoading = false;
+      });
+      
+      $rootScope.commentsOpen = true;
+    };
+
+    $rootScope.hideComments = function () {
+      $scope.comments = undefined;
+      $scope.likes = undefined;
+      $scope.commentsOpen = false;
+    };
 
     $scope.postComment = function() {
       if($scope.reply && !$scope.posting_comment) {
         $scope.posting_comment = true;
-        Sessions.postComment(User.token(), session_id, $scope.reply, function(response){
+        Sessions.postComment(User.token(), $scope.session_id, $scope.reply, function(response){
           $scope.comments.push(response);
           $scope.posting_comment = false;
           $scope.reply = '';
@@ -57,6 +67,10 @@ angular.module('App')
           $scope.posting_comment = false;
         });
       }
+    };
+
+    $rootScope.closeComments = function () {
+      $rootScope.commentsOpen = false;
     };
 
 });

@@ -12,8 +12,8 @@ angular.module('ajoslin.mobile-navigate', [])
       $rootScope.$apply(function() {
         var backSuccess = $navigate.back();
         if (!backSuccess) {
-          navigator.app.exitApp();
-        }
+            $rootScope.$broadcast('backButton');
+          }
       });
     });
   });
