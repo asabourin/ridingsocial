@@ -25,14 +25,14 @@
     };
 
     $scope.goToMyProfile = function() {
-      $scope.menuOpen = false;
+      $rootScope.menuOpen = false;
       $navigate.go('/riders/'+User.id());
     };
 
     $scope.logout = function() {logout();};
 
     function logout() {
-        $scope.menuOpen = false;
+        $rootScope.menuOpen = false;
         Geolocation.resetPosition();
         User.logout();
         $navigate.go('/start', 'fade');

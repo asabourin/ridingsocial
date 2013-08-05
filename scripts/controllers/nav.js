@@ -13,7 +13,10 @@ angular.module('App')
           $rootScope.main_tab = 'map';
         }
         else {
-          navigator.app.exitApp();
+            var backSuccess = $navigate.back();
+            if (!backSuccess) {
+                navigator.app.exitApp();
+            }
         }
     });
 
