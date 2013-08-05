@@ -13,8 +13,10 @@ angular.module('App')
 
         Spots.show(User.token(), $routeParams.id, function(response) {
             $rootScope.spot = response;
-            $rootScope.spot.distance = Spots.distance(response, $rootScope.position);
-            $rootScope.checkinAllowed = $rootScope.spot.distance <= Settings.radius;
+            if($rootScope.position !== undefined) {
+                $rootScope.spot.distance = Spots.distance(response, $rootScope.position);
+                $rootScope.checkinAllowed = $rootScope.spot.distance <= Settings.radius;
+            }
             $rootScope.spot.picture = "http://maps.googleapis.com/maps/api/staticmap?center="+$rootScope.spot.lat+","+$rootScope.spot.lng+"&zoom=16&size=100x120&maptype=satellite&sensor=true&markers=icon:http://ridingsocial.net/images/flags/"+$rootScope.spot.color+"_32.png%7C"+$rootScope.spot.lat+","+$rootScope.spot.lng+"";
         });
 

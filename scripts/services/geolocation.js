@@ -1,19 +1,5 @@
 angular.module('Services').factory('Geolocation', function ($rootScope) {
 
-  var lastPosition;
-
-  function onPositionReceived(position) {
-    if(hasPositionChanged(position.coords)) {
-        lastPosition = position.coords;
-        $rootScope.$broadcast('positionUpdated', {position:position.coords});
-        $rootScope.$apply();
-    } 
-  }
-
-  function hasPositionChanged(newPosition) {
-    return (lastPosition === undefined || Math.abs(lastPosition.latitude - newPosition.latitude) > 0.001 || Math.abs(lastPosition.longitude - newPosition.longitude) > 0.001);
-  }
-
   navigator.geolocation.getAccurateCurrentPosition = function (geolocationSuccess, geolocationError, geoprogress, options) {
     var lastCheckedPosition;
     var locationEventCount = 0;
@@ -30,24 +16,24 @@ angular.module('Services').factory('Geolocation', function ($rootScope) {
             navigator.geolocation.clearWatch(watchID);
             foundPosition(position);
         } else {
-            geoprogress(position);
+            //geoprogress(position);
         }
-    }
+    };
 
     var stopTrying = function () {
         navigator.geolocation.clearWatch(watchID);
         foundPosition(lastCheckedPosition);
-    }
+    };
 
     var onError = function (error) {
         clearTimeout(timerID);
         navigator.geolocation.clearWatch(watchID);
         geolocationError(error);
-    }
+    };
 
     var foundPosition = function (position) {
         geolocationSuccess(position);
-    }
+    };
 
     if (!options.maxWait)            options.maxWait = 10000; // Default 10 seconds
     if (!options.desiredAccuracy)    options.desiredAccuracy = 20; // Default 20 meters
@@ -58,7 +44,7 @@ angular.module('Services').factory('Geolocation', function ($rootScope) {
 
     var watchID = navigator.geolocation.watchPosition(checkLocation, onError, options);
     var timerID = setTimeout(stopTrying, options.maxWait); // Set a timeout that will abandon the location loop
-  }
+  };
 
   //
 
@@ -67,19 +53,20 @@ angular.module('Services').factory('Geolocation', function ($rootScope) {
     getPosition: function() {
       navigator.geolocation.getAccurateCurrentPosition(
         function(position) {
-          onPositionReceived(position);
+          $rootScope.$broadcast('positionUpdated', {position:position.coords});
+          $rootScope.$apply();
         }, 
         function(error) {
           $rootScope.$broadcast('locationTimeout');
+          $rootScope.$apply();
         }, 
         null,
-        {maxWait: Settings.geoloc_timeout, desiredAccuracy: 100}
+        {maxWait: Settings.geoloc_timeout, desiredAccuracy: 250}
       );
        
     },
 
     resetPosition: function() {
-      lastPosition = undefined;
       $rootScope.position = undefined;
     }
 

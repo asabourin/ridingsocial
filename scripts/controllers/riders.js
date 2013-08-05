@@ -16,10 +16,12 @@ angular.module('App')
         });
 
         Riders.sessions(User.token(), $routeParams.id, function(response) {
-            $rootScope.rider_sessions = response;
-            _.each($rootScope.sessions, function(s) {
-                s.distance = Spots.distance(s.spot, $rootScope.position);
-            });
+           if($rootScope.position !== undefined) {
+                _.each(response, function(session) {
+                    session.distance = Spots.distance(session.spot, $rootScope.position);
+                });
+            }
+            $rootScope.rider_sessions = response; 
         });
 
         Riders.spots(User.token(), $routeParams.id, function(response) {
