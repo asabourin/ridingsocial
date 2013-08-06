@@ -3,7 +3,7 @@
 var Settings = {
 
   'host': 'http://www.ridingsocial.net/api/',
-  //host: 'http://localhost:3000/api/',
+  //'host': 'http://localhost:3000/api/',
   'coeff': 0.01,
   'radius': 3,
   'checkin_distance': 1,
@@ -16,7 +16,7 @@ var Settings = {
 var Lang = {
   en: {
     'checkin_successful': 'Check-in successful!',
-    'error_checkin': 'Oops...',
+    'error_checkin': 'Could not save your checkin. Check your data connection and try again.',
     'error_location': 'Could not get your location. Check you\'ve got GPS enabled and we\'ll try again!',
     'error_comment': 'Could not save your comment. Check your data connection and try again.',
     'error': 'Oops...'

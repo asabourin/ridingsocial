@@ -92,7 +92,7 @@ angular.module('App')
   function errorCheckin(response) {
     navigator.notification.alert(Lang.en.error_checkin, null, Lang.en.error);
     $scope.loading = false;
-    $scope.$apply()
+    $scope.$apply();
   }
 
   function validate() {
