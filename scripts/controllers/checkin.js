@@ -60,9 +60,7 @@ angular.module('App')
     var options = new FileUploadOptions();
     options.params = checkin;
 
-    Checkin.create(User.token(), $scope.picture_src, options, checkinSuccessful, function(result){
-      navigator.notification.alert(JSON.stringify(result), errorCheckin, Lang.en.checkin_error);
-    });
+    Checkin.create(User.token(), $scope.picture_src, options, checkinSuccessful, errorCheckin);
 
   };
 
@@ -89,6 +87,12 @@ angular.module('App')
     User.setLastCheckinAt(Date.now());
     $scope.loading = false;
     navigator.notification.alert(response.message, goBack, Lang.en.checkin_successful);
+  }
+
+  function errorCheckin(response) {
+    navigator.notification.alert(Lang.en.error_checkin, null, Lang.en.error);
+    $scope.loading = false;
+    $scope.$apply()
   }
 
   function validate() {
