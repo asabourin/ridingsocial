@@ -1,5 +1,5 @@
 angular.module('App')
-  .controller('SessionController', function(Sessions, User, Spots, $scope, $rootScope, $navigate) {
+  .controller('SessionController', function(Sessions, User, Notifications, $scope, $rootScope, $navigate) {
 
     $scope.showOthers = function (session_id) {
       $rootScope.this_session = $scope.session;
@@ -21,13 +21,14 @@ angular.module('App')
         $scope.session.liked = true;
         $scope.session.nb_likes += 1; // Outside the success function of below to make it feels faster
         Sessions.like(User.token(), $scope.session.id, function(response) {
+          Notifications.liked(response.id)
         });
       }
     };
 
 })
 
- .controller('CommentsController', function(Sessions, User, Spots, $scope, $rootScope, $routeParams) {
+ .controller('CommentsController', function(Sessions, User, Notifications, $scope, $rootScope, $routeParams) {
 
     $rootScope.showComments = function (session_id) { // Called from the session partial
 
@@ -62,6 +63,7 @@ angular.module('App')
           $scope.comments.push(response);
           $scope.posting_comment = false;
           $scope.reply = '';
+          Notifications.commented(User.token(), response.id, null)
         }, function(error) {
           navigator.notification.alert(Lang.en.error_comment, null, Lang.en.error);
           $scope.posting_comment = false;
