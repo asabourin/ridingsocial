@@ -21,7 +21,7 @@ angular.module('App')
         $scope.session.liked = true;
         $scope.session.nb_likes += 1; // Outside the success function of below to make it feels faster
         Sessions.like(User.token(), $scope.session.id, function(response) {
-          Notifications.liked(response.id)
+          Notifications.liked(User.token(), response.id)
         });
       }
     };
@@ -63,7 +63,7 @@ angular.module('App')
           $scope.comments.push(response);
           $scope.posting_comment = false;
           $scope.reply = '';
-          Notifications.commented(User.token(), response.id, null)
+          Notifications.commented(User.token(), response.id)
         }, function(error) {
           navigator.notification.alert(Lang.en.error_comment, null, Lang.en.error);
           $scope.posting_comment = false;
