@@ -1,6 +1,6 @@
 angular.module('App')
 
-.controller('Checkin', function($rootScope, $scope, $route, $navigate, User, Riders, Checkin, Spots) {
+.controller('Checkin', function($rootScope, $scope, $route, $navigate, User, Riders, Checkin, Spots, Notifications) {
 
   // Init
 
@@ -85,6 +85,7 @@ angular.module('App')
 
   function checkinSuccessful(response) {
     User.setLastCheckinAt(Date.now());
+    Notifications.checkedin(User.token(), response.id);
     $scope.loading = false;
     navigator.notification.alert(response.message, goBack, Lang.en.checkin_successful);
   }

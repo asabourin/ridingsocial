@@ -1,9 +1,5 @@
 angular.module('Services').factory('Checkin', function ($rootScope, $http) {
 
-    var transform = function(data){
-        return $.param(data);
-    };
-
     return {
 
         create:function(token, pictureURI, options, successCallback, errorCallback) {
@@ -21,7 +17,7 @@ angular.module('Services').factory('Checkin', function ($rootScope, $http) {
                 if(options.params.riders_ids !== undefined) {
                     payload += "&riders_ids=["+options.params.riders_ids+"]";
                 }
-                $http.post(Settings.host+'checkins/create?token='+token,  payload, {headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}, transformRequest: transform}).success(successCallback).error(errorCallback);
+                $http.post(Settings.host+'checkins/create?token='+token,  payload, {headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}}).success(successCallback).error(errorCallback);
             }
         }
     };
